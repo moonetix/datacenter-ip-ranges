@@ -13,8 +13,8 @@ authors:
 repository-code: "https://github.com/moonetix/datacenter-ip-ranges"
 url: "https://github.com/moonetix/datacenter-ip-ranges"
 license: MIT
-version: "1.0.0"
-date-released: "2026-11-11"
+version: 1.1.0
+date-released: 2026-11-12
 keywords:
   - ip-ranges
   - datacenter

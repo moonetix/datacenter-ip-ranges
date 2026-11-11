@@ -1,6 +1,6 @@
 {
   "name": "datacenter-ip-ranges",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Daily list of cloud, hosting and CDN IP ranges from official provider feeds, with fast IPv4/IPv6 lookup helpers for Node and PHP.",
   "private": true,
   "license": "MIT",
