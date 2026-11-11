@@ -12,7 +12,10 @@ function args(argv) {
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--include') out.include.push(...String(argv[++i] || '').split(',').filter(Boolean));
     else if (argv[i] === '--out') out.outDir = path.resolve(argv[++i] || '');
-    else throw new Error(`Unknown argument: ${argv[i]}`);
+    else {
+      console.error(`Unknown argument: ${argv[i]}\nUsage: node scripts/update.js [--include azure] [--out <dir>]`);
+      process.exit(2);
+    }
   }
   return out;
 }
