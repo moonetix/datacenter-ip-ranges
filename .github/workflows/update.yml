@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: update-ranges
@@ -16,6 +16,9 @@ jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: write
+      issues: write
     steps:
       - uses: actions/checkout@v4
 
@@ -23,11 +26,15 @@ jobs:
         with:
           node-version: 22
 
+      - name: Keep the previous feed status
+        run: cp data/sources.json "$RUNNER_TEMP/previous-sources.json"
+
       - name: Fetch feeds and rebuild data/
         run: node scripts/update.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Pushes made with GITHUB_TOKEN do not trigger ci.yml, so the suite runs here.
       - name: Test
         run: npm test
 
@@ -43,4 +50,25 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Update ranges $(date -u +%Y-%m-%d)"
-          git push
+          git push || { git pull --rebase && git push; }
+
+      # Opens or updates the "Range update" issue when a feed has kept old data
+      # for two runs in a row, and closes it once every feed is fresh.
+      - name: Report stale feeds
+        run: node scripts/feed-health.mjs --previous "$RUNNER_TEMP/previous-sources.json" --issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report a failed run
+        if: failure()
+        run: |
+          cat > "$RUNNER_TEMP/body.md" <<EOF
+          The daily range update failed, so nothing in \`data/\` was updated or committed.
+
+          Failed run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+
+          Reproduce it locally with \`node scripts/update.js && npm test\`. This issue closes itself after the next run in which every feed is fresh.
+          EOF
+          node scripts/github-issue.mjs upsert --topic range-update --title "Range update failed" --body-file "$RUNNER_TEMP/body.md"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
