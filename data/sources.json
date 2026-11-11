@@ -1,0 +1,183 @@
+{
+  "updated_at": "2026-11-11T16:42:25Z",
+  "datacenter_categories": [
+    "cloud",
+    "cdn",
+    "services"
+  ],
+  "categories": {
+    "cloud": "Cloud and VPS hosting",
+    "cdn": "CDN and edge networks",
+    "services": "Provider services and automation",
+    "privacy-relay": "Privacy relay egress",
+    "tor": "Tor exit nodes"
+  },
+  "sources": [
+    {
+      "id": "aws",
+      "name": "Amazon Web Services",
+      "category": "cloud",
+      "url": "https://ip-ranges.amazonaws.com/ip-ranges.json",
+      "docs": "https://docs.aws.amazon.com/vpc/latest/userguide/aws-ip-ranges.html",
+      "terms": "Published by AWS for allow lists and filtering. No license is stated.",
+      "file": "providers/aws.txt",
+      "status": "ok",
+      "ipv4": 1754,
+      "ipv6": 2364,
+      "fetched_at": "2026-11-11T16:42:25Z"
+    },
+    {
+      "id": "google-cloud",
+      "name": "Google Cloud",
+      "category": "cloud",
+      "url": "https://www.gstatic.com/ipranges/cloud.json",
+      "docs": "https://support.google.com/a/answer/10026322",
+      "terms": "Published by Google for allow lists and filtering. No license is stated.",
+      "file": "providers/google-cloud.txt",
+      "status": "ok",
+      "ipv4": 467,
+      "ipv6": 28,
+      "fetched_at": "2026-11-11T16:42:25Z"
+    },
+    {
+      "id": "google-services",
+      "name": "Google services (excluding Google Cloud)",
+      "category": "services",
+      "url": "https://www.gstatic.com/ipranges/goog.json",
+      "docs": "https://support.google.com/a/answer/10026322",
+      "terms": "Published by Google for allow lists and filtering. No license is stated.",
+      "file": "providers/google-services.txt",
+      "status": "ok",
+      "ipv4": 297,
+      "ipv6": 98,
+      "fetched_at": "2026-11-11T16:42:25Z"
+    },
+    {
+      "id": "oracle-cloud",
+      "name": "Oracle Cloud Infrastructure",
+      "category": "cloud",
+      "url": "https://docs.oracle.com/en-us/iaas/tools/public_ip_ranges.json",
+      "docs": "https://docs.oracle.com/en-us/iaas/Content/General/Concepts/addressranges.htm",
+      "terms": "Published by Oracle in its public documentation. No license is stated.",
+      "file": "providers/oracle-cloud.txt",
+      "status": "ok",
+      "ipv4": 809,
+      "ipv6": 0,
+      "fetched_at": "2026-11-11T16:42:25Z"
+    },
+    {
+      "id": "digitalocean",
+      "name": "DigitalOcean",
+      "category": "cloud",
+      "url": "https://www.digitalocean.com/geo/google.csv",
+      "docs": "https://docs.digitalocean.com/platform/",
+      "terms": "Self-published RFC 8805 geofeed, linked from the DigitalOcean docs. No license is stated.",
+      "file": "providers/digitalocean.txt",
+      "status": "ok",
+      "ipv4": 187,
+      "ipv6": 54,
+      "fetched_at": "2026-11-11T16:42:25Z"
+    },
+    {
+      "id": "linode",
+      "name": "Akamai Cloud (Linode)",
+      "category": "cloud",
+      "url": "https://ipgeo.akamai.com/linode-geofeed.csv",
+      "docs": "https://rdap.arin.net/registry/ip/172.104.0.1",
+      "terms": "Self-published RFC 8805 geofeed, referenced in the Linode network records at ARIN. No license is stated.",
+      "file": "providers/linode.txt",
+      "status": "ok",
+      "ipv4": 240,
+      "ipv6": 39,
+      "fetched_at": "2026-11-11T16:42:25Z"
+    },
+    {
+      "id": "vultr",
+      "name": "Vultr",
+      "category": "cloud",
+      "url": "https://geofeed.constant.com/",
+      "docs": "https://rdap.arin.net/registry/ip/45.32.0.1",
+      "terms": "Self-published RFC 8805 geofeed of AS20473, referenced in the Vultr network records at ARIN. No license is stated.",
+      "file": "providers/vultr.txt",
+      "status": "ok",
+      "ipv4": 121,
+      "ipv6": 21,
+      "fetched_at": "2026-11-11T16:42:25Z"
+    },
+    {
+      "id": "azure",
+      "name": "Microsoft Azure",
+      "category": "cloud",
+      "url": "https://www.microsoft.com/en-us/download/details.aspx?id=56519",
+      "docs": "https://learn.microsoft.com/en-us/azure/virtual-network/service-tags-overview",
+      "terms": "Microsoft Download Center file. The Microsoft Terms of Use restrict reposting downloads, so this data is not committed. Fetch it locally with --include azure.",
+      "status": "not included (opt-in)"
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare",
+      "category": "cdn",
+      "url": "https://www.cloudflare.com/ips-v4",
+      "url_v6": "https://www.cloudflare.com/ips-v6",
+      "docs": "https://www.cloudflare.com/ips/",
+      "terms": "Published by Cloudflare for allow lists. No license is stated.",
+      "file": "providers/cloudflare.txt",
+      "status": "ok",
+      "ipv4": 15,
+      "ipv6": 7,
+      "fetched_at": "2026-11-11T16:42:25Z"
+    },
+    {
+      "id": "fastly",
+      "name": "Fastly",
+      "category": "cdn",
+      "url": "https://api.fastly.com/public-ip-list",
+      "docs": "https://www.fastly.com/documentation/reference/api/utils/public-ip-list/",
+      "terms": "Public, unauthenticated Fastly API endpoint. No license is stated.",
+      "file": "providers/fastly.txt",
+      "status": "ok",
+      "ipv4": 21,
+      "ipv6": 3,
+      "fetched_at": "2026-11-11T16:42:25Z"
+    },
+    {
+      "id": "github",
+      "name": "GitHub (incl. Actions runners)",
+      "category": "services",
+      "url": "https://api.github.com/meta",
+      "docs": "https://docs.github.com/en/rest/meta/meta",
+      "terms": "GitHub REST API, covered by the GitHub Terms of Service (API Terms).",
+      "file": "providers/github.txt",
+      "status": "ok",
+      "ipv4": 4013,
+      "ipv6": 2547,
+      "fetched_at": "2026-11-11T16:42:25Z"
+    },
+    {
+      "id": "icloud-private-relay",
+      "name": "iCloud Private Relay egress",
+      "category": "privacy-relay",
+      "url": "https://mask-api.icloud.com/egress-ip-ranges.csv",
+      "docs": "https://developer.apple.com/support/prepare-your-network-for-icloud-private-relay/",
+      "terms": "Published by Apple for geolocation and server operators. No license is stated.",
+      "file": "providers/icloud-private-relay.txt",
+      "status": "ok",
+      "ipv4": 3438,
+      "ipv6": 10582,
+      "fetched_at": "2026-11-11T16:42:25Z"
+    },
+    {
+      "id": "tor",
+      "name": "Tor exit nodes",
+      "category": "tor",
+      "url": "https://check.torproject.org/torbulkexitlist",
+      "docs": "https://metrics.torproject.org/about.html",
+      "terms": "Tor Project data, CC0 1.0 (no copyright).",
+      "file": "providers/tor.txt",
+      "status": "ok",
+      "ipv4": 693,
+      "ipv6": 0,
+      "fetched_at": "2026-11-11T16:42:25Z"
+    }
+  ]
+}

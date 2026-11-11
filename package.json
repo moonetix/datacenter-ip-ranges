@@ -1,0 +1,44 @@
+{
+  "name": "datacenter-ip-ranges",
+  "version": "1.0.0",
+  "description": "Daily list of cloud, hosting and CDN IP ranges from official provider feeds, with fast IPv4/IPv6 lookup helpers for Node and PHP.",
+  "private": true,
+  "license": "MIT",
+  "author": "Moonetix (https://moonetix.com)",
+  "homepage": "https://github.com/moonetix/datacenter-ip-ranges#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moonetix/datacenter-ip-ranges.git"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./matcher": "./src/matcher.js",
+    "./ip": "./src/ip.js"
+  },
+  "bin": {
+    "datacenter-ip": "bin/check.js"
+  },
+  "files": [
+    "src/",
+    "bin/",
+    "php/DatacenterIp.php",
+    "data/"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "update": "node scripts/update.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "datacenter",
+    "ip-ranges",
+    "cidr",
+    "fraud-detection",
+    "cloud",
+    "tor",
+    "offerwall"
+  ]
+}

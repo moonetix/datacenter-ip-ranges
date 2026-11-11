@@ -1,0 +1,56 @@
+name: Add a provider feed
+description: Propose an official IP range feed from a cloud, hosting or CDN provider.
+title: "Feed: "
+labels: ["feed"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We only add feeds that the provider publishes and documents itself. Lists compiled by third parties, ASN dumps and WHOIS searches are out of scope.
+  - type: input
+    id: provider
+    attributes:
+      label: Provider
+      placeholder: Example Cloud
+    validations:
+      required: true
+  - type: input
+    id: feed
+    attributes:
+      label: Feed URL
+      description: The machine-readable file (JSON, CSV, RFC 8805 geofeed or plain text).
+      placeholder: https://example.com/ip-ranges.json
+    validations:
+      required: true
+  - type: input
+    id: docs
+    attributes:
+      label: Where the provider documents it
+      description: A page on the provider's own site, or the geofeed attribute in its RIR record.
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - cloud (VPS, cloud instances, hosting)
+        - cdn (edge network)
+        - services (crawlers, CI runners, provider automation)
+        - privacy-relay
+        - tor
+        - other
+    validations:
+      required: true
+  - type: textarea
+    id: terms
+    attributes:
+      label: Terms of use
+      description: Link to any license or terms that apply to the feed, or say that none are stated.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Update frequency, format quirks, anything that helps us parse it correctly.

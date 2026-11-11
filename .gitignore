@@ -1,0 +1,9 @@
+node_modules/
+*.log
+.DS_Store
+.idea/
+.vscode/
+
+# Microsoft Azure ranges may be fetched locally with --include azure, but are
+# not redistributed. See "Sources and terms" in the README.
+data/providers/azure.txt

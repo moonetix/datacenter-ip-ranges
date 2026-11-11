@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below."
+type: dataset
+title: "Datacenter IP ranges"
+abstract: >-
+  Daily list of cloud, hosting and CDN IP ranges collected from the official
+  feeds of AWS, Google, Oracle Cloud, DigitalOcean, Akamai Cloud (Linode),
+  Vultr, Cloudflare, Fastly and GitHub, with Tor exit nodes and iCloud Private
+  Relay egress kept as separate categories.
+authors:
+  - name: "Moonetix"
+    website: "https://moonetix.com"
+repository-code: "https://github.com/moonetix/datacenter-ip-ranges"
+url: "https://github.com/moonetix/datacenter-ip-ranges"
+license: MIT
+version: "1.0.0"
+date-released: "2026-11-11"
+keywords:
+  - ip-ranges
+  - datacenter
+  - cloud
+  - cidr
+  - fraud-detection
+  - tor

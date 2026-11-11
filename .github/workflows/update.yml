@@ -1,0 +1,46 @@
+name: Update ranges
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-ranges
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Fetch feeds and rebuild data/
+        run: node scripts/update.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Test
+        run: npm test
+
+      - name: Commit if any range changed
+        run: |
+          git add -A data
+          # sources.json and SOURCES.md carry the fetch time and change on every run.
+          # Commit only when a range list itself changed.
+          if git diff --cached --quiet -- data ':(exclude)data/sources.json' ':(exclude)data/SOURCES.md'; then
+            echo "No range changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update ranges $(date -u +%Y-%m-%d)"
+          git push
