@@ -16,6 +16,19 @@ A sign-up from an AWS address, an offer click from a DigitalOcean droplet, a "us
 
 Every range comes from a feed the provider documents. Nothing is scraped from third-party lists, nothing is guessed from ASN names.
 
+```sh
+git clone --depth 1 https://github.com/moonetix/datacenter-ip-ranges
+node datacenter-ip-ranges/bin/check.js 3.5.140.1 8.8.8.8 192.168.1.10
+```
+
+```text
+3.5.140.1     aws                   cloud          3.5.128.0/19
+8.8.8.8       google-services       services       8.8.8.0/24
+192.168.1.10  not listed
+```
+
+Only need the list? `curl -fsSL https://raw.githubusercontent.com/moonetix/datacenter-ip-ranges/main/data/all.txt` gives one CIDR per line.
+
 ## Why datacenter traffic matters on rewards traffic
 
 Offerwalls, rewards sites and incentive apps pay users for actions. That makes them a target for scripted farms, which almost always run on rented servers:
@@ -47,7 +60,7 @@ Ranges are normalized: host bits cleared, IPv6 in RFC 5952 form, overlapping and
 | Category | Providers | Typical traffic |
 | --- | --- | --- |
 | `cloud` | AWS, Google Cloud, Oracle Cloud, DigitalOcean, Akamai Cloud (Linode), Vultr | VPS and cloud instances: bots, scrapers, self-hosted proxies and VPNs |
-| `cdn` | Cloudflare, Fastly | Edge networks. Includes Cloudflare WARP users, who browse through Cloudflare addresses. |
+| `cdn` | Cloudflare, Fastly | Edge networks: requests relayed or sent by code running on the CDN. Cloudflare WARP exits from addresses outside the published ranges, so WARP users are not matched. |
 | `services` | Google services (goog.json minus cloud.json), GitHub (incl. Actions runners) | Crawlers, fetchers, CI runners, automation |
 | `privacy-relay` | iCloud Private Relay | Safari users on iCloud+. Real people, shared addresses. |
 | `tor` | Tor exit nodes | Tor Browser users and automated tools on Tor |
@@ -223,19 +236,43 @@ Providers without an official feed are not included. Hetzner, OVHcloud, Scaleway
 
 [`.github/workflows/update.yml`](.github/workflows/update.yml) runs every day at 03:17 UTC and on demand. It fetches all feeds, rebuilds `data/`, runs the tests, and commits only if a range list changed. A run where only the fetch time moved commits nothing, so the history shows real changes only.
 
-Failures are handled per feed. If a feed is down, or suddenly returns less than half of its previous ranges, its previous list is kept and the feed is marked `stale` in [`data/sources.json`](data/sources.json) with the reason. Nothing is written if every feed fails. Entries that do not parse, prefixes broader than /8 (IPv4) or /16 (IPv6), and private, loopback, link-local, multicast and documentation ranges are dropped.
+```mermaid
+flowchart LR
+    F["12 provider<br/>feeds"] --> N["Parse, drop private<br/>and too-broad<br/>prefixes, merge"]
+    N --> G{"Failed, empty<br/>or shrank<br/>by half?"}
+    G -- no --> D["data/<br/>providers, categories,<br/>all.txt, ranges.json"]
+    G -- "yes: keep previous<br/>list, mark stale" --> D
+```
+
+Failures are handled per feed. Each request gets 60 seconds and three attempts. If a feed is down, returns nothing, or suddenly returns less than half of its previous ranges, its previous list is kept and the feed is marked `stale` in [`data/sources.json`](data/sources.json) with the reason. Nothing is written if every feed fails. Entries that do not parse, prefixes broader than /8 (IPv4) or /16 (IPv6), and private, loopback, link-local, multicast and documentation ranges are dropped.
+
+A feed that is still stale on the next run, or a run that fails outright, opens a single issue labeled `automation` with the feed, the error and the source URL. The issue closes itself once every feed is fresh again.
 
 To rebuild by hand:
 
 ```sh
-node scripts/update.js            # writes data/
-node scripts/update.js --out dir  # writes somewhere else
+node scripts/update.js                        # writes data/
+node scripts/update.js --out /etc/dcip        # writes somewhere else
+GITHUB_TOKEN=... node scripts/update.js       # optional: authenticated api.github.com/meta request
 ```
+
+`--out` and `--include azure` are the only arguments. `GITHUB_TOKEN` is the only environment variable; it is sent to `api.github.com` and nowhere else, and only matters if your IP has used up the unauthenticated API limit.
+
+## Troubleshooting
+
+| What you see | Cause and fix |
+| --- | --- |
+| Every request matches | You are checking your proxy or CDN, not the visitor. See [Behind a proxy or CDN](#behind-a-proxy-or-cdn). |
+| `invalid IP address` and exit code 2 from `bin/check.js` | The argument is not an IP. Ports (`1.2.3.4:443`) are not accepted; brackets and IPv6 zone IDs are. |
+| `check.js` prints its usage and exits 2 | `--only` got a category that does not exist. Valid: `cloud`, `cdn`, `services`, `privacy-relay`, `tor`. |
+| A feed shows `"status": "stale"` with `fetch or parse failed: ... HTTP 403` | For `github`, the API rate limit. Set `GITHUB_TOKEN`. Other feeds recover on the next run; the previous list stays in place. |
+| `Every feed failed. Nothing was written.` | No outbound HTTPS from the machine, or a proxy blocks it. The message lists the reason per feed. |
+| `no ServiceTags_Public link on the download page` | Microsoft changed the Azure download page. Azure is opt-in; run without `--include azure` and open an issue. |
 
 ## Limitations
 
 - **Residential proxies and most commercial VPNs are not covered.** They route traffic through home and mobile connections or through hosts without public feeds. This list catches the cheap, server-based share of bad traffic. For the rest you need an IP intelligence service, device signals and behavior.
-- **One signal, not a verdict.** People do use cloud desktops, corporate proxies and Cloudflare WARP. Prefer soft actions: hold a reward for review, require a verified phone, skip a sign-up bonus. Block outright only where a human has no reason to come from a server, for example on an offer click or a reward claim.
+- **One signal, not a verdict.** People do use cloud desktops, corporate proxies and VPNs hosted on rented servers. Prefer soft actions: hold a reward for review, require a verified phone, skip a sign-up bonus. Block outright only where a human has no reason to come from a server, for example on an offer click or a reward claim.
 - **Tor and Private Relay are real people.** Apple asks servers to treat Private Relay addresses like carrier-grade NAT: many users share one address. They are separate lists for that reason.
 - **Freshness.** Lists are at most a day behind the feeds, and the feeds themselves lag new allocations. IP addresses also move between owners.
 - **Provider feeds include their own infrastructure.** Google's services list contains crawlers and fetch proxies; GitHub's contains its web and API servers. That is usually what you want for fraud filtering, but not for every use.
