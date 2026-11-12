@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-11T19:25:13Z",
+  "updated_at": "2026-11-12T03:22:37Z",
   "datacenter_categories": [
     "cloud",
     "cdn",
@@ -24,7 +24,7 @@
       "status": "ok",
       "ipv4": 1755,
       "ipv6": 2364,
-      "fetched_at": "2026-11-11T19:25:13Z"
+      "fetched_at": "2026-11-12T03:22:37Z"
     },
     {
       "id": "google-cloud",
@@ -37,7 +37,7 @@
       "status": "ok",
       "ipv4": 467,
       "ipv6": 28,
-      "fetched_at": "2026-11-11T19:25:13Z"
+      "fetched_at": "2026-11-12T03:22:37Z"
     },
     {
       "id": "google-services",
@@ -50,7 +50,7 @@
       "status": "ok",
       "ipv4": 297,
       "ipv6": 98,
-      "fetched_at": "2026-11-11T19:25:13Z"
+      "fetched_at": "2026-11-12T03:22:37Z"
     },
     {
       "id": "oracle-cloud",
@@ -63,7 +63,7 @@
       "status": "ok",
       "ipv4": 809,
       "ipv6": 0,
-      "fetched_at": "2026-11-11T19:25:13Z"
+      "fetched_at": "2026-11-12T03:22:37Z"
     },
     {
       "id": "digitalocean",
@@ -76,7 +76,7 @@
       "status": "ok",
       "ipv4": 187,
       "ipv6": 54,
-      "fetched_at": "2026-11-11T19:25:13Z"
+      "fetched_at": "2026-11-12T03:22:37Z"
     },
     {
       "id": "linode",
@@ -89,7 +89,7 @@
       "status": "ok",
       "ipv4": 240,
       "ipv6": 39,
-      "fetched_at": "2026-11-11T19:25:13Z"
+      "fetched_at": "2026-11-12T03:22:37Z"
     },
     {
       "id": "vultr",
@@ -102,7 +102,7 @@
       "status": "ok",
       "ipv4": 121,
       "ipv6": 21,
-      "fetched_at": "2026-11-11T19:25:13Z"
+      "fetched_at": "2026-11-12T03:22:37Z"
     },
     {
       "id": "azure",
@@ -125,7 +125,7 @@
       "status": "ok",
       "ipv4": 15,
       "ipv6": 7,
-      "fetched_at": "2026-11-11T19:25:13Z"
+      "fetched_at": "2026-11-12T03:22:37Z"
     },
     {
       "id": "fastly",
@@ -138,7 +138,7 @@
       "status": "ok",
       "ipv4": 21,
       "ipv6": 3,
-      "fetched_at": "2026-11-11T19:25:13Z"
+      "fetched_at": "2026-11-12T03:22:37Z"
     },
     {
       "id": "github",
@@ -149,9 +149,9 @@
       "terms": "GitHub REST API, covered by the GitHub Terms of Service (API Terms).",
       "file": "providers/github.txt",
       "status": "ok",
-      "ipv4": 4013,
+      "ipv4": 4022,
       "ipv6": 2547,
-      "fetched_at": "2026-11-11T19:25:13Z"
+      "fetched_at": "2026-11-12T03:22:37Z"
     },
     {
       "id": "icloud-private-relay",
@@ -164,7 +164,7 @@
       "status": "ok",
       "ipv4": 3438,
       "ipv6": 10582,
-      "fetched_at": "2026-11-11T19:25:13Z"
+      "fetched_at": "2026-11-12T03:22:37Z"
     },
     {
       "id": "tor",
@@ -175,9 +175,9 @@
       "terms": "Tor Project data, CC0 1.0 (no copyright).",
       "file": "providers/tor.txt",
       "status": "ok",
-      "ipv4": 693,
+      "ipv4": 695,
       "ipv6": 0,
-      "fetched_at": "2026-11-11T19:25:13Z"
+      "fetched_at": "2026-11-12T03:22:37Z"
     }
   ]
 }

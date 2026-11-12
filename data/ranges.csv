@@ -6534,6 +6534,7 @@ github,services,4.152.0.0/14,https://api.github.com/meta
 github,services,4.156.0.0/15,https://api.github.com/meta
 github,services,4.159.108.160/28,https://api.github.com/meta
 github,services,4.159.197.192/28,https://api.github.com/meta
+github,services,4.163.8.144/28,https://api.github.com/meta
 github,services,4.172.0.0/14,https://api.github.com/meta
 github,services,4.180.0.0/16,https://api.github.com/meta
 github,services,4.186.157.192/28,https://api.github.com/meta
@@ -6559,6 +6560,7 @@ github,services,4.225.11.196/32,https://api.github.com/meta
 github,services,4.225.11.199/32,https://api.github.com/meta
 github,services,4.225.11.200/31,https://api.github.com/meta
 github,services,4.225.187.240/28,https://api.github.com/meta
+github,services,4.225.189.240/28,https://api.github.com/meta
 github,services,4.227.0.0/16,https://api.github.com/meta
 github,services,4.228.31.144/31,https://api.github.com/meta
 github,services,4.228.31.149/32,https://api.github.com/meta
@@ -6868,6 +6870,7 @@ github,services,18.233.87.154/32,https://api.github.com/meta
 github,services,20.1.128.0/17,https://api.github.com/meta
 github,services,20.3.0.0/16,https://api.github.com/meta
 github,services,20.4.0.0/16,https://api.github.com/meta
+github,services,20.6.7.16/28,https://api.github.com/meta
 github,services,20.7.0.0/16,https://api.github.com/meta
 github,services,20.8.0.0/15,https://api.github.com/meta
 github,services,20.10.0.0/16,https://api.github.com/meta
@@ -7577,6 +7580,7 @@ github,services,20.207.73.82/31,https://api.github.com/meta
 github,services,20.207.73.85/32,https://api.github.com/meta
 github,services,20.207.73.86/32,https://api.github.com/meta
 github,services,20.207.73.89/32,https://api.github.com/meta
+github,services,20.208.89.80/28,https://api.github.com/meta
 github,services,20.209.0.0/23,https://api.github.com/meta
 github,services,20.209.4.0/23,https://api.github.com/meta
 github,services,20.209.10.0/23,https://api.github.com/meta
@@ -7660,6 +7664,7 @@ github,services,20.241.0.0/16,https://api.github.com/meta
 github,services,20.242.0.0/16,https://api.github.com/meta
 github,services,20.245.0.0/16,https://api.github.com/meta
 github,services,20.246.0.0/16,https://api.github.com/meta
+github,services,20.247.166.64/28,https://api.github.com/meta
 github,services,20.250.119.64/32,https://api.github.com/meta
 github,services,20.250.119.67/32,https://api.github.com/meta
 github,services,20.250.119.68/32,https://api.github.com/meta
@@ -9632,6 +9637,7 @@ github,services,57.151.128.0/19,https://api.github.com/meta
 github,services,57.152.0.0/17,https://api.github.com/meta
 github,services,57.153.0.0/16,https://api.github.com/meta
 github,services,57.154.0.0/16,https://api.github.com/meta
+github,services,57.155.223.240/28,https://api.github.com/meta
 github,services,57.157.0.0/25,https://api.github.com/meta
 github,services,57.157.0.128/26,https://api.github.com/meta
 github,services,57.157.0.192/27,https://api.github.com/meta
@@ -9990,6 +9996,7 @@ github,services,74.155.0.0/16,https://api.github.com/meta
 github,services,74.157.0.0/16,https://api.github.com/meta
 github,services,74.158.128.0/17,https://api.github.com/meta
 github,services,74.159.0.0/16,https://api.github.com/meta
+github,services,74.161.79.192/28,https://api.github.com/meta
 github,services,74.178.0.0/15,https://api.github.com/meta
 github,services,74.234.0.0/15,https://api.github.com/meta
 github,services,74.249.0.0/16,https://api.github.com/meta
@@ -10420,6 +10427,8 @@ github,services,168.63.88.0/23,https://api.github.com/meta
 github,services,168.63.92.0/22,https://api.github.com/meta
 github,services,168.63.96.0/19,https://api.github.com/meta
 github,services,172.129.128.0/17,https://api.github.com/meta
+github,services,172.130.18.192/28,https://api.github.com/meta
+github,services,172.130.45.112/28,https://api.github.com/meta
 github,services,172.130.153.16/28,https://api.github.com/meta
 github,services,172.130.201.80/28,https://api.github.com/meta
 github,services,172.131.0.0/16,https://api.github.com/meta
@@ -27223,6 +27232,7 @@ tor,tor,45.66.35.122/32,https://check.torproject.org/torbulkexitlist
 tor,tor,45.84.107.100/32,https://check.torproject.org/torbulkexitlist
 tor,tor,45.91.250.107/32,https://check.torproject.org/torbulkexitlist
 tor,tor,45.95.169.21/32,https://check.torproject.org/torbulkexitlist
+tor,tor,45.95.169.128/32,https://check.torproject.org/torbulkexitlist
 tor,tor,45.128.133.242/32,https://check.torproject.org/torbulkexitlist
 tor,tor,45.133.73.6/31,https://check.torproject.org/torbulkexitlist
 tor,tor,45.133.73.14/32,https://check.torproject.org/torbulkexitlist
@@ -27265,6 +27275,7 @@ tor,tor,65.87.223.26/32,https://check.torproject.org/torbulkexitlist
 tor,tor,66.146.193.33/32,https://check.torproject.org/torbulkexitlist
 tor,tor,66.220.242.222/32,https://check.torproject.org/torbulkexitlist
 tor,tor,67.219.109.141/32,https://check.torproject.org/torbulkexitlist
+tor,tor,69.12.72.56/32,https://check.torproject.org/torbulkexitlist
 tor,tor,69.12.83.3/32,https://check.torproject.org/torbulkexitlist
 tor,tor,69.12.83.6/32,https://check.torproject.org/torbulkexitlist
 tor,tor,69.12.83.15/32,https://check.torproject.org/torbulkexitlist
@@ -27298,7 +27309,6 @@ tor,tor,82.221.139.190/32,https://check.torproject.org/torbulkexitlist
 tor,tor,84.3.219.251/32,https://check.torproject.org/torbulkexitlist
 tor,tor,84.16.224.227/32,https://check.torproject.org/torbulkexitlist
 tor,tor,84.19.182.20/32,https://check.torproject.org/torbulkexitlist
-tor,tor,84.212.206.202/32,https://check.torproject.org/torbulkexitlist
 tor,tor,84.239.46.144/32,https://check.torproject.org/torbulkexitlist
 tor,tor,85.11.167.137/32,https://check.torproject.org/torbulkexitlist
 tor,tor,85.93.218.204/32,https://check.torproject.org/torbulkexitlist
@@ -27500,6 +27510,7 @@ tor,tor,162.216.18.62/32,https://check.torproject.org/torbulkexitlist
 tor,tor,162.251.5.152/32,https://check.torproject.org/torbulkexitlist
 tor,tor,165.73.242.163/32,https://check.torproject.org/torbulkexitlist
 tor,tor,166.70.207.2/32,https://check.torproject.org/torbulkexitlist
+tor,tor,167.160.177.122/32,https://check.torproject.org/torbulkexitlist
 tor,tor,167.179.117.50/32,https://check.torproject.org/torbulkexitlist
 tor,tor,168.222.241.36/32,https://check.torproject.org/torbulkexitlist
 tor,tor,169.239.183.249/32,https://check.torproject.org/torbulkexitlist
@@ -27748,7 +27759,7 @@ tor,tor,198.98.57.151/32,https://check.torproject.org/torbulkexitlist
 tor,tor,198.98.61.60/32,https://check.torproject.org/torbulkexitlist
 tor,tor,198.98.62.158/32,https://check.torproject.org/torbulkexitlist
 tor,tor,198.167.206.143/32,https://check.torproject.org/torbulkexitlist
-tor,tor,198.167.206.213/32,https://check.torproject.org/torbulkexitlist
+tor,tor,198.167.206.146/32,https://check.torproject.org/torbulkexitlist
 tor,tor,198.167.206.238/32,https://check.torproject.org/torbulkexitlist
 tor,tor,199.19.77.18/32,https://check.torproject.org/torbulkexitlist
 tor,tor,200.122.181.2/32,https://check.torproject.org/torbulkexitlist
