@@ -307,7 +307,7 @@ Layout: `src/ip.js` parsing and range math, `src/matcher.js` lookup engine, `src
 
 ## About Moonetix
 
-[Moonetix](https://moonetix.com) is a pay-per-result affiliate network. Publishers add its offerwall to apps, games, Discord and Telegram communities and rewards sites, and users earn the publisher's own currency by completing offers. Every click and conversion goes through traffic checks like the ones described in [How Moonetix Checks Traffic Quality](https://moonetix.com/academy/traffic-quality/how-moonetix-checks-traffic).
+[Moonetix](https://moonetix.com) is an affiliate network. Publishers add its offerwall to apps, games, Discord and Telegram communities and rewards sites, and users earn the publisher's own currency by completing offers. Every click and conversion goes through traffic checks like the ones described in [How Moonetix Checks Traffic Quality](https://moonetix.com/academy/traffic-quality/how-moonetix-checks-traffic).
 
 **Running a rewards site or app? Sign up free at https://moonetix.com/register**
 
