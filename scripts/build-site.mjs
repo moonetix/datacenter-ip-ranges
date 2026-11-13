@@ -8,8 +8,9 @@
 // - derives data/lookup.json: every provider list, delta-encoded, about half
 //   the size of the CIDR text (a third once gzipped) instead of ranges.json
 // - copies the published lists so the download links are same-origin
-// - checks that the encoded lists decode back to the exact files in data/
-//   and that the browser matcher answers like the Node package
+// - checks that the encoded lists decode back to the exact files in data/,
+//   that the browser matcher answers like the Node package, and that the
+//   page's verdict, CSV and output formatting agree with it too
 //
 // Node 22 built-ins only. The output depends only on the repo contents.
 
@@ -24,6 +25,9 @@ const OUT = path.join(ROOT, '_site');
 const DATA = path.join(ROOT, 'data');
 const require = createRequire(import.meta.url);
 const ip = require(path.join(ROOT, 'src', 'ip.js'));
+// The private and reserved ranges the data build removes from every feed. The
+// page uses the same list to explain why such an address is never listed.
+const { SPECIAL } = require(path.join(ROOT, 'src', 'build.js'));
 
 // Azure ranges can be fetched locally with --include azure but are never
 // redistributed (see .gitignore and the README), so they stay out of the site.
@@ -241,6 +245,7 @@ const lookup = {
     datacenter_ipv4: all.ipv4,
     datacenter_ipv6: all.ipv6,
   },
+  special: SPECIAL,
   categories,
   downloads,
   providers,
@@ -263,6 +268,7 @@ const typeFile = path.join(OUT, 'package.json');
 fs.writeFileSync(typeFile, '{"type":"module"}\n');
 const { decodeProvider } = await import(pathToFileURL(path.join(OUT, 'decode.js')).href);
 const { createMatcher } = await import(pathToFileURL(path.join(OUT, 'lib', 'matcher.js')).href);
+const page = await import(pathToFileURL(path.join(OUT, 'verdict.js')).href);
 fs.rmSync(typeFile);
 for (const p of providers) {
   if (!p.file) continue;
@@ -288,5 +294,32 @@ for (const probe of probes) {
   if (a !== b) throw new Error(`browser matcher disagrees on ${probe}: ${a} vs ${b}`);
 }
 
+// The page's own logic (site/verdict.js) on top of the matcher: the verdict
+// must agree with isDatacenterIp(), the block it reports must contain the
+// address, the bulk CSV must have one line per address, and the output shown
+// under the Node.js snippet must be what console.log prints.
+const util = require('node:util');
+const lists = new Map(providers.filter((p) => p.file).map((p) => [p.id, decodeProvider(p)]));
+const check = page.createChecker({ matcher: browser, lists, datacenterCategories: lookup.datacenter_categories, special: SPECIAL });
+const checked = probes.map((probe) => check(probe));
+for (const r of checked) {
+  const expected = node.lookup(r.input);
+  if ((r.verdict === 'datacenter') !== node.isDatacenterIp(r.input)) throw new Error(`page verdict disagrees with isDatacenterIp() on ${r.input}`);
+  if (r.valid !== (expected !== null) || (r.verdict === 'none') !== (r.valid && expected.length === 0)) throw new Error(`page verdict is wrong for ${r.input}`);
+  for (const m of r.matches) {
+    const block = ip.parseCidr(m.cidr);
+    const addr = ip.parseAddress(r.input);
+    if (!block || block.family !== addr.family || addr.value < block.start || addr.value > block.end) throw new Error(`page reports ${m.cidr} for ${r.input}`);
+    if (!originals.get(m.provider).includes(m.cidr)) throw new Error(`${m.cidr} is not in the ${m.provider} list`);
+  }
+  for (const value of [expected, node.isDatacenterIp(r.input)]) {
+    if (page.inspect(value) !== util.inspect(value)) throw new Error(`page output differs from console.log for ${r.input}`);
+  }
+}
+const csv = page.toCsv(checked).trimEnd().split('\n');
+if (csv.length !== checked.length + 1 || csv.some((line) => line.split(',').length < 5)) throw new Error('bulk CSV is malformed');
+const counts = page.countVerdicts(checked);
+if (Object.values(counts).reduce((n, c) => n + c, 0) !== checked.length) throw new Error('bulk counts do not add up');
+
 const kb = (f) => (fs.statSync(path.join(OUT, f)).size / 1024).toFixed(1);
-console.log(`_site built: ${lookup.totals.ranges} ranges from ${lookup.totals.feeds} feeds, data/lookup.json ${kb('data/lookup.json')} KB, ${probes.length} lookups checked against src/index.js`);
+console.log(`_site built: ${lookup.totals.ranges} ranges from ${lookup.totals.feeds} feeds, data/lookup.json ${kb('data/lookup.json')} KB, ${probes.length} lookups and page verdicts checked against src/index.js`);
