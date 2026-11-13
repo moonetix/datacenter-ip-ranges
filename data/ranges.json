@@ -27459,7 +27459,6 @@
 {"provider":"tor","category":"tor","cidr":"147.90.235.15/32","source":"https://check.torproject.org/torbulkexitlist"},
 {"provider":"tor","category":"tor","cidr":"147.90.235.16/31","source":"https://check.torproject.org/torbulkexitlist"},
 {"provider":"tor","category":"tor","cidr":"147.90.235.20/32","source":"https://check.torproject.org/torbulkexitlist"},
-{"provider":"tor","category":"tor","cidr":"147.90.235.22/32","source":"https://check.torproject.org/torbulkexitlist"},
 {"provider":"tor","category":"tor","cidr":"147.90.235.34/32","source":"https://check.torproject.org/torbulkexitlist"},
 {"provider":"tor","category":"tor","cidr":"147.90.235.40/32","source":"https://check.torproject.org/torbulkexitlist"},
 {"provider":"tor","category":"tor","cidr":"147.90.235.154/32","source":"https://check.torproject.org/torbulkexitlist"},
