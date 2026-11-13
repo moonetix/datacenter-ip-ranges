@@ -92,7 +92,7 @@ function main() {
       }
     }
   }
-  process.exit(anyInvalid ? 2 : anyListed ? 0 : 1);
+  process.exitCode = anyInvalid ? 2 : anyListed ? 0 : 1;
 }
 
 main();
