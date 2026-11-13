@@ -7,3 +7,6 @@ node_modules/
 # Microsoft Azure ranges may be fetched locally with --include azure, but are
 # not redistributed. See "Sources and terms" in the README.
 data/providers/azure.txt
+
+# GitHub Pages build output (scripts/build-site.mjs)
+_site/

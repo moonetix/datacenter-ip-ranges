@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datacenter IP lookup - datacenter-ip-ranges</title>
+<meta name="description" content="Check whether an IPv4 or IPv6 address belongs to a cloud, hosting, CDN, Tor or iCloud Private Relay range. Ranges come from the providers' own feeds and are rebuilt every day.">
+<script src="theme.js"></script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="Moonetix datacenter-ip-ranges"><svg class="wm" viewBox="0 0 1116 204" role="img" aria-label="Moonetix"><path fill="currentColor" fill-rule="evenodd" d="M983.2 27.7C981.1 28.1,978 32.4,978 34.8C978 35.4,983.7 44.5,990.8 55.1C1017.8 95.9,1023.2 104.8,1022.5 107.5C1022.2 108.9,1019.9 113.1,1017.6 116.8C1015.2 120.4,1010.9 127.2,1008.1 131.7C997.1 149.4,992.4 156.7,987.9 164C977.7 180,977 183.7,983.7 186.5C987.8 188.2,1004.5 188.5,1010 187L1013.6 186 1018.5 177.7C1021.2 173.2,1023.9 168.6,1024.5 167.5C1027 163.1,1030 157.9,1033.9 151.5C1036.1 147.8,1038 144.3,1038 143.8C1038 142.2,1042.7 140.7,1045.4 141.4C1047.4 141.8,1050 145,1055.6 153.7C1079.4 190.5,1076.7 188,1092.7 188C1106.9 188,1111.8 186,1111.9 180.3C1111.9 179.1,1105.8 168.7,1098.2 157.2C1090.6 145.7,1076.1 123.6,1066 108C1019.4 36.8,1014 28.9,1011.4 27.9C1008.9 27,987.8 26.8,983.2 27.7M482.2 107.2L482.5 186.5 497 186.7C504.9 186.9,512.5 186.8,513.7 186.5L515.9 185.9 516.2 137.2C516.4 95.8,516.7 88.5,517.9 88.5C518.7 88.5,533.6 109.8,551.2 136C568.7 162.1,583.7 184.2,584.5 185.2L585.9 187 601.7 186.9C610.4 186.9,618 186.6,618.7 186.1C619.7 185.5,619.9 169,619.7 106.9L619.5 28.5 602.7 28.2L586 27.9 585.7 76.7L585.5 125.4 583.7 125.8C582.5 126,573.7 113.6,549.3 77L516.6 28 499.3 28L481.9 28 482.2 107.2M649.1 29.3C648.2 30.3,648 52,648.2 109.1L648.5 187.5 700.5 187.7L752.5 188 753.7 186.3C755.2 184.2,755.4 164.7,753.9 161.9L752.9 160 718.6 160C693.3 160,684 159.6,683.2 158.8C682.3 157.9,682 152.3,682 140.1L682 122.7 683.7 121.3C685.1 120.3,692.1 120,715.6 120C740.1 120,745.9 119.7,746.9 118.6C747.6 117.6,747.9 113.3,747.7 105.8L747.5 94.5 716.4 94C692 93.6,684.9 93.2,683.6 92.1L682 90.7 682 74.7L682 58.7 683.7 57.3C685.1 56.3,692.7 56,719.2 56L752.9 56 753.9 54C755.7 50.8,755.2 31.4,753.4 29.5L751.8 28 701 28C659.4 28,650 28.2,649.1 29.3M770.8 29.6C769.3 31.5,768.4 44.1,769.4 49.5C770.5 55.1,773.6 56,794.3 56L811.8 56 813.9 58.6L816 61.2 816 122.5L816 183.8 818.2 185.4C819.9 186.6,823.2 187,833.1 187L845.9 187 847.9 184.8L850 182.6 850 121.5L850 60.4 851.5 58.2L853.1 56 871.3 55.9L889.5 55.9 892.7 54L896 52 896 41.6C896 32.9,895.7 31,894.1 29.6L892.3 28 832.2 28L772.2 28 770.8 29.6M918.5 30.3L916.9 32.7 917.2 107.9L917.5 183.1 919.8 185L922.2 187 934.1 187L946.1 187 949 184L952 181.1 951.9 107.8L951.9 34.5 950 31.2L948 28 934 28L920 28 918.5 30.3M1.7 31.3L-0 32.7 -0 110.1C-0 169,0.2 187.8,1.2 188.8C2.8 190.4,31.1 190.4,32.8 188.8C33.6 187.9,34 176.6,34 144.4L34 101.2 35.4 100C36.2 99.3,37.5 99,38.2 99.2C38.9 99.4,47.1 114.9,56.5 133.5L73.5 167.5 86.3 167.7C95.6 167.9,99.6 167.7,100.7 166.7C101.6 166,109.7 150.5,118.7 132.1L135.2 98.8 137.3 99.1L139.5 99.5 139.7 143.4C139.9 173.8,140.3 187.7,141.1 188.6C141.9 189.6,146 190,158.1 190L174 190 174 111.3L174 32.7 172.2 31.3C169.8 29.5,136.2 29.4,133.8 31.3C132.9 32,128.9 39.3,124.9 47.5C114 70.2,108.4 81.9,99.8 100C89.9 120.6,89.5 121.5,87.3 121.5C85.3 121.5,85.7 122.1,72.1 94C47.2 42.3,42.7 33.3,41.2 31.7L39.6 30 21.5 30C8.1 30,3 30.4,1.7 31.3"/><path class="wm-g" fill-rule="evenodd" d="M367 3.2C349.1 8.3,334.9 18.5,325.5 33.3C323.6 36.3,317.7 47.5,312.6 58.1C284.3 116.4,285.8 112.7,288.5 118.3C291.6 124.9,298.9 125.6,303.3 119.7C305.7 116.5,326.9 75.1,334.4 58.9C341.8 42.9,353.3 29.5,362.6 26C378.1 20.2,398.3 26.1,413.1 40.8C425.5 53.2,430 64.4,430 83C430 89.4,429.6 96,429.1 97.6C428.6 99.1,427.6 102.5,426.9 105C421.9 121.7,406.7 140,391.5 147.4C382.2 152,378.6 152.9,366 153.8C351.8 154.9,357.2 156.4,375 156.4C391.9 156.4,397.8 155.2,411.8 148.8C433.7 138.8,451 118.5,456.8 96.5C462.1 75.9,460.7 62.2,451.6 43L447.6 34.5 437.5 24.5C425.5 12.6,416.6 7.4,401.2 3.3C395 1.7,372.4 1.6,367 3.2M1080.4 30.2C1079.3 31.4,1077.8 33.5,1077.1 34.8C1076.4 36.2,1075 38.6,1074 40.3C1073.1 42,1069 48.8,1065.1 55.3C1061.2 61.9,1058 67.5,1058 67.8C1058 68.2,1056.6 69.6,1054.9 71L1051.8 73.5 1061.9 88.9C1070.3 101.5,1072.3 104,1073.3 102.8C1074.5 101.5,1077.6 96.7,1090 77C1099.5 61.7,1104.7 53.4,1110.3 44.7C1116.6 34.9,1117 33.3,1113.6 30.1L1111.3 28 1096.8 28L1082.3 28 1080.4 30.2M258 49.1C227.9 55.3,204.2 74.6,194.3 101C189.9 112.5,189.5 115.3,189.5 129.5L189.5 143.5 191.8 150.5C199.9 174.8,221.9 195.8,245 200.9C248 201.6,251.2 202.6,252.2 203.1C254.6 204.3,272.4 204.2,277.3 202.9C286.8 200.4,289.8 199.3,296 196.3C304.5 192.2,313.9 184.4,319.6 176.6C323.6 171.3,330.2 158.3,345.5 126.5C347.3 122.6,351.4 114.1,354.6 107.5C361.6 92.9,362.3 87.3,357.6 83.4C354.6 80.8,351.6 80.4,347.5 81.9C345.4 82.7,342.4 87.9,331.2 110.7C323.6 126,316.3 141.1,314.9 144.4C311.8 152,303.1 165.1,297.2 171.1C287.2 181.5,274.3 184,258.5 178.7C242.8 173.5,228.1 160.1,222.5 146C215.2 127.4,216.4 108.4,226.1 88.9C234.5 72.2,248.1 59.9,265 53.9C270.3 52.1,273.5 51.6,282.7 51.6C288.9 51.6,294 51.4,294 51C294 48.6,267.5 47.2,258 49.1"/></svg><small>datacenter-ip-ranges</small></a>
+    <nav aria-label="Project">
+      <a class="btn" href="https://github.com/moonetix/datacenter-ip-ranges">View on GitHub</a>
+      <a class="btn primary" href="https://moonetix.com/register?from=github-pages-datacenter-ip-ranges">Sign up free</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <svg class="orbit" viewBox="0 0 320 320" aria-hidden="true" focusable="false"><circle cx="160" cy="160" r="60" fill="none" stroke="currentColor" stroke-opacity="0.32" stroke-width="1.5"/><circle cx="160" cy="160" r="104" fill="none" stroke="currentColor" stroke-opacity="0.22" stroke-width="1.5"/><circle cx="160" cy="160" r="148" fill="none" stroke="currentColor" stroke-opacity="0.13" stroke-width="1.5"/><circle cx="248.2" cy="104.9" r="6" fill="currentColor"/><circle cx="27.0" cy="95.1" r="5" fill="currentColor"/><circle cx="121.4" cy="206.0" r="4" fill="currentColor"/><circle cx="224.9" cy="293.0" r="4" fill="currentColor"/><path fill="currentColor" fill-rule="evenodd" transform="translate(122.00 122.00) scale(0.1484)" d="M336.3 95.9C319.1 98.4,297.6 107.1,285 116.7C276.3 123.3,265.6 134.8,259.4 144C255.6 149.7,231 197.7,231 199.4C231 199.6,223.9 214,215.3 231.6C194.9 273.3,194.8 273.6,199.2 281.3C204.4 290.3,217 291.4,222.7 283.3C224.9 280.1,260.6 209.7,271.7 186.5C283.1 162.7,300.2 141.3,312.4 135.5C331 126.7,352.7 128.5,376.3 140.8C399.9 153.1,416.7 174.9,423.5 202C425.8 211.1,426.1 236,424.1 245.5C417.7 274.3,403.7 297.7,382.2 315.2C361.3 332.4,337.8 339.6,311.6 337C305.6 336.4,300.5 336.1,300.3 336.3C300 336.6,304 337.8,309.1 339.1L318.5 341.4 337 341.4C357.4 341.5,363.6 340.6,379.5 335.4C426.4 320.2,461.3 281.1,469.5 234.9C471.4 223.8,471.4 201.5,469.4 191C460.9 146.3,422.9 108.4,376 97.9C366.2 95.7,345.4 94.6,336.3 95.9M156 170.4C124.8 175,100.2 187.4,78.4 209.3C55.7 232.1,43.7 257.6,41 288.2C35.9 345.5,73.4 396.9,131.8 412.6C143.6 415.8,166.5 416.9,178.8 415C203.2 411.1,228.2 397.3,243.4 379.3C254.5 366.3,258.1 359.6,290.9 290.5C293 286.1,297.3 277.1,300.4 270.5C303.6 263.9,307.7 255.1,309.7 251C315.9 237.7,315.1 228.7,307.2 223.8C302.5 220.9,293.9 221.5,290.5 225C288 227.6,258.4 286.1,243.9 317.2C233.2 340.2,224.5 353.5,212.5 365.5C199.7 378.3,190.5 381.7,170.5 380.6C132.2 378.7,98.4 349.6,88.4 310C86.9 304.1,86.5 298.9,86.5 286.5L86.5 270.5 89.3 259.6C99.4 220.6,126.8 189.8,161.5 178.1C173.1 174.2,192.4 172.8,206.7 174.8C213.9 175.9,212 174.6,203.5 172.6C187 168.8,171.6 168.1,156 170.4"/></svg>
+    <p class="eyebrow">Live demo, open source</p>
+    <h1>Is this IP address from a datacenter?</h1>
+    <p>Check any IPv4 or IPv6 address against the ranges that AWS, Google Cloud, Oracle Cloud, DigitalOcean, Linode, Vultr, Cloudflare, Fastly and GitHub publish about themselves, plus Tor exit nodes and iCloud Private Relay. The lookup runs in your browser with the same matcher the Node.js package uses. Nothing you type leaves this page.</p>
+    <ul class="facts" id="facts" aria-label="Dataset">
+      <li class="chip">Loading data</li>
+    </ul>
+  </section>
+
+  <section class="card lookup" aria-labelledby="lookup-title">
+    <h2 id="lookup-title" class="sr-only">IP lookup</h2>
+    <form id="form" autocomplete="off" novalidate>
+      <label for="ip">IP address</label>
+      <div class="row">
+        <input id="ip" name="ip" type="text" inputmode="text" spellcheck="false" autocapitalize="off" placeholder="3.5.140.1 or 2606:4700::1111" aria-describedby="ip-help" disabled>
+        <button class="btn primary" type="submit" id="go" disabled>Check</button>
+      </div>
+      <p id="ip-help" class="help muted">IPv4, IPv6, IPv4-mapped IPv6 (<code>::ffff:1.2.3.4</code>) and bracketed forms are accepted.</p>
+    </form>
+    <div class="examples">
+      <span class="muted" id="ex-label">Try:</span>
+      <ul aria-labelledby="ex-label">
+        <li><button type="button" class="ex" data-ip="3.5.140.1">3.5.140.1</button></li>
+        <li><button type="button" class="ex" data-ip="8.8.8.8">8.8.8.8</button></li>
+        <li><button type="button" class="ex" data-ip="2606:4700::1111">2606:4700::1111</button></li>
+        <li><button type="button" class="ex" data-ip="172.224.226.1">172.224.226.1</button></li>
+        <li><button type="button" class="ex" data-ip="185.220.101.1">185.220.101.1</button></li>
+        <li><button type="button" class="ex" data-ip="192.168.1.10">192.168.1.10</button></li>
+      </ul>
+    </div>
+    <div id="result" class="result" role="status" aria-live="polite"></div>
+    <details class="myip">
+      <summary>How do I check my own IP?</summary>
+      <p>This page makes no network requests of its own, so it cannot see your address. Find your public IP one of these ways, then paste it above:</p>
+      <ul>
+        <li>Search for "what is my IP" in your search engine.</li>
+        <li>Open your router's admin page. The status screen shows the WAN or internet address.</li>
+        <li>In a terminal, <code>curl https://checkip.amazonaws.com</code> prints your IPv4 address.</li>
+      </ul>
+      <p class="muted">An address that starts with 10., 172.16. to 172.31. or 192.168. is a private LAN address and is never listed.</p>
+    </details>
+  </section>
+
+  <section class="grid two" aria-label="Range counts and downloads">
+    <div class="card">
+      <h2>Ranges by provider</h2>
+      <p class="muted small" id="prov-note">Each list comes from a feed the provider documents.</p>
+      <table>
+        <thead><tr><th scope="col">Provider</th><th scope="col" class="num">IPv4</th><th scope="col" class="num">IPv6</th></tr></thead>
+        <tbody id="providers"></tbody>
+      </table>
+    </div>
+    <div class="stack">
+      <div class="card">
+        <h2>Ranges by category</h2>
+        <p class="muted small">Category lists merge their providers, so overlapping blocks count once.</p>
+        <table>
+          <thead><tr><th scope="col">Category</th><th scope="col" class="num">IPv4</th><th scope="col" class="num">IPv6</th></tr></thead>
+          <tbody id="categories"></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h2>Download the lists</h2>
+        <p class="muted small" id="dl-note">Plain text, one CIDR per line. Tor exits and iCloud Private Relay are kept out of <code>all.txt</code>. Each provider and category list is linked from the tables.</p>
+        <ul class="files" id="downloads"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Use it in code">
+    <div class="card code">
+      <h2>Use it in code</h2>
+      <p class="muted small">Node.js 22 or newer, no dependencies. A PHP helper ships in the same repo.</p>
+<pre><code>npm install github:moonetix/datacenter-ip-ranges</code></pre>
+<pre><code>const { isDatacenterIp, lookup } = require('datacenter-ip-ranges');
+
+console.log(isDatacenterIp('3.5.140.1'));
+console.log(lookup('185.220.101.1'));</code></pre>
+      <p class="small">This prints <code>true</code> and <code>[ { provider: 'tor', category: 'tor' } ]</code>. Or from the command line: <code>node bin/check.js 3.5.140.1</code>. See the <a href="https://github.com/moonetix/datacenter-ip-ranges#readme">README</a> for nginx, PHP and the raw file URLs.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>MIT license. Ranges are published by each provider; see the feed terms in <a href="https://github.com/moonetix/datacenter-ip-ranges/blob/main/data/SOURCES.md">SOURCES.md</a>.</span>
+    <span><a href="https://github.com/moonetix/datacenter-ip-ranges">GitHub repo</a> - <a href="https://moonetix.com">moonetix.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
