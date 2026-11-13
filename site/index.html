@@ -23,90 +23,252 @@
   </div>
 </header>
 
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01M11 7.5h6M11 16.5h6"/></symbol>
+  <symbol id="i-tor" viewBox="0 0 24 24"><path d="M12 2.5v2.5"/><path d="M12 5c0 3-6.5 4.6-6.5 10a6.5 6.5 0 0 0 13 0C18.5 9.6 12 8 12 5z"/><path d="M12 10.5c0 1.7-2.8 2.6-2.8 5a2.8 2.8 0 0 0 5.6 0c0-2.4-2.8-3.3-2.8-5z"/></symbol>
+  <symbol id="i-relay" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.2c0 4.5-3.1 8.2-7.5 9.8-4.4-1.6-7.5-5.3-7.5-9.8V6L12 3z"/><circle cx="12" cy="10.5" r="1.7"/><path d="M12 12.2v3"/></symbol>
+  <symbol id="i-none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12h7"/></symbol>
+  <symbol id="i-bad" viewBox="0 0 24 24"><path d="M12 4l9 16H3L12 4z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="9.5" cy="8" r="3.5"/><path d="M3 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M19 7.5v6M16 10.5h6"/></symbol>
+  <symbol id="i-hold" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 9v6M14 9v6"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M5 20V11M11 20V5M17 20v-6M2.5 20h19"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3V4z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8-4.2-4.1 5.9-.9L12 3.5z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8.5 6h11.5M8.5 12h11.5M8.5 18h11.5M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 4l9 4.5-9 4.5-9-4.5L12 4z"/><path d="M3 13.5l9 4.5 9-4.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7.5 11l4.5 4.5 4.5-4.5M5 20h14"/></symbol>
+</svg>
+
 <main class="wrap">
   <section class="hero">
     <svg class="orbit" viewBox="0 0 320 320" aria-hidden="true" focusable="false"><circle cx="160" cy="160" r="60" fill="none" stroke="currentColor" stroke-opacity="0.32" stroke-width="1.5"/><circle cx="160" cy="160" r="104" fill="none" stroke="currentColor" stroke-opacity="0.22" stroke-width="1.5"/><circle cx="160" cy="160" r="148" fill="none" stroke="currentColor" stroke-opacity="0.13" stroke-width="1.5"/><circle cx="248.2" cy="104.9" r="6" fill="currentColor"/><circle cx="27.0" cy="95.1" r="5" fill="currentColor"/><circle cx="121.4" cy="206.0" r="4" fill="currentColor"/><circle cx="224.9" cy="293.0" r="4" fill="currentColor"/><path fill="currentColor" fill-rule="evenodd" transform="translate(122.00 122.00) scale(0.1484)" d="M336.3 95.9C319.1 98.4,297.6 107.1,285 116.7C276.3 123.3,265.6 134.8,259.4 144C255.6 149.7,231 197.7,231 199.4C231 199.6,223.9 214,215.3 231.6C194.9 273.3,194.8 273.6,199.2 281.3C204.4 290.3,217 291.4,222.7 283.3C224.9 280.1,260.6 209.7,271.7 186.5C283.1 162.7,300.2 141.3,312.4 135.5C331 126.7,352.7 128.5,376.3 140.8C399.9 153.1,416.7 174.9,423.5 202C425.8 211.1,426.1 236,424.1 245.5C417.7 274.3,403.7 297.7,382.2 315.2C361.3 332.4,337.8 339.6,311.6 337C305.6 336.4,300.5 336.1,300.3 336.3C300 336.6,304 337.8,309.1 339.1L318.5 341.4 337 341.4C357.4 341.5,363.6 340.6,379.5 335.4C426.4 320.2,461.3 281.1,469.5 234.9C471.4 223.8,471.4 201.5,469.4 191C460.9 146.3,422.9 108.4,376 97.9C366.2 95.7,345.4 94.6,336.3 95.9M156 170.4C124.8 175,100.2 187.4,78.4 209.3C55.7 232.1,43.7 257.6,41 288.2C35.9 345.5,73.4 396.9,131.8 412.6C143.6 415.8,166.5 416.9,178.8 415C203.2 411.1,228.2 397.3,243.4 379.3C254.5 366.3,258.1 359.6,290.9 290.5C293 286.1,297.3 277.1,300.4 270.5C303.6 263.9,307.7 255.1,309.7 251C315.9 237.7,315.1 228.7,307.2 223.8C302.5 220.9,293.9 221.5,290.5 225C288 227.6,258.4 286.1,243.9 317.2C233.2 340.2,224.5 353.5,212.5 365.5C199.7 378.3,190.5 381.7,170.5 380.6C132.2 378.7,98.4 349.6,88.4 310C86.9 304.1,86.5 298.9,86.5 286.5L86.5 270.5 89.3 259.6C99.4 220.6,126.8 189.8,161.5 178.1C173.1 174.2,192.4 172.8,206.7 174.8C213.9 175.9,212 174.6,203.5 172.6C187 168.8,171.6 168.1,156 170.4"/></svg>
     <p class="eyebrow">Live demo, open source</p>
     <h1>Is this IP address from a datacenter?</h1>
-    <p>Check any IPv4 or IPv6 address against the ranges that AWS, Google Cloud, Oracle Cloud, DigitalOcean, Linode, Vultr, Cloudflare, Fastly and GitHub publish about themselves, plus Tor exit nodes and iCloud Private Relay. The lookup runs in your browser with the same matcher the Node.js package uses. Nothing you type leaves this page.</p>
+    <p>Check any IPv4 or IPv6 address against the ranges that AWS, Google Cloud, Oracle Cloud, DigitalOcean, Linode, Vultr, Cloudflare, Fastly and GitHub publish about themselves, plus Tor exit nodes and iCloud Private Relay.</p>
     <ul class="facts" id="facts" aria-label="Dataset">
       <li class="chip">Loading data</li>
     </ul>
   </section>
 
-  <section class="card lookup" aria-labelledby="lookup-title">
-    <h2 id="lookup-title" class="sr-only">IP lookup</h2>
-    <form id="form" autocomplete="off" novalidate>
-      <label for="ip">IP address</label>
-      <div class="row">
-        <input id="ip" name="ip" type="text" inputmode="text" spellcheck="false" autocapitalize="off" placeholder="3.5.140.1 or 2606:4700::1111" aria-describedby="ip-help" disabled>
-        <button class="btn primary" type="submit" id="go" disabled>Check</button>
-      </div>
-      <p id="ip-help" class="help muted">IPv4, IPv6, IPv4-mapped IPv6 (<code>::ffff:1.2.3.4</code>) and bracketed forms are accepted.</p>
-    </form>
-    <div class="examples">
-      <span class="muted" id="ex-label">Try:</span>
-      <ul aria-labelledby="ex-label">
-        <li><button type="button" class="ex" data-ip="3.5.140.1">3.5.140.1</button></li>
-        <li><button type="button" class="ex" data-ip="8.8.8.8">8.8.8.8</button></li>
-        <li><button type="button" class="ex" data-ip="2606:4700::1111">2606:4700::1111</button></li>
-        <li><button type="button" class="ex" data-ip="172.224.226.1">172.224.226.1</button></li>
-        <li><button type="button" class="ex" data-ip="185.220.101.1">185.220.101.1</button></li>
-        <li><button type="button" class="ex" data-ip="192.168.1.10">192.168.1.10</button></li>
-      </ul>
+  <section class="sec" aria-labelledby="uses-title">
+    <div class="sec-head">
+      <h2 id="uses-title">What it is for</h2>
+      <p>Three checks a rewards app, site, game or community can run with these lists.</p>
     </div>
-    <div id="result" class="result" role="status" aria-live="polite"></div>
-    <details class="myip">
-      <summary>How do I check my own IP?</summary>
-      <p>This page makes no network requests of its own, so it cannot see your address. Find your public IP one of these ways, then paste it above:</p>
-      <ul>
-        <li>Search for "what is my IP" in your search engine.</li>
-        <li>Open your router's admin page. The status screen shows the WAN or internet address.</li>
-        <li>In a terminal, <code>curl https://checkip.amazonaws.com</code> prints your IPv4 address.</li>
-      </ul>
-      <p class="muted">An address that starts with 10., 172.16. to 172.31. or 192.168. is a private LAN address and is never listed.</p>
-    </details>
+    <ul class="use-grid">
+      <li class="card use">
+        <div class="use-head"><span class="tile"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-user"/></svg></span><h3>Screen sign-ups</h3></div>
+        <p>Check the address at sign-up and skip the welcome bonus when it belongs to a cloud server, where one machine can create hundreds of accounts.</p>
+      </li>
+      <li class="card use">
+        <div class="use-head"><span class="tile"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-hold"/></svg></span><h3>Hold rewards for review</h3></div>
+        <p>Hold a reward when the offer click or the claim came from a hosting range, because advertisers often reject or reverse those conversions.</p>
+      </li>
+      <li class="card use">
+        <div class="use-head"><span class="tile"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-chart"/></svg></span><h3>Audit your traffic</h3></div>
+        <p>Run the addresses from yesterday's sign-up or click log through the lists to see how many came from servers, Tor exits or Private Relay.</p>
+      </li>
+    </ul>
   </section>
 
-  <section class="grid two" aria-label="Range counts and downloads">
-    <div class="card">
-      <h2>Ranges by provider</h2>
-      <p class="muted small" id="prov-note">Each list comes from a feed the provider documents.</p>
-      <table>
-        <thead><tr><th scope="col">Provider</th><th scope="col" class="num">IPv4</th><th scope="col" class="num">IPv6</th></tr></thead>
-        <tbody id="providers"></tbody>
-      </table>
+  <section class="sec" id="check" aria-labelledby="check-title">
+    <div class="sec-head">
+      <h2 id="check-title">Check an address</h2>
+      <p>The lookup runs in your browser with the same matcher the Node.js package uses. Nothing you type leaves this page.</p>
     </div>
-    <div class="stack">
+    <div class="card lookup">
+      <form id="form" autocomplete="off" novalidate>
+        <label for="ip">IP address</label>
+        <div class="row">
+          <input id="ip" name="ip" type="text" inputmode="text" spellcheck="false" autocapitalize="off" placeholder="3.5.140.1 or 2606:4700::1111" aria-describedby="ip-help" disabled>
+          <button class="btn primary" type="submit" id="go" disabled>Check</button>
+        </div>
+        <p id="ip-help" class="help muted">IPv4, IPv6, IPv4-mapped IPv6 (<code>::ffff:1.2.3.4</code>) and bracketed forms are accepted.</p>
+      </form>
+      <div class="examples">
+        <span class="muted" id="ex-label">Try:</span>
+        <ul aria-labelledby="ex-label">
+          <li><button type="button" class="ex" data-ip="3.5.140.1">3.5.140.1</button></li>
+          <li><button type="button" class="ex" data-ip="8.8.8.8">8.8.8.8</button></li>
+          <li><button type="button" class="ex" data-ip="2606:4700::1111">2606:4700::1111</button></li>
+          <li><button type="button" class="ex" data-ip="172.224.226.1">172.224.226.1</button></li>
+          <li><button type="button" class="ex" data-ip="185.220.101.1">185.220.101.1</button></li>
+          <li><button type="button" class="ex" data-ip="192.168.1.10">192.168.1.10</button></li>
+        </ul>
+      </div>
+      <div id="result" class="result">
+        <p class="empty"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-search"/></svg><span>Loading the range lists. The verdict for an address appears here.</span></p>
+      </div>
+      <div class="limits">
+        <svg class="ic" aria-hidden="true" focusable="false"><use href="#i-bad"/></svg>
+        <p><strong>What the lists do not cover.</strong> Residential proxies and most commercial VPNs are not listed: they route traffic through home and mobile connections or through hosts without a public feed. Treat a match as one signal next to device and behavior checks, not as a verdict.</p>
+      </div>
+      <details class="myip">
+        <summary>How do I check my own IP?</summary>
+        <p>This page makes no network requests of its own, so it cannot see your address. Find your public IP one of these ways, then paste it above:</p>
+        <ul>
+          <li>Search for "what is my IP" in your search engine.</li>
+          <li>Open your router's admin page. The status screen shows the WAN or internet address.</li>
+          <li>In a terminal, <code>curl https://checkip.amazonaws.com</code> prints your IPv4 address.</li>
+        </ul>
+        <p class="muted">An address that starts with 10., 172.16. to 172.31. or 192.168. is a private LAN address and is never listed.</p>
+      </details>
+    </div>
+
+    <div class="card bulk" id="bulk">
+      <div class="card-head">
+        <span class="tile"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-list"/></svg></span>
+        <h3 id="bulk-title">Bulk check</h3>
+        <p class="muted small">Paste the addresses from a sign-up or click log, up to <span id="bulk-max">500</span> at a time. They are checked in this tab with the same matcher and are never uploaded.</p>
+      </div>
+      <form id="bulk-form" autocomplete="off" novalidate>
+        <label for="bulk-in">IP addresses, one per line</label>
+        <textarea id="bulk-in" name="ips" rows="6" spellcheck="false" autocapitalize="off" placeholder="3.5.140.1&#10;185.220.101.1&#10;2606:4700::1111" aria-describedby="bulk-help" disabled></textarea>
+        <p id="bulk-help" class="help muted">Spaces, commas and semicolons also separate addresses.</p>
+        <div class="actions">
+          <button class="btn primary" type="submit" id="bulk-go" disabled>Check list</button>
+          <button class="btn" type="button" id="bulk-sample" disabled>Try a sample</button>
+          <button class="btn" type="button" id="bulk-clear" disabled>Clear</button>
+        </div>
+      </form>
+      <div id="bulk-out" class="bulk-out">
+        <p class="empty"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-list"/></svg><span>Results appear here: a count per verdict and one row per address.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="lists-title">
+    <div class="sec-head">
+      <h2 id="lists-title">What is in the lists</h2>
+      <p>Every range comes from a feed the provider documents. Nothing is scraped from third-party lists or guessed from ASN names.</p>
+    </div>
+    <div class="grid two">
       <div class="card">
-        <h2>Ranges by category</h2>
-        <p class="muted small">Category lists merge their providers, so overlapping blocks count once.</p>
-        <table>
-          <thead><tr><th scope="col">Category</th><th scope="col" class="num">IPv4</th><th scope="col" class="num">IPv6</th></tr></thead>
-          <tbody id="categories"></tbody>
+        <div class="card-head">
+          <span class="tile"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-server"/></svg></span>
+          <h3>Ranges by provider</h3>
+          <p class="muted small" id="prov-note">Bars compare the number of ranges per provider. Each name links to its plain text list.</p>
+        </div>
+        <table class="prov">
+          <thead><tr><th scope="col">Provider</th><th scope="col" class="barcol">Ranges</th><th scope="col" class="num">IPv4</th><th scope="col" class="num">IPv6</th></tr></thead>
+          <tbody id="providers"></tbody>
         </table>
       </div>
-      <div class="card">
-        <h2>Download the lists</h2>
-        <p class="muted small" id="dl-note">Plain text, one CIDR per line. Tor exits and iCloud Private Relay are kept out of <code>all.txt</code>. Each provider and category list is linked from the tables.</p>
-        <ul class="files" id="downloads"></ul>
+      <div class="stack">
+        <div class="card">
+          <div class="card-head">
+            <span class="tile"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-layers"/></svg></span>
+            <h3>Ranges by category</h3>
+            <p class="muted small">Category lists merge their providers, so overlapping blocks count once.</p>
+          </div>
+          <table>
+            <thead><tr><th scope="col">Category</th><th scope="col" class="num">IPv4</th><th scope="col" class="num">IPv6</th></tr></thead>
+            <tbody id="categories"></tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <span class="tile"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-down"/></svg></span>
+            <h3>Download the lists</h3>
+            <p class="muted small" id="dl-note">Plain text, one CIDR per line. Tor exits and iCloud Private Relay are kept out of <code>all.txt</code>.</p>
+          </div>
+          <ul class="files" id="downloads"></ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <section aria-label="Use it in code">
+  <section class="sec" aria-labelledby="use-title">
+    <div class="sec-head">
+      <h2 id="use-title">Use it in your project</h2>
+      <p>The same lists and matcher for Node.js and PHP, or the plain text file for anything else. No dependencies.</p>
+    </div>
     <div class="card code">
-      <h2>Use it in code</h2>
-      <p class="muted small">Node.js 22 or newer, no dependencies. A PHP helper ships in the same repo.</p>
-<pre><code>npm install github:moonetix/datacenter-ip-ranges</code></pre>
-<pre><code>const { isDatacenterIp, lookup } = require('datacenter-ip-ranges');
+      <div class="tabs" role="tablist" aria-label="Language">
+        <button type="button" class="tab" role="tab" id="tab-node" aria-controls="panel-node" aria-selected="true">Node.js</button>
+        <button type="button" class="tab" role="tab" id="tab-php" aria-controls="panel-php" aria-selected="false" tabindex="-1">PHP</button>
+        <button type="button" class="tab" role="tab" id="tab-curl" aria-controls="panel-curl" aria-selected="false" tabindex="-1">curl</button>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-node" aria-labelledby="tab-node" tabindex="0">
+        <p class="small">Node.js 22 or newer. Install from GitHub:</p>
+        <div class="codeblock">
+          <div class="cb-bar"><span>Terminal</span><button type="button" class="copy" data-copy="code-node-install"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span class="copy-label">Copy</span></button></div>
+<pre><code id="code-node-install">npm install github:moonetix/datacenter-ip-ranges</code></pre>
+        </div>
+        <div class="codeblock">
+          <div class="cb-bar"><span>check.js</span><button type="button" class="copy" data-copy="code-node"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span class="copy-label">Copy</span></button></div>
+<pre><code id="code-node">const { isDatacenterIp, lookup } = require('datacenter-ip-ranges');
 
 console.log(isDatacenterIp('3.5.140.1'));
+console.log(isDatacenterIp('192.168.1.10'));
 console.log(lookup('185.220.101.1'));</code></pre>
-      <p class="small">This prints <code>true</code> and <code>[ { provider: 'tor', category: 'tor' } ]</code>. Or from the command line: <code>node bin/check.js 3.5.140.1</code>. See the <a href="https://github.com/moonetix/datacenter-ip-ranges#readme">README</a> for nginx, PHP and the raw file URLs.</p>
+        </div>
+        <div class="codeblock out">
+          <div class="cb-bar"><span>Output with today's lists</span></div>
+<pre><code id="out-node">Loading</code></pre>
+        </div>
+        <p class="small muted"><code>isDatacenterIp()</code> covers the cloud, CDN and provider-service lists. <code>lookup()</code> checks every list, Tor exits and iCloud Private Relay included. From the command line: <code>node bin/check.js 3.5.140.1</code>.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-php" aria-labelledby="tab-php" tabindex="0" hidden>
+        <p class="small">PHP 8.1 or newer, one file, standard extensions only. Clone the repo next to your code:</p>
+        <div class="codeblock">
+          <div class="cb-bar"><span>Terminal</span><button type="button" class="copy" data-copy="code-php-install"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span class="copy-label">Copy</span></button></div>
+<pre><code id="code-php-install">git clone --depth 1 https://github.com/moonetix/datacenter-ip-ranges</code></pre>
+        </div>
+        <div class="codeblock">
+          <div class="cb-bar"><span>PHP</span><button type="button" class="copy" data-copy="code-php"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span class="copy-label">Copy</span></button></div>
+<pre><code id="code-php">require __DIR__ . '/datacenter-ip-ranges/php/DatacenterIp.php';
+
+$ip = $_SERVER['REMOTE_ADDR'];
+$fromServer = is_datacenter_ip($ip);
+
+$torOrRelay = DatacenterIp::fromDataDir(null, ['tor', 'privacy-relay']);
+$sharedExit = $torOrRelay-&gt;contains($ip);</code></pre>
+        </div>
+        <p class="small muted"><code>$fromServer</code> is true for cloud, CDN and provider-service ranges. <code>$sharedExit</code> is true for Tor exits and iCloud Private Relay. Behind a proxy or CDN, read the visitor's address from the header your proxy sets, not <code>REMOTE_ADDR</code>.</p>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-curl" aria-labelledby="tab-curl" tabindex="0" hidden>
+        <p class="small">Plain text, one CIDR per line, for nginx, a firewall or any other language. The file changes only when a provider changes its ranges, so download it once a day, not on every request.</p>
+        <div class="codeblock">
+          <div class="cb-bar"><span>Terminal</span><button type="button" class="copy" data-copy="code-curl"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span class="copy-label">Copy</span></button></div>
+<pre><code id="code-curl">curl -fsSL -o all.txt https://raw.githubusercontent.com/moonetix/datacenter-ip-ranges/main/data/all.txt</code></pre>
+        </div>
+        <div class="codeblock">
+          <div class="cb-bar"><span>Raw list URL</span><button type="button" class="copy" data-copy="code-url"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span class="copy-label">Copy</span></button></div>
+<pre><code id="code-url">https://raw.githubusercontent.com/moonetix/datacenter-ip-ranges/main/data/all.txt</code></pre>
+        </div>
+        <p class="small muted">Tor exits and iCloud Private Relay are separate files: <code>data/categories/tor.txt</code> and <code>data/categories/privacy-relay.txt</code>. The <a href="https://github.com/moonetix/datacenter-ip-ranges#raw-files">README</a> has the nginx <code>geo</code> setup.</p>
+      </div>
     </div>
   </section>
+
+  <section class="guide card" aria-labelledby="guide-title">
+    <div class="guide-text">
+      <p class="kicker"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-book"/></svg>Moonetix Academy</p>
+      <h2 id="guide-title">Ad Fraud and Bot Traffic: How to Spot Fake Results</h2>
+      <p class="muted">The guide covers the warning signs of bot traffic in your data, datacenter addresses among them, and how to check your own traffic.</p>
+    </div>
+    <a class="btn" href="https://moonetix.com/academy/strategy/ad-fraud-and-bot-traffic?from=github-pages-datacenter-ip-ranges">Read the guide</a>
+  </section>
+  <p id="live" class="sr-only" role="status" aria-live="polite"></p>
 </main>
+
+<section class="band" aria-labelledby="band-title">
+  <div class="wrap">
+    <div class="band-text">
+      <h2 id="band-title">Made by Moonetix</h2>
+      <p>Moonetix is an affiliate network for publishers: add its offerwall to your rewards app, site, game or community, and your users earn your own currency by completing offers.</p>
+    </div>
+    <div class="band-actions">
+      <a class="btn" href="https://github.com/moonetix/datacenter-ip-ranges"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-star"/></svg>Star on GitHub</a>
+      <a class="btn primary" href="https://moonetix.com/register?from=github-pages-datacenter-ip-ranges">Sign up free</a>
+    </div>
+  </div>
+</section>
 
 <footer class="foot">
   <div class="wrap">
