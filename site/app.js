@@ -238,6 +238,17 @@ function renderExamples() {
   }
 }
 
+function renderHeroPreview() {
+  const box = $('hero-preview');
+  if (!box) return;
+  box.textContent = '';
+  for (const ip of ['3.5.140.1', '185.220.101.1', '172.224.226.1', '192.168.1.10']) {
+    const r = check(ip);
+    const sub = r.primary ? providerName(r.primary.provider) : r.special ? 'Private or reserved address' : 'Not on any list';
+    box.append(el('div', { class: 'pv-row' }, el('span', { class: 'pv-ip' }, ip), badge(r.verdict), el('span', { class: 'pv-sub' }, sub)));
+  }
+}
+
 function renderSnippetOutput() {
   const lines = [];
   for (const m of $('code-node').textContent.matchAll(/console\.log\((isDatacenterIp|lookup)\('([^']+)'\)\)/g)) {
@@ -427,6 +438,7 @@ async function start() {
   }
   renderStats();
   renderExamples();
+  renderHeroPreview();
   renderSnippetOutput();
   for (const id of ['ip', 'go', 'bulk-in', 'bulk-go', 'bulk-sample', 'bulk-clear']) $(id).disabled = false;
   form.addEventListener('submit', (e) => {
