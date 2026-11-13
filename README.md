@@ -9,6 +9,7 @@
 [![PHP 8.1+](https://img.shields.io/badge/php-8.1%2B-777bb4)](#php)
 [![Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)](package.json)
 [![Maintained by Moonetix](https://img.shields.io/badge/maintained%20by-Moonetix-004ABB)](https://moonetix.com)
+[![Live demo](https://img.shields.io/badge/live%20demo-moonetix.github.io-0e7a48)](https://moonetix.github.io/datacenter-ip-ranges/)
 
 Maintained by [Moonetix](https://moonetix.com).
 
@@ -26,6 +27,8 @@ node datacenter-ip-ranges/bin/check.js 3.5.140.1 8.8.8.8 192.168.1.10
 8.8.8.8       google-services       services       8.8.8.0/24
 192.168.1.10  not listed
 ```
+
+To try an address without installing anything, open the [live demo](https://moonetix.github.io/datacenter-ip-ranges/). It runs the same matcher in your browser on the current lists.
 
 Only need the list? `curl -fsSL https://raw.githubusercontent.com/moonetix/datacenter-ip-ranges/main/data/all.txt` gives one CIDR per line.
 
@@ -309,7 +312,7 @@ Layout: `src/ip.js` parsing and range math, `src/matcher.js` lookup engine, `src
 
 [Moonetix](https://moonetix.com) is an affiliate network. Publishers add its offerwall to apps, games, Discord and Telegram communities and rewards sites, and users earn the publisher's own currency by completing offers. Every click and conversion goes through traffic checks like the ones described in [How Moonetix Checks Traffic Quality](https://moonetix.com/academy/traffic-quality/how-moonetix-checks-traffic).
 
-**Running a rewards site or app? Sign up free at https://moonetix.com/register**
+**Running a rewards site or app? Sign up free at https://moonetix.com/register?from=github-datacenter-ip-ranges**
 
 Related open source: [offerwall-postback-handlers](https://github.com/moonetix/offerwall-postback-handlers), [postback-tester](https://github.com/moonetix/postback-tester), [awesome-offerwalls](https://github.com/moonetix/awesome-offerwalls), and more at [github.com/moonetix](https://github.com/moonetix).
 
