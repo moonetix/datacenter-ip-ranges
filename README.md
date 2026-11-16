@@ -32,13 +32,13 @@ To try an address without installing anything, open the [live demo](https://moon
 
 Only need the list? `curl -fsSL https://raw.githubusercontent.com/moonetix/datacenter-ip-ranges/main/data/all.txt` gives one CIDR per line.
 
-## Why datacenter traffic matters on rewards traffic
+## Why check for datacenter addresses
 
-Offerwalls, rewards sites and incentive apps pay users for actions. That makes them a target for scripted farms, which almost always run on rented servers:
+Most people browse from home, mobile or office networks. Traffic from rented servers is usually automated, so a datacenter address is a useful signal wherever automation costs you money:
 
-- **Advertisers do not pay for it.** Networks and advertisers reject or reverse conversions from hosting networks, so a credited reward from a datacenter IP is often money you pay out and never receive.
-- **Sign-up and bonus abuse scales on servers.** One VPS can create hundreds of accounts. A datacenter check at sign-up stops the cheapest version of that.
-- **Click and impression spam.** Headless browsers on cloud instances inflate clicks and break your conversion rate data.
+- **Sign-ups and free trials.** One server can create hundreds of accounts and claim a bonus or trial with each.
+- **Paid actions.** Ad networks, affiliate programs and offerwalls reject or reverse conversions from hosting networks, so a reward paid for such traffic is often money you never get back.
+- **Clicks, votes and scraping.** Headless browsers on cloud instances inflate counts and load your servers.
 - **Cheap to check.** A lookup here takes well under a microsecond in Node.js, so it can run on every request.
 
 A match is a signal, not a verdict. See [Limitations](#limitations).
@@ -282,17 +282,8 @@ GITHUB_TOKEN=... node scripts/update.js       # optional: authenticated api.gith
 
 ## Further reading
 
-From the Moonetix Academy:
-
-- [Ad Fraud and Bot Traffic: How to Spot Fake Results](https://moonetix.com/academy/strategy/ad-fraud-and-bot-traffic)
-- [What Is IP Reputation? Proxy and VPN Detection Explained](https://moonetix.com/academy/glossary/what-is-ip-reputation)
-- [What Is a Residential Proxy? Why Offerwalls Block It](https://moonetix.com/academy/glossary/what-is-a-residential-proxy)
-- [Bot Traffic on Your Offerwall: Signs of Click Spam](https://moonetix.com/academy/traffic-quality/bot-click-spam-earn-page)
-- [How to Stop Fake Signups on a Rewards Site or App](https://moonetix.com/academy/traffic-quality/stop-fake-signups-rewards-site)
-- [Stop Multi-Accounting and VPN Abuse on a Rewards Site](https://moonetix.com/academy/traffic-quality/stop-multi-accounting-vpn-abuse)
-- [Emulator and Device Farm Detection for Rewards Apps](https://moonetix.com/academy/traffic-quality/emulator-device-farm-detection)
-- [VPN or Proxy Detected on an Offerwall? How to Fix It](https://moonetix.com/academy/traffic-quality/vpn-proxy-detected-offerwall)
-- [Postback IP Whitelist: Should You Allowlist Sender IPs?](https://moonetix.com/academy/integrations/postback-ip-allowlist)
+- [OWASP Automated Threats to Web Applications](https://owasp.org/www-project-automated-threats-to-web-applications/): the abuse patterns this kind of check helps with.
+- Moonetix Academy: [What is IP reputation?](https://moonetix.com/academy/glossary/what-is-ip-reputation) and [Ad fraud and bot traffic](https://moonetix.com/academy/strategy/ad-fraud-and-bot-traffic).
 
 ## Development
 
@@ -311,8 +302,6 @@ Layout: `src/ip.js` parsing and range math, `src/matcher.js` lookup engine, `src
 ## About Moonetix
 
 [Moonetix](https://moonetix.com) is an affiliate network. Publishers add its offerwall to apps, games, Discord and Telegram communities and rewards sites, and users earn the publisher's own currency by completing offers. Every click and conversion goes through traffic checks like the ones described in [How Moonetix Checks Traffic Quality](https://moonetix.com/academy/traffic-quality/how-moonetix-checks-traffic).
-
-Running a rewards site or app? Sign up free at https://moonetix.com/register?from=github-datacenter-ip-ranges
 
 Related open source: [offerwall-postback-handlers](https://github.com/moonetix/offerwall-postback-handlers), [postback-tester](https://github.com/moonetix/postback-tester), [awesome-offerwalls](https://github.com/moonetix/awesome-offerwalls), and more at [github.com/moonetix](https://github.com/moonetix).
 
