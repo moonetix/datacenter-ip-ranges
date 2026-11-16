@@ -70,50 +70,45 @@ function categoryLabel(id) {
   return c ? c.label : id;
 }
 
-function emptyState(iconId, text, extra = '') {
-  return el('p', { class: 'empty' + extra }, icon(iconId), el('span', {}, text));
-}
-
-function fact(term, ...value) {
-  return el('div', { class: 'fact' }, el('dt', {}, term), el('dd', {}, ...value));
+function emptyState(text, extra = '') {
+  return el('p', { class: 'empty' + extra }, text);
 }
 
 function renderResult(r, example) {
   const v = VERDICTS[r.verdict];
-  const title = el('div', { class: 'v-title' }, el('p', { class: 'v-label' }, v.label));
+  const addr = el('p', { class: 'v-addr' }, el('code', {}, r.valid ? r.address : clip(r.input)));
+  const about = [r.valid ? (r.family === 4 ? 'IPv4' : 'IPv6') : '', example ? 'example' : ''].filter(Boolean).join(', ');
+  if (about) addr.append(el('span', { class: 'muted' }, about));
+  const box = el('div', { class: 'verdict t-' + v.tone }, addr, el('h3', { class: 'v-label' }, icon(v.icon), el('span', {}, v.label)));
   if (r.primary) {
-    title.append(el('p', { class: 'v-sub' }, el('strong', {}, providerName(r.primary.provider)), el('span', { class: 'v-cat' }, categoryLabel(r.primary.category))));
+    const names = [providerName(r.primary.provider), categoryLabel(r.primary.category)];
+    box.append(el('p', { class: 'v-sub' }, names[0] === names[1] ? names[0] : names.join(', ')));
   }
-  const addr = el('div', { class: 'v-addr' }, el('code', { class: 'addr' }, r.valid ? r.address : clip(r.input)));
-  if (r.valid) addr.append(el('span', { class: 'chip' }, r.family === 4 ? 'IPv4' : 'IPv6'));
-  if (example) addr.append(el('span', { class: 'chip ghost' }, 'Example'));
-  const box = el(
-    'div',
-    { class: 'verdict t-' + v.tone },
-    el('div', { class: 'v-head' }, el('span', { class: 'v-icon' }, icon(v.icon)), title, addr),
-    el('p', { class: 'v-mean' }, r.meaning),
-  );
+  box.append(el('p', { class: 'v-mean' }, r.meaning));
   if (r.matches.length) {
-    const lists = el('div', { class: 'matches' });
-    for (const m of r.matches) {
-      lists.append(
-        el(
-          'dl',
-          { class: 'match' },
-          fact('Provider', providerName(m.provider), el('code', { class: 'sub' }, m.provider)),
-          fact('Category', categoryLabel(m.category), el('code', { class: 'sub' }, m.category)),
-          fact('Matching range', el('code', { class: 'cidr' }, m.cidr)),
-        ),
-      );
-    }
-    box.append(lists);
+    const rows = r.matches.map((m) =>
+      el(
+        'tr',
+        {},
+        el('td', { 'data-label': 'Provider' }, providerName(m.provider), el('code', { class: 'sub' }, m.provider)),
+        el('td', { 'data-label': 'Category' }, categoryLabel(m.category), el('code', { class: 'sub' }, m.category)),
+        el('td', { 'data-label': 'Matching range' }, el('code', { class: 'cidr' }, m.cidr)),
+      ),
+    );
+    const heads = ['Provider', 'Category', 'Matching range'].map((h) => el('th', { scope: 'col' }, h));
+    box.append(el('table', { class: 'matches' }, el('thead', {}, el('tr', {}, ...heads)), el('tbody', {}, ...rows)));
   }
   box.append(
     el(
-      'dl',
-      { class: 'v-api' },
-      el('div', {}, el('dt', {}, el('code', {}, 'isDatacenterIp()')), el('dd', {}, el('code', {}, inspect(r.verdict === 'datacenter')))),
-      el('div', {}, el('dt', {}, el('code', {}, 'lookup()')), el('dd', {}, el('code', {}, inspect(r.valid ? r.matches : null)))),
+      'div',
+      { class: 'snip v-api' },
+      el('div', { class: 'snip-top' }, el('span', {}, 'What the Node.js package returns')),
+      el(
+        'dl',
+        { class: 'code' },
+        el('div', {}, el('dt', {}, 'isDatacenterIp()'), el('dd', {}, inspect(r.verdict === 'datacenter'))),
+        el('div', {}, el('dt', {}, 'lookup()'), el('dd', {}, inspect(r.valid ? r.matches : null))),
+      ),
     ),
   );
   result.replaceChildren(box);
@@ -121,8 +116,9 @@ function renderResult(r, example) {
 
 function show(raw, example = false) {
   const text = raw.trim();
+  markExample(text);
   if (!text) {
-    result.replaceChildren(emptyState('i-search', 'Enter an address or pick an example to see the verdict.'));
+    result.replaceChildren(emptyState('Enter an address or pick an example to see the verdict.'));
     return null;
   }
   const r = check(text);
@@ -152,14 +148,6 @@ function bar(total, max) {
 }
 
 function renderStats() {
-  const day = data.updated_at.slice(0, 10);
-  $('facts').replaceChildren(
-    el('li', { class: 'chip' }, 'Updated ', el('time', { datetime: data.updated_at }, day)),
-    el('li', { class: 'chip' }, fmt.format(data.totals.ranges) + ' ranges'),
-    el('li', { class: 'chip' }, data.totals.feeds + ' provider feeds'),
-    el('li', { class: 'chip' }, 'Rebuilt daily'),
-  );
-
   const max = Math.max(1, ...data.providers.map((p) => p.ipv4 + p.ipv6));
   const rows = [];
   for (const p of data.providers) {
@@ -168,7 +156,7 @@ function renderStats() {
         el(
           'tr',
           { class: 'off' },
-          el('td', {}, p.name, el('span', { class: 'sub' }, 'Not redistributed. Fetch it locally with --include ' + p.id + '.')),
+          el('td', {}, p.name, el('span', { class: 'sub' }, 'Not redistributed. Fetch it locally with ', el('code', {}, '--include ' + p.id), '.')),
           el('td', { class: 'barcol' }, '-'),
           el('td', { class: 'num' }, '-'),
           el('td', { class: 'num' }, '-'),
@@ -205,7 +193,7 @@ function renderStats() {
           'td',
           {},
           el('a', { href: 'data/' + c.file }, c.label),
-          el('span', { class: 'sub' }, el('span', { class: 'mono' }, c.id), c.datacenter ? ' - in all.txt' : ' - separate list'),
+          el('span', { class: 'sub' }, el('span', { class: 'mono' }, c.id), c.datacenter ? ', in all.txt' : ', separate list'),
         ),
         el('td', { class: 'num' }, fmt.format(c.ipv4)),
         el('td', { class: 'num' }, fmt.format(c.ipv6)),
@@ -226,26 +214,22 @@ function renderStats() {
   );
 }
 
+function markExample(ip) {
+  for (const b of document.querySelectorAll('.ex')) {
+    if (b.dataset.ip === ip) b.setAttribute('aria-current', 'true');
+    else b.removeAttribute('aria-current');
+  }
+}
+
 function renderExamples() {
   for (const b of document.querySelectorAll('.ex')) {
-    const v = VERDICTS[check(b.dataset.ip).verdict];
-    b.prepend(icon(v.icon, 'ic sm'));
-    b.append(el('span', { class: 'sr-only' }, ', ' + v.label));
+    const r = check(b.dataset.ip);
+    const sub = r.primary ? providerName(r.primary.provider) : r.special ? 'Private or reserved' : 'On no list';
+    b.append(el('span', { class: 'ex-v' }, badge(r.verdict), el('span', { class: 'ex-sub' }, sub)));
     b.addEventListener('click', () => {
       input.value = b.dataset.ip;
       lookupNow(b.dataset.ip);
     });
-  }
-}
-
-function renderHeroPreview() {
-  const box = $('hero-preview');
-  if (!box) return;
-  box.textContent = '';
-  for (const ip of ['3.5.140.1', '185.220.101.1', '172.224.226.1', '192.168.1.10']) {
-    const r = check(ip);
-    const sub = r.primary ? providerName(r.primary.provider) : r.special ? 'Private or reserved address' : 'Not on any list';
-    box.append(el('div', { class: 'pv-row' }, el('span', { class: 'pv-ip' }, ip), badge(r.verdict), el('span', { class: 'pv-sub' }, sub)));
   }
 }
 
@@ -260,21 +244,21 @@ function renderSnippetOutput() {
 
 function badge(verdict) {
   const v = VERDICTS[verdict];
-  return el('span', { class: 'badge t-' + v.tone }, icon(v.icon, 'ic sm'), v.short);
+  return el('span', { class: 'tag t-' + v.tone }, icon(v.icon, 'ic sm'), v.short);
 }
 
 function renderBulk(results, dropped, total) {
   const counts = countVerdicts(results);
-  const list = el('ul', { class: 'counts', 'aria-label': 'Addresses per verdict' });
+  const list = el('dl', { class: 'counts', 'aria-label': 'Addresses per verdict' });
   const spoken = [];
   for (const id of ORDER) {
     if (id === 'other' && !counts.other) continue;
     const v = VERDICTS[id];
-    list.append(el('li', { class: 'count t-' + v.tone + (counts[id] ? '' : ' zero') }, icon(v.icon), el('strong', {}, fmt.format(counts[id])), el('span', {}, v.short)));
+    list.append(el('div', { class: 'count t-' + v.tone + (counts[id] ? '' : ' zero') }, el('dt', {}, v.short), el('dd', {}, fmt.format(counts[id]))));
     if (counts[id]) spoken.push(`${counts[id]} ${v.short.toLowerCase()}`);
   }
 
-  const csvBtn = el('button', { type: 'button', class: 'btn csv' }, icon('i-copy'), el('span', { class: 'copy-label' }, 'Copy as CSV'));
+  const csvBtn = el('button', { type: 'button', class: 'btn csv' }, 'Copy as CSV');
   const fallback = el('div', { class: 'csv-fallback', hidden: '' });
   csvBtn.addEventListener('click', async () => {
     const csv = toCsv(results);
@@ -286,7 +270,7 @@ function renderBulk(results, dropped, total) {
     }
     const area = el('textarea', { id: 'csv-text', readonly: '', rows: '6', spellcheck: 'false' });
     area.value = csv;
-    fallback.replaceChildren(el('label', { for: 'csv-text' }, 'Copying is blocked in this browser. Select the CSV below and copy it.'), area);
+    fallback.replaceChildren(el('label', { class: 'label', for: 'csv-text' }, 'Copying is blocked in this browser. Select the CSV below and copy it.'), area);
     fallback.hidden = false;
     area.focus();
     area.select();
@@ -328,7 +312,7 @@ function renderBulk(results, dropped, total) {
 function runBulk() {
   const { items, total, dropped } = splitList(bulkIn.value);
   if (!items.length) {
-    bulkOut.replaceChildren(emptyState('i-bad', 'Paste at least one address, or try the sample.', ' warn'));
+    bulkOut.replaceChildren(emptyState('Paste at least one address, or try the sample.', ' warn'));
     say('Paste at least one address.');
     return;
   }
@@ -345,19 +329,16 @@ async function writeClipboard(text) {
 }
 
 function flash(btn, ok) {
-  const label = btn.querySelector('.copy-label');
-  if (!btn.dataset.label) btn.dataset.label = label.textContent;
-  label.textContent = ok ? 'Copied' : 'Copy failed';
+  if (!btn.dataset.label) btn.dataset.label = btn.textContent;
+  btn.textContent = ok ? 'Copied' : 'Copying is blocked';
   btn.classList.toggle('done', ok);
   btn.classList.toggle('fail', !ok);
-  btn.querySelector('use').setAttribute('href', ok ? '#i-check' : '#i-bad');
   clearTimeout(timers.get(btn));
   timers.set(
     btn,
     setTimeout(() => {
-      label.textContent = btn.dataset.label;
+      btn.textContent = btn.dataset.label;
       btn.classList.remove('done', 'fail');
-      btn.querySelector('use').setAttribute('href', '#i-copy');
     }, 2000),
   );
 }
@@ -405,9 +386,8 @@ function initTabs() {
 }
 
 function fail() {
-  $('facts').replaceChildren(el('li', { class: 'chip' }, 'Could not load the ranges'));
-  result.replaceChildren(emptyState('i-bad', LOAD_ERROR, ' bad'));
-  bulkOut.replaceChildren(emptyState('i-bad', LOAD_ERROR, ' bad'));
+  result.replaceChildren(emptyState(LOAD_ERROR, ' bad'));
+  bulkOut.replaceChildren(emptyState(LOAD_ERROR, ' bad'));
   $('providers').replaceChildren(el('tr', {}, el('td', { colspan: '4', class: 'muted' }, 'No data loaded.')));
   $('categories').replaceChildren(el('tr', {}, el('td', { colspan: '3', class: 'muted' }, 'No data loaded.')));
   $('downloads').replaceChildren(el('li', { class: 'muted' }, 'No data loaded.'));
@@ -438,7 +418,6 @@ async function start() {
   }
   renderStats();
   renderExamples();
-  renderHeroPreview();
   renderSnippetOutput();
   for (const id of ['ip', 'go', 'bulk-in', 'bulk-go', 'bulk-sample', 'bulk-clear']) $(id).disabled = false;
   form.addEventListener('submit', (e) => {
@@ -455,7 +434,7 @@ async function start() {
   });
   $('bulk-clear').addEventListener('click', () => {
     bulkIn.value = '';
-    bulkOut.replaceChildren(emptyState('i-list', 'Results appear here: a count per verdict and one row per address.'));
+    bulkOut.replaceChildren(emptyState('Results appear here: a count per verdict and one row per address.'));
     bulkIn.focus();
   });
   const initial = new URLSearchParams(location.search).get('ip');

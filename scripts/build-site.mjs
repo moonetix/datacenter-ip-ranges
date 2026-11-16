@@ -2,7 +2,7 @@
 //
 //   node scripts/build-site.mjs
 //
-// - copies site/ (page, styles, scripts)
+// - copies site/ (page, styles, scripts) and fills the facts in index.html
 // - turns src/ip.js and src/matcher.js into browser ES modules (same code,
 //   comments removed, wrapped so require() and module.exports work)
 // - derives data/lookup.json: every provider list, delta-encoded, about half
@@ -320,6 +320,42 @@ const csv = page.toCsv(checked).trimEnd().split('\n');
 if (csv.length !== checked.length + 1 || csv.some((line) => line.split(',').length < 5)) throw new Error('bulk CSV is malformed');
 const counts = page.countVerdicts(checked);
 if (Object.values(counts).reduce((n, c) => n + c, 0) !== checked.length) throw new Error('bulk counts do not add up');
+
+// The facts in the page header come from the same data as lookup.json. Every
+// {{NAME}} in site/index.html must get a value, or the build stops.
+const num = (n) => n.toLocaleString('en-US');
+const catTotal = (id) => {
+  const c = categories.find((x) => x.id === id);
+  if (!c) throw new Error(`sources.json has no ${id} category`);
+  return c.ipv4 + c.ipv6;
+};
+const stamp = /^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/.exec(lookup.updated_at || '');
+if (!stamp) throw new Error(`sources.json: updated_at ${JSON.stringify(lookup.updated_at)} is not an ISO date`);
+const feeds = providers.filter((p) => p.file);
+const current = feeds.filter((p) => p.status === 'ok').length;
+const sha = process.env.GITHUB_SHA || '';
+if (sha && !/^[0-9a-f]{40}$/.test(sha)) throw new Error(`GITHUB_SHA ${JSON.stringify(sha)} is not a commit hash`);
+const fill = {
+  RANGES: num(lookup.totals.ranges),
+  FEEDS: lookup.totals.feeds,
+  DC_V4: num(lookup.totals.datacenter_ipv4),
+  DC_V6: num(lookup.totals.datacenter_ipv6),
+  TOR: num(catTotal('tor')),
+  RELAY: num(catTotal('privacy-relay')),
+  DATA_DATE: `${stamp[1]} ${stamp[2]} UTC`,
+  FEED_STATUS: current === feeds.length ? `all ${feeds.length} feeds current` : `${current} of ${feeds.length} feeds current, ${feeds.length - current} kept from an earlier run`,
+  BUILT: new Date().toISOString().slice(0, 10),
+  NODE: process.version,
+  COMMIT: sha ? `<a class="mono" href="https://github.com/moonetix/datacenter-ip-ranges/commit/${sha}">${sha.slice(0, 7)}</a>` : 'local build',
+};
+let html = fs.readFileSync(path.join(SITE, 'index.html'), 'utf8');
+for (const [name, value] of Object.entries(fill)) {
+  if (value === undefined || value === null || value === '' || Number.isNaN(value)) throw new Error(`site/index.html: no value for {{${name}}}`);
+  html = html.replaceAll(`{{${name}}}`, String(value));
+}
+const left = html.match(/\{\{[A-Z0-9_]+\}\}/g);
+if (left) throw new Error(`site/index.html: unknown placeholders ${[...new Set(left)].join(', ')}`);
+fs.writeFileSync(path.join(OUT, 'index.html'), html);
 
 const kb = (f) => (fs.statSync(path.join(OUT, f)).size / 1024).toFixed(1);
 console.log(`_site built: ${lookup.totals.ranges} ranges from ${lookup.totals.feeds} feeds, data/lookup.json ${kb('data/lookup.json')} KB, ${probes.length} lookups and page verdicts checked against src/index.js`);
