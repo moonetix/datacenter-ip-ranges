@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-17T03:22:49Z",
+  "updated_at": "2026-11-17T08:51:50Z",
   "datacenter_categories": [
     "cloud",
     "cdn",
@@ -10,7 +10,8 @@
     "cdn": "CDN and edge networks",
     "services": "Provider services and automation",
     "privacy-relay": "Privacy relay egress",
-    "tor": "Tor exit nodes"
+    "tor": "Tor exit nodes",
+    "crawler": "Search engine and AI crawlers"
   },
   "sources": [
     {
@@ -22,9 +23,9 @@
       "terms": "Published by AWS for allow lists and filtering. No license is stated.",
       "file": "providers/aws.txt",
       "status": "ok",
-      "ipv4": 1752,
+      "ipv4": 1751,
       "ipv6": 2363,
-      "fetched_at": "2026-11-17T03:22:49Z"
+      "fetched_at": "2026-11-17T08:51:50Z"
     },
     {
       "id": "google-cloud",
@@ -37,7 +38,7 @@
       "status": "ok",
       "ipv4": 467,
       "ipv6": 28,
-      "fetched_at": "2026-11-17T03:22:49Z"
+      "fetched_at": "2026-11-17T08:51:50Z"
     },
     {
       "id": "google-services",
@@ -50,7 +51,7 @@
       "status": "ok",
       "ipv4": 297,
       "ipv6": 98,
-      "fetched_at": "2026-11-17T03:22:49Z"
+      "fetched_at": "2026-11-17T08:51:50Z"
     },
     {
       "id": "oracle-cloud",
@@ -63,7 +64,7 @@
       "status": "ok",
       "ipv4": 809,
       "ipv6": 0,
-      "fetched_at": "2026-11-17T03:22:49Z"
+      "fetched_at": "2026-11-17T08:51:50Z"
     },
     {
       "id": "digitalocean",
@@ -76,7 +77,7 @@
       "status": "ok",
       "ipv4": 187,
       "ipv6": 54,
-      "fetched_at": "2026-11-17T03:22:49Z"
+      "fetched_at": "2026-11-17T08:51:50Z"
     },
     {
       "id": "linode",
@@ -89,7 +90,7 @@
       "status": "ok",
       "ipv4": 240,
       "ipv6": 39,
-      "fetched_at": "2026-11-17T03:22:49Z"
+      "fetched_at": "2026-11-17T08:51:50Z"
     },
     {
       "id": "vultr",
@@ -102,7 +103,7 @@
       "status": "ok",
       "ipv4": 121,
       "ipv6": 21,
-      "fetched_at": "2026-11-17T03:22:49Z"
+      "fetched_at": "2026-11-17T08:51:50Z"
     },
     {
       "id": "azure",
@@ -125,7 +126,7 @@
       "status": "ok",
       "ipv4": 15,
       "ipv6": 7,
-      "fetched_at": "2026-11-17T03:22:49Z"
+      "fetched_at": "2026-11-17T08:51:50Z"
     },
     {
       "id": "fastly",
@@ -138,7 +139,7 @@
       "status": "ok",
       "ipv4": 21,
       "ipv6": 3,
-      "fetched_at": "2026-11-17T03:22:49Z"
+      "fetched_at": "2026-11-17T08:51:50Z"
     },
     {
       "id": "github",
@@ -151,7 +152,7 @@
       "status": "ok",
       "ipv4": 4025,
       "ipv6": 2547,
-      "fetched_at": "2026-11-17T03:22:49Z"
+      "fetched_at": "2026-11-17T08:51:50Z"
     },
     {
       "id": "icloud-private-relay",
@@ -164,7 +165,7 @@
       "status": "ok",
       "ipv4": 3414,
       "ipv6": 10580,
-      "fetched_at": "2026-11-17T03:22:49Z"
+      "fetched_at": "2026-11-17T08:51:50Z"
     },
     {
       "id": "tor",
@@ -175,9 +176,204 @@
       "terms": "Tor Project data, CC0 1.0 (no copyright).",
       "file": "providers/tor.txt",
       "status": "ok",
-      "ipv4": 695,
+      "ipv4": 697,
       "ipv6": 0,
-      "fetched_at": "2026-11-17T03:22:49Z"
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "googlebot",
+      "name": "Googlebot and other Google common crawlers",
+      "category": "crawler",
+      "url": "https://developers.google.com/static/crawling/ipranges/common-crawlers.json",
+      "docs": "https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests",
+      "terms": "Published by Google so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/googlebot.txt",
+      "status": "ok",
+      "ipv4": 37,
+      "ipv6": 22,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "google-special-crawlers",
+      "name": "Google special-case crawlers (AdsBot, Mediapartners)",
+      "category": "crawler",
+      "url": "https://developers.google.com/static/crawling/ipranges/special-crawlers.json",
+      "docs": "https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests",
+      "terms": "Published by Google so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/google-special-crawlers.txt",
+      "status": "ok",
+      "ipv4": 15,
+      "ipv6": 21,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "google-user-fetchers",
+      "name": "Google user-triggered fetchers",
+      "category": "crawler",
+      "url": "https://developers.google.com/static/crawling/ipranges/user-triggered-fetchers.json",
+      "docs": "https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests",
+      "terms": "Published by Google so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/google-user-fetchers.txt",
+      "status": "ok",
+      "ipv4": 105,
+      "ipv6": 128,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "google-user-fetchers-google",
+      "name": "Google user-triggered fetchers (Google products)",
+      "category": "crawler",
+      "url": "https://developers.google.com/static/crawling/ipranges/user-triggered-fetchers-google.json",
+      "docs": "https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests",
+      "terms": "Published by Google so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/google-user-fetchers-google.txt",
+      "status": "ok",
+      "ipv4": 39,
+      "ipv6": 48,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "bingbot",
+      "name": "Bingbot",
+      "category": "crawler",
+      "url": "https://www.bing.com/toolbox/bingbot.json",
+      "docs": "https://www.bing.com/webmasters/help/how-to-verify-bingbot-3905dc26",
+      "terms": "Published by Microsoft so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/bingbot.txt",
+      "status": "ok",
+      "ipv4": 29,
+      "ipv6": 0,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "applebot",
+      "name": "Applebot",
+      "category": "crawler",
+      "url": "https://search.developer.apple.com/applebot.json",
+      "docs": "https://support.apple.com/en-us/119829",
+      "terms": "Published by Apple so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/applebot.txt",
+      "status": "ok",
+      "ipv4": 12,
+      "ipv6": 0,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "duckduckbot",
+      "name": "DuckDuckBot",
+      "category": "crawler",
+      "url": "https://duckduckgo.com/duckduckbot.json",
+      "docs": "https://duckduckgo.com/duckduckgo-help-pages/results/duckduckbot",
+      "terms": "Published by DuckDuckGo so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/duckduckbot.txt",
+      "status": "ok",
+      "ipv4": 484,
+      "ipv6": 0,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "gptbot",
+      "name": "OpenAI GPTBot",
+      "category": "crawler",
+      "url": "https://openai.com/gptbot.json",
+      "docs": "https://developers.openai.com/api/docs/bots",
+      "terms": "Published by OpenAI so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/gptbot.txt",
+      "status": "ok",
+      "ipv4": 15,
+      "ipv6": 0,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "oai-searchbot",
+      "name": "OpenAI OAI-SearchBot",
+      "category": "crawler",
+      "url": "https://openai.com/searchbot.json",
+      "docs": "https://developers.openai.com/api/docs/bots",
+      "terms": "Published by OpenAI so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/oai-searchbot.txt",
+      "status": "ok",
+      "ipv4": 36,
+      "ipv6": 0,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "chatgpt-user",
+      "name": "OpenAI ChatGPT-User",
+      "category": "crawler",
+      "url": "https://openai.com/chatgpt-user.json",
+      "docs": "https://developers.openai.com/api/docs/bots",
+      "terms": "Published by OpenAI so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/chatgpt-user.txt",
+      "status": "ok",
+      "ipv4": 225,
+      "ipv6": 0,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "perplexitybot",
+      "name": "PerplexityBot",
+      "category": "crawler",
+      "url": "https://www.perplexity.ai/perplexitybot.json",
+      "docs": "https://docs.perplexity.ai/docs/resources/perplexity-crawlers",
+      "terms": "Published by Perplexity so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/perplexitybot.txt",
+      "status": "ok",
+      "ipv4": 6,
+      "ipv6": 0,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "perplexity-user",
+      "name": "Perplexity-User",
+      "category": "crawler",
+      "url": "https://www.perplexity.ai/perplexity-user.json",
+      "docs": "https://docs.perplexity.ai/docs/resources/perplexity-crawlers",
+      "terms": "Published by Perplexity so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/perplexity-user.txt",
+      "status": "ok",
+      "ipv4": 3,
+      "ipv6": 0,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "mistralai-user",
+      "name": "MistralAI-User",
+      "category": "crawler",
+      "url": "https://mistral.ai/mistralai-user-ips.json",
+      "docs": "https://docs.mistral.ai/robots",
+      "terms": "Published by Mistral AI so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/mistralai-user.txt",
+      "status": "ok",
+      "ipv4": 4,
+      "ipv6": 0,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "ccbot",
+      "name": "Common Crawl CCBot",
+      "category": "crawler",
+      "url": "https://index.commoncrawl.org/ccbot.json",
+      "docs": "https://commoncrawl.org/ccbot",
+      "terms": "Published by Common Crawl so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/ccbot.txt",
+      "status": "ok",
+      "ipv4": 4,
+      "ipv6": 1,
+      "fetched_at": "2026-11-17T08:51:50Z"
+    },
+    {
+      "id": "ahrefsbot",
+      "name": "AhrefsBot and AhrefsSiteAudit",
+      "category": "crawler",
+      "url": "https://api.ahrefs.com/v3/public/crawler-ip-ranges",
+      "docs": "https://help.ahrefs.com/en/articles/78658-what-is-the-list-of-your-ip-ranges",
+      "terms": "Published by Ahrefs so that site operators can verify its crawler. No license is stated.",
+      "file": "providers/ahrefsbot.txt",
+      "status": "ok",
+      "ipv4": 81,
+      "ipv6": 0,
+      "fetched_at": "2026-11-17T08:51:50Z"
     }
   ]
 }
