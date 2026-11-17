@@ -1,0 +1,21 @@
+{
+    "name": "moonetix/datacenter-ip-ranges",
+    "description": "Daily cloud, hosting, CDN, Tor, iCloud Private Relay and search/AI crawler IP ranges from the providers' own feeds, with a dependency-free lookup and crawler verification helper.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["datacenter", "ip-ranges", "cidr", "cloud", "tor", "bot-detection", "crawler", "googlebot", "fraud-detection"],
+    "homepage": "https://moonetix.github.io/datacenter-ip-ranges/",
+    "support": {
+        "issues": "https://github.com/moonetix/datacenter-ip-ranges/issues",
+        "source": "https://github.com/moonetix/datacenter-ip-ranges"
+    },
+    "authors": [
+        {"name": "Moonetix", "homepage": "https://moonetix.com"}
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "autoload": {
+        "files": ["php/DatacenterIp.php"]
+    }
+}

@@ -1,20 +1,28 @@
 {
   "name": "datacenter-ip-ranges",
-  "version": "1.2.0",
-  "description": "Daily list of cloud, hosting and CDN IP ranges from official provider feeds, with fast IPv4/IPv6 lookup helpers for Node and PHP.",
-  "private": true,
+  "version": "1.3.0",
+  "description": "Daily cloud, hosting, CDN, Tor, iCloud Private Relay and search/AI crawler IP ranges from the providers' own feeds, with lookup and crawler verification helpers for Node.js, PHP and Python.",
   "license": "MIT",
   "author": "Moonetix (https://moonetix.com)",
-  "homepage": "https://github.com/moonetix/datacenter-ip-ranges#readme",
+  "homepage": "https://moonetix.github.io/datacenter-ip-ranges/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/moonetix/datacenter-ip-ranges.git"
   },
+  "bugs": {
+    "url": "https://github.com/moonetix/datacenter-ip-ranges/issues"
+  },
   "main": "src/index.js",
+  "types": "src/index.d.ts",
   "exports": {
-    ".": "./src/index.js",
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
+    },
     "./matcher": "./src/matcher.js",
-    "./ip": "./src/ip.js"
+    "./ip": "./src/ip.js",
+    "./bots": "./src/bots.js",
+    "./package.json": "./package.json"
   },
   "bin": {
     "datacenter-ip": "bin/check.js"
@@ -36,9 +44,20 @@
     "datacenter",
     "ip-ranges",
     "cidr",
-    "fraud-detection",
     "cloud",
+    "aws",
+    "cloudflare",
     "tor",
-    "offerwall"
+    "icloud-private-relay",
+    "bot-detection",
+    "crawler",
+    "googlebot",
+    "gptbot",
+    "verify-bot",
+    "fraud-detection",
+    "firewall",
+    "nftables",
+    "ipset",
+    "nginx"
   ]
 }

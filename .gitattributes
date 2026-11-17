@@ -1,0 +1,5 @@
+# Left out of Composer and GitHub source archives.
+/.github export-ignore
+/site export-ignore
+/test export-ignore
+/scripts/build-site.mjs export-ignore
