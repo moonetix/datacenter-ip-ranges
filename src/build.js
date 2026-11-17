@@ -101,6 +101,43 @@ function union(parts) {
   };
 }
 
+// nftables sets, meant to be included inside a table block.
+function nftSets(name, v4, v6) {
+  const set = (family, type, cidrs) => [
+    `set ${name}_${family} {`,
+    `\ttype ${type}`,
+    '\tflags interval',
+    ...(cidrs.length ? ['\telements = {', ...cidrs.map((c, i) => `\t\t${c}${i < cidrs.length - 1 ? ',' : ''}`), '\t}'] : []),
+    '}',
+  ];
+  return [
+    `# ${name} ranges from https://github.com/moonetix/datacenter-ip-ranges`,
+    '# Include inside a table, for example:',
+    '#   table inet filter {',
+    `#     include "/etc/nftables.d/${name}.nft"`,
+    `#     chain input { type filter hook input priority 0; ip saddr @${name}_v4 drop; ip6 saddr @${name}_v6 drop; }`,
+    '#   }',
+    ...set('v4', 'ipv4_addr', v4),
+    ...set('v6', 'ipv6_addr', v6),
+    '',
+  ].join('\n');
+}
+
+// ipset restore file: ipset restore -exist < name.ipset
+function ipsetFile(name, v4, v6) {
+  const size = (n) => Math.max(65536, 2 ** Math.ceil(Math.log2(n * 2 || 1)));
+  return [
+    `# ${name} ranges from https://github.com/moonetix/datacenter-ip-ranges`,
+    `# Load with: ipset restore -exist < ${name}.ipset`,
+    `# Then, for example: iptables -I INPUT -m set --match-set ${name}-v4 src -j DROP`,
+    `create ${name}-v4 hash:net family inet maxelem ${size(v4.length)}`,
+    `create ${name}-v6 hash:net family inet6 maxelem ${size(v6.length)}`,
+    ...v4.map((c) => `add ${name}-v4 ${c}`),
+    ...v6.map((c) => `add ${name}-v6 ${c}`),
+    '',
+  ].join('\n');
+}
+
 function csvField(v) {
   return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
 }
@@ -238,6 +275,16 @@ async function buildData(options) {
   writeList(path.join(outDir, 'ipv4.txt'), v4);
   writeList(path.join(outDir, 'ipv6.txt'), v6);
 
+  // Firewall formats for the datacenter lists and the Tor exits.
+  const tor = union(byCategory.tor || []);
+  for (const [name, v4list, v6list] of [
+    ['datacenter', v4, v6],
+    ['tor', ip.rangesToCidrs(4, tor[4]), ip.rangesToCidrs(6, tor[6])],
+  ]) {
+    writeFile(path.join(outDir, 'firewall', `${name}.nft`), nftSets(name, v4list, v6list));
+    writeFile(path.join(outDir, 'firewall', `${name}.ipset`), ipsetFile(name, v4list, v6list));
+  }
+
   // ranges.json and ranges.csv: every provider range, all categories.
   writeFile(path.join(outDir, 'ranges.json'), '[\n' + rows.map((r) => JSON.stringify(r)).join(',\n') + '\n]\n');
   writeFile(
@@ -265,9 +312,9 @@ async function buildData(options) {
 
   for (const s of sourcesMeta) {
     const counts = s.file ? `${String(s.ipv4).padStart(7)} v4 ${String(s.ipv6).padStart(7)} v6` : ''.padStart(21);
-    log(`${s.id.padEnd(22)} ${counts}  ${s.status}${s.note ? ': ' + s.note : ''}`);
+    log(`${s.id.padEnd(28)} ${counts}  ${s.status}${s.note ? ': ' + s.note : ''}`);
   }
-  log(`datacenter total     ${String(v4.length).padStart(7)} v4 ${String(v6.length).padStart(7)} v6`);
+  log(`datacenter total           ${String(v4.length).padStart(7)} v4 ${String(v6.length).padStart(7)} v6`);
   return { updatedAt: fetchedAt, sources: sourcesMeta, ipv4: v4.length, ipv6: v6.length };
 }
 

@@ -61,6 +61,18 @@ test('sources.json lists every source and matches the files', () => {
   assert.equal(csv.length, rows.length + 1);
 });
 
+test('firewall files carry exactly the datacenter and Tor lists', () => {
+  for (const [name, list] of [['datacenter', 'all.txt'], ['tor', 'categories/tor.txt']]) {
+    const want = readList(data(list));
+    const ipset = fs.readFileSync(data(`firewall/${name}.ipset`), 'utf8').split('\n').filter((l) => l.startsWith('add '));
+    assert.deepEqual(ipset.map((l) => l.split(' ')[2]), want, `${name}.ipset`);
+    assert.ok(ipset.every((l) => l.startsWith(`add ${name}-v${l.split(' ')[2].includes(':') ? 6 : 4} `)), `${name}.ipset set names`);
+    const nft = fs.readFileSync(data(`firewall/${name}.nft`), 'utf8');
+    const elements = [...nft.matchAll(/^\t\t([0-9a-f.:]+\/\d+),?$/gm)].map((m) => m[1]);
+    assert.deepEqual(elements, want, `${name}.nft`);
+  }
+});
+
 test('well-known addresses', () => {
   assert.equal(isDatacenterIp('104.16.0.1'), true);
   assert.equal(isDatacenterIp('2606:4700::1'), true);
