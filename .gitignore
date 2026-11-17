@@ -10,3 +10,4 @@ data/providers/azure.txt
 
 # GitHub Pages build output (scripts/build-site.mjs)
 _site/
+__pycache__/
