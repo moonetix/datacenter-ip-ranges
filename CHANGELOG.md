@@ -4,6 +4,23 @@ All notable changes to the code and to the set of feeds are listed here. Daily r
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project uses [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] - 2026-11-17
+
+### Added
+
+- A `crawler` category with 15 feeds that crawler operators publish for verification: Google (common crawlers, special-case crawlers, user-triggered fetchers), Bingbot, Applebot, DuckDuckBot, OpenAI GPTBot, OAI-SearchBot and ChatGPT-User, PerplexityBot and Perplexity-User, MistralAI-User, Common Crawl CCBot and AhrefsBot. The category is kept out of `all.txt` and `isDatacenterIp()`.
+- `verifyBot(userAgent, ip)` in Node.js, `verify_bot()` / `DatacenterIp::verifyBot()` in PHP and `verify_bot()` in Python: tells whether a request that claims to be a known crawler comes from the addresses its operator publishes. `BOTS` and `claimedBot()` expose the table of user-agent tokens and lists.
+- `data/firewall/`: the datacenter list and the Tor exits as nftables sets (`*.nft`) and ipset restore files (`*.ipset`), rebuilt with the lists.
+- A Python helper, `python/datacenter_ip.py`: standard library only, Python 3.8+, with `is_datacenter_ip()`, `lookup()`, `load()`, `verify_bot()` and a command line. Its tests and a Node/Python cross-check run with `npm test`.
+- TypeScript declarations (`src/index.d.ts`).
+- The npm package `datacenter-ip-ranges` and the Composer package `moonetix/datacenter-ip-ranges`.
+- The lookup page shows published crawler ranges as their own verdict and carries schema.org Dataset markup.
+
+### Changed
+
+- Google's crawler lists are read from their current location under `developers.google.com/static/crawling/ipranges/`.
+- The Google Cloud, Google services and crawler feeds share one parser for the `{ prefixes: [...] }` format.
+
 ## [1.2.0] - 2026-11-17
 
 ### Added
@@ -51,6 +68,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Command line checks `bin/check.js` and `php/check.php`.
 - Daily update workflow and CI workflow.
 
+[1.3.0]: https://github.com/moonetix/datacenter-ip-ranges/releases/tag/v1.3.0
 [1.2.0]: https://github.com/moonetix/datacenter-ip-ranges/releases/tag/v1.2.0
 [1.1.0]: https://github.com/moonetix/datacenter-ip-ranges/releases/tag/v1.1.0
 [1.0.0]: https://github.com/moonetix/datacenter-ip-ranges/releases/tag/v1.0.0

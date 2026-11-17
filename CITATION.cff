@@ -6,14 +6,15 @@ abstract: >-
   Daily list of cloud, hosting and CDN IP ranges collected from the official
   feeds of AWS, Google, Oracle Cloud, DigitalOcean, Akamai Cloud (Linode),
   Vultr, Cloudflare, Fastly and GitHub, with Tor exit nodes and iCloud Private
-  Relay egress kept as separate categories.
+  Relay egress kept as separate categories, and the address ranges that
+  search engine and AI crawler operators publish for verification.
 authors:
   - name: "Moonetix"
     website: "https://moonetix.com"
 repository-code: "https://github.com/moonetix/datacenter-ip-ranges"
 url: "https://github.com/moonetix/datacenter-ip-ranges"
 license: MIT
-version: 1.2.0
+version: 1.3.0
 date-released: 2026-11-17
 keywords:
   - ip-ranges
@@ -22,3 +23,4 @@ keywords:
   - cidr
   - fraud-detection
   - tor
+  - crawler
