@@ -4,6 +4,22 @@ All notable changes to the code and to the set of feeds are listed here. Daily r
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project uses [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-11-17
+
+### Added
+
+- A lookup page at https://moonetix.github.io/datacenter-ip-ranges/, built from the published lists and deployed to GitHub Pages: check one address or a whole list in the browser, see which provider range matched, and copy usage snippets. The build checks every verdict the page shows against the Node.js library.
+- Issue chooser links to the lookup page and to private vulnerability reports.
+
+### Changed
+
+- Every GitHub Action in the workflows is pinned to a commit SHA, and each job has a timeout. Dependabot keeps the pins current.
+- README: a shorter, general section on why datacenter traffic matters, and a shorter reading list.
+
+### Fixed
+
+- `bin/check.js` no longer cuts off its output when piped: it sets the exit code instead of calling `process.exit()` before stdout is flushed.
+
 ## [1.1.0] - 2026-11-12
 
 ### Added
@@ -35,5 +51,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Command line checks `bin/check.js` and `php/check.php`.
 - Daily update workflow and CI workflow.
 
+[1.2.0]: https://github.com/moonetix/datacenter-ip-ranges/releases/tag/v1.2.0
 [1.1.0]: https://github.com/moonetix/datacenter-ip-ranges/releases/tag/v1.1.0
 [1.0.0]: https://github.com/moonetix/datacenter-ip-ranges/releases/tag/v1.0.0
