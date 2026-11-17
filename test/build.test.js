@@ -131,6 +131,9 @@ test('each real source parses a sample of its own format', () => {
     tor: ['171.25.193.25\n80.67.167.81\n', ['171.25.193.25', '80.67.167.81']],
     'google-services': [JSON.stringify({ prefixes: [{ ipv4Prefix: '8.8.8.0/24' }] }), ['8.8.8.0/24']],
   };
+  // Every crawler feed uses the same { creationTime, prefixes } format.
+  const crawlerFeed = JSON.stringify({ creationTime: '2026-11-16T15:45:57.000000', prefixes: [{ ipv6Prefix: '2001:4860:4801:10::/64' }, { ipv4Prefix: '66.249.64.0/27' }] });
+  for (const s of SOURCES.filter((x) => x.category === 'crawler')) samples[s.id] = [crawlerFeed, ['2001:4860:4801:10::/64', '66.249.64.0/27']];
   assert.deepEqual(Object.keys(samples).sort(), Object.keys(byId).sort(), 'every source has a sample');
   for (const [id, [text, want]] of Object.entries(samples)) assert.deepEqual(byId[id].parse(text), want, id);
 });

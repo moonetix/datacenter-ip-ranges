@@ -9,6 +9,7 @@ const CATEGORIES = {
   services: 'Provider services and automation',
   'privacy-relay': 'Privacy relay egress',
   tor: 'Tor exit nodes',
+  crawler: 'Search engine and AI crawlers',
 };
 
 // Categories that count as datacenter traffic for isDatacenterIp() and data/all.txt.
@@ -28,6 +29,24 @@ function geofeed(text) {
 
 function json(text) {
   return JSON.parse(text);
+}
+
+// The { prefixes: [{ ipv4Prefix } | { ipv6Prefix }] } format that Google
+// introduced and most crawler operators copied.
+function prefixes(text) {
+  return json(text).prefixes.map((p) => p.ipv4Prefix || p.ipv6Prefix);
+}
+
+function crawler(id, name, url, docs, owner) {
+  return {
+    id,
+    name,
+    category: 'crawler',
+    url,
+    docs,
+    terms: `Published by ${owner} so that site operators can verify its crawler. No license is stated.`,
+    parse: prefixes,
+  };
 }
 
 const SOURCES = [
@@ -53,9 +72,7 @@ const SOURCES = [
     url: 'https://www.gstatic.com/ipranges/cloud.json',
     docs: 'https://support.google.com/a/answer/10026322',
     terms: 'Published by Google for allow lists and filtering. No license is stated.',
-    parse(text) {
-      return json(text).prefixes.map((p) => p.ipv4Prefix || p.ipv6Prefix);
-    },
+    parse: prefixes,
   },
   {
     id: 'google-services',
@@ -66,9 +83,7 @@ const SOURCES = [
     terms: 'Published by Google for allow lists and filtering. No license is stated.',
     // Google documents goog.json minus cloud.json as the ranges of its own services.
     subtract: 'google-cloud',
-    parse(text) {
-      return json(text).prefixes.map((p) => p.ipv4Prefix || p.ipv6Prefix);
-    },
+    parse: prefixes,
   },
   {
     id: 'oracle-cloud',
@@ -186,6 +201,21 @@ const SOURCES = [
     terms: 'Tor Project data, CC0 1.0 (no copyright).',
     parse: lines,
   },
+  crawler('googlebot', 'Googlebot and other Google common crawlers', 'https://developers.google.com/static/crawling/ipranges/common-crawlers.json', 'https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests', 'Google'),
+  crawler('google-special-crawlers', 'Google special-case crawlers (AdsBot, Mediapartners)', 'https://developers.google.com/static/crawling/ipranges/special-crawlers.json', 'https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests', 'Google'),
+  crawler('google-user-fetchers', 'Google user-triggered fetchers', 'https://developers.google.com/static/crawling/ipranges/user-triggered-fetchers.json', 'https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests', 'Google'),
+  crawler('google-user-fetchers-google', 'Google user-triggered fetchers (Google products)', 'https://developers.google.com/static/crawling/ipranges/user-triggered-fetchers-google.json', 'https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests', 'Google'),
+  crawler('bingbot', 'Bingbot', 'https://www.bing.com/toolbox/bingbot.json', 'https://www.bing.com/webmasters/help/how-to-verify-bingbot-3905dc26', 'Microsoft'),
+  crawler('applebot', 'Applebot', 'https://search.developer.apple.com/applebot.json', 'https://support.apple.com/en-us/119829', 'Apple'),
+  crawler('duckduckbot', 'DuckDuckBot', 'https://duckduckgo.com/duckduckbot.json', 'https://duckduckgo.com/duckduckgo-help-pages/results/duckduckbot', 'DuckDuckGo'),
+  crawler('gptbot', 'OpenAI GPTBot', 'https://openai.com/gptbot.json', 'https://developers.openai.com/api/docs/bots', 'OpenAI'),
+  crawler('oai-searchbot', 'OpenAI OAI-SearchBot', 'https://openai.com/searchbot.json', 'https://developers.openai.com/api/docs/bots', 'OpenAI'),
+  crawler('chatgpt-user', 'OpenAI ChatGPT-User', 'https://openai.com/chatgpt-user.json', 'https://developers.openai.com/api/docs/bots', 'OpenAI'),
+  crawler('perplexitybot', 'PerplexityBot', 'https://www.perplexity.ai/perplexitybot.json', 'https://docs.perplexity.ai/docs/resources/perplexity-crawlers', 'Perplexity'),
+  crawler('perplexity-user', 'Perplexity-User', 'https://www.perplexity.ai/perplexity-user.json', 'https://docs.perplexity.ai/docs/resources/perplexity-crawlers', 'Perplexity'),
+  crawler('mistralai-user', 'MistralAI-User', 'https://mistral.ai/mistralai-user-ips.json', 'https://docs.mistral.ai/robots', 'Mistral AI'),
+  crawler('ccbot', 'Common Crawl CCBot', 'https://index.commoncrawl.org/ccbot.json', 'https://commoncrawl.org/ccbot', 'Common Crawl'),
+  crawler('ahrefsbot', 'AhrefsBot and AhrefsSiteAudit', 'https://api.ahrefs.com/v3/public/crawler-ip-ranges', 'https://help.ahrefs.com/en/articles/78658-what-is-the-list-of-your-ip-ranges', 'Ahrefs'),
 ];
 
-module.exports = { SOURCES, CATEGORIES, DATACENTER_CATEGORIES, lines, geofeed };
+module.exports = { SOURCES, CATEGORIES, DATACENTER_CATEGORIES, lines, geofeed, prefixes };

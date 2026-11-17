@@ -39,6 +39,7 @@ body:
         - services (crawlers, CI runners, provider automation)
         - privacy-relay
         - tor
+        - crawler (search engine, AI or SEO crawler)
         - other
     validations:
       required: true
