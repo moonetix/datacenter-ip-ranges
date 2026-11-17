@@ -1,1 +1,8 @@
 blank_issues_enabled: true
+contact_links:
+  - name: Check an address in the browser
+    url: https://moonetix.github.io/datacenter-ip-ranges/
+    about: Look up an IP against the current lists before reporting a missing or wrong range.
+  - name: Report a vulnerability in this repository
+    url: https://github.com/moonetix/datacenter-ip-ranges/security/advisories/new
+    about: Private report, not a public issue.
