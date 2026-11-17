@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { createMatcher } = require('./matcher');
 const { CATEGORIES, DATACENTER_CATEGORIES } = require('./sources');
+const bots = require('./bots');
 
 const DEFAULT_DATA_DIR = path.join(__dirname, '..', 'data');
 
@@ -36,6 +37,7 @@ function load(options = {}) {
 
 let defaultMatcher = null;
 let everythingMatcher = null;
+const crawlerMatchers = new Map();
 
 // True if the address belongs to a cloud, hosting, CDN or provider-service range.
 // Tor exits and iCloud Private Relay are not included; use lookup() for those.
@@ -53,4 +55,27 @@ function lookup(ip) {
   return everythingMatcher.lookup(ip);
 }
 
-module.exports = { isDatacenterIp, lookup, load, createMatcher, readList, DEFAULT_DATA_DIR };
+// Checks a request that claims to come from a known crawler (Googlebot, Bingbot,
+// GPTBot, ...) against the ranges that crawler's operator publishes.
+// Returns null if the user agent claims no known crawler, otherwise
+// { bot, name, verified, provider }. verified: false means the claim is false
+// or the address is not one the operator lists.
+// options.dataDir  folder with sources.json and providers/ (default: this package's data/),
+//                  loaded once per folder
+function verifyBot(userAgent, ip, options = {}) {
+  const dataDir = options.dataDir || DEFAULT_DATA_DIR;
+  if (!crawlerMatchers.has(dataDir)) crawlerMatchers.set(dataDir, load({ dataDir, categories: ['crawler'] }));
+  return bots.verify(userAgent, ip, crawlerMatchers.get(dataDir));
+}
+
+module.exports = {
+  isDatacenterIp,
+  lookup,
+  verifyBot,
+  load,
+  createMatcher,
+  readList,
+  BOTS: bots.BOTS,
+  claimedBot: bots.claimedBot,
+  DEFAULT_DATA_DIR,
+};

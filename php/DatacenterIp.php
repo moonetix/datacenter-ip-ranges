@@ -17,6 +17,26 @@ final class DatacenterIp
 {
     public const DATACENTER_CATEGORIES = ['cloud', 'cdn', 'services'];
 
+    /**
+     * Crawlers whose operators publish the addresses they crawl from: the
+     * user-agent tokens each one sends and the provider lists in data/providers/
+     * its requests must come from. Same table as src/bots.js.
+     */
+    public const BOTS = [
+        ['id' => 'google', 'name' => 'Google', 'tokens' => ['Googlebot', 'Storebot-Google', 'Google-InspectionTool', 'GoogleOther', 'Google-CloudVertexBot', 'AdsBot-Google', 'Mediapartners-Google', 'APIs-Google', 'FeedFetcher-Google', 'Google-Read-Aloud', 'Google-Site-Verification', 'GoogleProducer', 'Google-Safety'], 'providers' => ['googlebot', 'google-special-crawlers', 'google-user-fetchers', 'google-user-fetchers-google']],
+        ['id' => 'bing', 'name' => 'Bing', 'tokens' => ['bingbot', 'adidxbot', 'BingPreview', 'MicrosoftPreview'], 'providers' => ['bingbot']],
+        ['id' => 'applebot', 'name' => 'Applebot', 'tokens' => ['Applebot'], 'providers' => ['applebot']],
+        ['id' => 'duckduckbot', 'name' => 'DuckDuckBot', 'tokens' => ['DuckDuckBot'], 'providers' => ['duckduckbot']],
+        ['id' => 'gptbot', 'name' => 'OpenAI GPTBot', 'tokens' => ['GPTBot'], 'providers' => ['gptbot']],
+        ['id' => 'oai-searchbot', 'name' => 'OpenAI OAI-SearchBot', 'tokens' => ['OAI-SearchBot'], 'providers' => ['oai-searchbot']],
+        ['id' => 'chatgpt-user', 'name' => 'OpenAI ChatGPT-User', 'tokens' => ['ChatGPT-User'], 'providers' => ['chatgpt-user']],
+        ['id' => 'perplexitybot', 'name' => 'PerplexityBot', 'tokens' => ['PerplexityBot'], 'providers' => ['perplexitybot']],
+        ['id' => 'perplexity-user', 'name' => 'Perplexity-User', 'tokens' => ['Perplexity-User'], 'providers' => ['perplexity-user']],
+        ['id' => 'mistralai-user', 'name' => 'MistralAI-User', 'tokens' => ['MistralAI-User'], 'providers' => ['mistralai-user']],
+        ['id' => 'ccbot', 'name' => 'Common Crawl CCBot', 'tokens' => ['CCBot'], 'providers' => ['ccbot']],
+        ['id' => 'ahrefsbot', 'name' => 'Ahrefs', 'tokens' => ['AhrefsBot', 'AhrefsSiteAudit'], 'providers' => ['ahrefsbot']],
+    ];
+
     /** @param int[] $v4s @param int[] $v4e @param string[] $v6s @param string[] $v6e */
     private function __construct(
         private array $v4s,
@@ -148,6 +168,51 @@ final class DatacenterIp
         return count($this->v4s) + count($this->v6s);
     }
 
+    /** The BOTS entry a user-agent string claims to be, or null. Tokens match case-insensitively. */
+    public static function claimedBot(string $userAgent): ?array
+    {
+        if ($userAgent === '') {
+            return null;
+        }
+        $ua = strtolower($userAgent);
+        foreach (self::BOTS as $bot) {
+            foreach ($bot['tokens'] as $token) {
+                if (str_contains($ua, strtolower($token))) {
+                    return $bot;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Checks a request that claims to come from a known crawler against the
+     * ranges its operator publishes. Returns null if the user agent claims no
+     * known crawler, otherwise ['bot', 'name', 'verified', 'provider'].
+     * Provider lists load once per process and data folder.
+     */
+    public static function verifyBot(string $userAgent, string $ip, ?string $dataDir = null): ?array
+    {
+        static $cache = [];
+        $bot = self::claimedBot($userAgent);
+        if ($bot === null) {
+            return null;
+        }
+        $dataDir ??= dirname(__DIR__) . '/data';
+        $provider = null;
+        if (self::parseAddress($ip) !== null) {
+            foreach ($bot['providers'] as $id) {
+                $file = "$dataDir/providers/$id.txt";
+                $cache[$file] ??= is_file($file) ? self::fromFiles([$file]) : self::fromCidrs([]);
+                if ($cache[$file]->contains($ip)) {
+                    $provider = $id;
+                    break;
+                }
+            }
+        }
+        return ['bot' => $bot['id'], 'name' => $bot['name'], 'verified' => $provider !== null, 'provider' => $provider];
+    }
+
     /**
      * Parses an address as it may arrive from a socket or a header:
      * "1.2.3.4", "2001:db8::1", "[2001:db8::1]", "fe80::1%eth0", "::ffff:1.2.3.4".
@@ -242,4 +307,14 @@ function is_datacenter_ip(string $ip, ?string $dataDir = null): bool
     $key = $dataDir ?? '';
     $cache[$key] ??= DatacenterIp::fromDataDir($dataDir);
     return $cache[$key]->contains($ip);
+}
+
+/**
+ * Checks a user agent that claims to be a known crawler (Googlebot, Bingbot,
+ * GPTBot, ...) against the addresses its operator publishes. See
+ * DatacenterIp::verifyBot().
+ */
+function verify_bot(string $userAgent, string $ip, ?string $dataDir = null): ?array
+{
+    return DatacenterIp::verifyBot($userAgent, $ip, $dataDir);
 }
