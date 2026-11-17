@@ -6,7 +6,7 @@ const $ = (id) => document.getElementById(id);
 const fmt = new Intl.NumberFormat('en-US');
 const SVG = 'http://www.w3.org/2000/svg';
 const LOAD_ERROR = 'The range data did not load. Reload the page to try again.';
-const SAMPLE = ['3.5.140.1', '8.8.8.8', '2606:4700::1111', '172.224.226.1', '185.220.101.1', '192.168.1.10', '203.0.113.300'];
+const SAMPLE = ['3.5.140.1', '8.8.8.8', '2606:4700::1111', '172.224.226.1', '185.220.101.1', '17.241.208.160', '192.168.1.10', '203.0.113.300'];
 
 const form = $('form');
 const input = $('ip');

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Datacenter IP lookup - datacenter-ip-ranges</title>
-<meta name="description" content="Check whether an IPv4 or IPv6 address belongs to a cloud, hosting, CDN, Tor or iCloud Private Relay range. Ranges come from the providers' own feeds and are rebuilt every day.">
+<meta name="description" content="Check whether an IPv4 or IPv6 address belongs to a cloud, hosting, CDN, Tor, iCloud Private Relay or search and AI crawler range. Ranges come from the providers' own feeds and are rebuilt every day.">
 <script src="theme.js"></script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/mona-sans-vf.woff2" as="font" type="font/woff2" crossorigin>
@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="style.css">
 <script type="module" src="app.js"></script>
 <script type="module" src="nav.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Dataset","name":"Datacenter IP ranges","description":"Daily list of cloud, hosting and CDN IP ranges collected from the official feeds of AWS, Google, Oracle Cloud, DigitalOcean, Akamai Cloud (Linode), Vultr, Cloudflare, Fastly and GitHub, with Tor exit nodes, iCloud Private Relay egress and published search and AI crawler ranges as separate lists.","url":"https://moonetix.github.io/datacenter-ip-ranges/","sameAs":"https://github.com/moonetix/datacenter-ip-ranges","license":"https://github.com/moonetix/datacenter-ip-ranges#sources-and-terms","creator":{"@type":"Organization","name":"Moonetix","url":"https://moonetix.com"},"keywords":["IP ranges","CIDR","datacenter","cloud","Tor","iCloud Private Relay","crawler","bot verification"],"dateModified":"{{DATA_DAY}}","isAccessibleForFree":true,"distribution":[{"@type":"DataDownload","encodingFormat":"text/plain","contentUrl":"https://raw.githubusercontent.com/moonetix/datacenter-ip-ranges/main/data/all.txt"},{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://raw.githubusercontent.com/moonetix/datacenter-ip-ranges/main/data/ranges.json"},{"@type":"DataDownload","encodingFormat":"text/csv","contentUrl":"https://raw.githubusercontent.com/moonetix/datacenter-ip-ranges/main/data/ranges.csv"}]}
+</script>
 </head>
 <body>
 <a class="skip" href="#check">Skip to the lookup</a>
@@ -39,6 +42,7 @@
   <symbol id="i-relay" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.2c0 4.5-3.1 8.2-7.5 9.8-4.4-1.6-7.5-5.3-7.5-9.8V6L12 3z"/><circle cx="12" cy="10.5" r="1.7"/><path d="M12 12.2v3"/></symbol>
   <symbol id="i-none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12h7"/></symbol>
   <symbol id="i-bad" viewBox="0 0 24 24"><path d="M12 4l9 16H3L12 4z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4.5V8M9.5 13h.01M14.5 13h.01M9.5 16.5h5"/></symbol>
   <symbol id="i-list" viewBox="0 0 24 24"><path d="M8.5 6h11.5M8.5 12h11.5M8.5 18h11.5M4 6h.01M4 12h.01M4 18h.01"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6"/></symbol>
 </svg>
@@ -46,11 +50,11 @@
 <main class="wrap">
   <section class="intro" aria-labelledby="intro-h">
     <h1 id="intro-h">Datacenter IP ranges and lookup</h1>
-    <p class="lede">The ranges that AWS, Google Cloud, Oracle Cloud, DigitalOcean, Linode, Vultr, Cloudflare, Fastly and GitHub publish about themselves, plus Tor exit nodes and iCloud Private Relay, rebuilt every day from the providers' own feeds. The lookup below checks an address in your browser with the same matcher as the Node.js package.</p>
+    <p class="lede">The ranges that AWS, Google Cloud, Oracle Cloud, DigitalOcean, Linode, Vultr, Cloudflare, Fastly and GitHub publish about themselves, plus Tor exit nodes, iCloud Private Relay and the crawler ranges that Google, Bing, Apple, OpenAI and others publish, rebuilt every day from the providers' own feeds. The lookup below checks an address in your browser with the same matcher as the Node.js package.</p>
     <dl class="facts">
       <div><dt>Ranges</dt><dd>{{RANGES}} from {{FEEDS}} provider feeds</dd></div>
       <div><dt>Datacenter list, all.txt</dt><dd>{{DC_V4}} IPv4 and {{DC_V6}} IPv6 blocks</dd></div>
-      <div><dt>Kept in separate lists</dt><dd>{{TOR}} Tor exits, {{RELAY}} Private Relay ranges</dd></div>
+      <div><dt>Kept in separate lists</dt><dd>{{TOR}} Tor exits, {{RELAY}} Private Relay ranges, {{CRAWLER}} crawler ranges</dd></div>
       <div><dt>Lists updated</dt><dd>{{DATA_DATE}}, {{FEED_STATUS}}</dd></div>
       <div><dt>Page built</dt><dd>{{BUILT}}, Node {{NODE}}</dd></div>
       <div><dt>Commit</dt><dd>{{COMMIT}}</dd></div>
@@ -79,6 +83,7 @@
           <li><button type="button" class="ex" data-ip="2606:4700::1111">2606:4700::1111</button></li>
           <li><button type="button" class="ex" data-ip="172.224.226.1">172.224.226.1</button></li>
           <li><button type="button" class="ex" data-ip="185.220.101.1">185.220.101.1</button></li>
+          <li><button type="button" class="ex" data-ip="17.241.208.160">17.241.208.160</button></li>
           <li><button type="button" class="ex" data-ip="192.168.1.10">192.168.1.10</button></li>
         </ul>
       </div>

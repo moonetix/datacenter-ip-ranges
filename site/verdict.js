@@ -2,12 +2,13 @@ import { parseAddress, parseCidr, formatAddress } from './lib/ip.js';
 
 export const MAX_BULK = 500;
 
-export const ORDER = ['datacenter', 'tor', 'relay', 'other', 'none', 'invalid'];
+export const ORDER = ['datacenter', 'tor', 'relay', 'crawler', 'other', 'none', 'invalid'];
 
 export const VERDICTS = {
   datacenter: { label: 'Datacenter range', short: 'Datacenter', csv: 'datacenter', icon: 'i-server', tone: 'warn' },
   tor: { label: 'Tor exit node', short: 'Tor exit', csv: 'tor', icon: 'i-tor', tone: 'warn' },
   relay: { label: 'Privacy relay', short: 'Privacy relay', csv: 'privacy-relay', icon: 'i-relay', tone: 'good' },
+  crawler: { label: 'Published crawler range', short: 'Crawler', csv: 'crawler', icon: 'i-bot', tone: 'none' },
   other: { label: 'Listed', short: 'Listed', csv: 'listed', icon: 'i-list', tone: 'none' },
   none: { label: 'Not listed', short: 'Not listed', csv: 'not-listed', icon: 'i-none', tone: 'none' },
   invalid: { label: 'Not a valid IP address', short: 'Invalid', csv: 'invalid', icon: 'i-bad', tone: 'bad' },
@@ -19,6 +20,7 @@ const MEANING = {
   services: 'On a rewards site this is usually automation such as a crawler, a link fetcher or a CI runner, not a person completing an offer.',
   tor: 'Tor exits carry real people and automated tools behind shared addresses, so on a rewards site extra verification fits better than an outright block.',
   'privacy-relay': 'This is usually a Safari user on iCloud+ behind an address shared with many others, so treat it like a mobile carrier address and do not block on it alone.',
+  crawler: 'A search engine or AI company publishes this range for its crawler. Check the user agent with verifyBot(): if it names that crawler, the request is genuine; if it names another one, it is not.',
   other: 'This address is on a published list that is not a datacenter category, so decide per list how your rewards site should treat it.',
   none: 'Most home and mobile connections give this result, but it does not prove a real user, because residential proxies and most commercial VPNs are not in these lists.',
   special: 'This is a private or reserved address that is never listed, so if it shows up in your logs your app is reading a proxy or LAN address instead of the visitor\'s public one.',
@@ -28,6 +30,7 @@ const MEANING = {
 const ALSO = {
   tor: 'It is also a Tor exit node.',
   'privacy-relay': 'It is also listed as iCloud Private Relay egress, so a real Safari user may be behind it.',
+  crawler: 'It is also a published crawler range, so check the user agent with verifyBot() before you block it.',
 };
 
 export function classify(matches, datacenterCategories) {
@@ -36,6 +39,7 @@ export function classify(matches, datacenterCategories) {
   if (matches.some((m) => datacenterCategories.includes(m.category))) return 'datacenter';
   if (matches.some((m) => m.category === 'tor')) return 'tor';
   if (matches.some((m) => m.category === 'privacy-relay')) return 'relay';
+  if (matches.some((m) => m.category === 'crawler')) return 'crawler';
   return 'other';
 }
 
@@ -44,6 +48,7 @@ export function primaryMatch(verdict, matches, datacenterCategories) {
   if (verdict === 'datacenter') return matches.find((m) => datacenterCategories.includes(m.category));
   if (verdict === 'tor') return matches.find((m) => m.category === 'tor');
   if (verdict === 'relay') return matches.find((m) => m.category === 'privacy-relay');
+  if (verdict === 'crawler') return matches.find((m) => m.category === 'crawler');
   return matches[0];
 }
 

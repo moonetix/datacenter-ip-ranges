@@ -280,7 +280,7 @@ for (const p of providers) {
 }
 const browser = createMatcher(providers.filter((p) => p.file).map((p) => ({ id: p.id, category: p.category, cidrs: decodeProvider(p) })));
 const node = require(path.join(ROOT, 'src', 'index.js'));
-const probes = ['3.5.140.1', '8.8.8.8', '172.224.226.1', '2606:4700::1111', '185.220.101.1', '192.168.1.10', '::ffff:104.16.0.1', 'nope'];
+const probes = ['3.5.140.1', '8.8.8.8', '172.224.226.1', '2606:4700::1111', '185.220.101.1', '17.241.208.160', '192.168.1.10', '::ffff:104.16.0.1', 'nope'];
 for (const [id, cidrs] of originals) {
   for (const c of [cidrs[0], cidrs[cidrs.length - 1]]) {
     const r = ip.parseCidr(c);
@@ -342,6 +342,8 @@ const fill = {
   DC_V6: num(lookup.totals.datacenter_ipv6),
   TOR: num(catTotal('tor')),
   RELAY: num(catTotal('privacy-relay')),
+  CRAWLER: num(catTotal('crawler')),
+  DATA_DAY: stamp[1],
   DATA_DATE: `${stamp[1]} ${stamp[2]} UTC`,
   FEED_STATUS: current === feeds.length ? `all ${feeds.length} feeds current` : `${current} of ${feeds.length} feeds current, ${feeds.length - current} kept from an earlier run`,
   BUILT: new Date().toISOString().slice(0, 10),
