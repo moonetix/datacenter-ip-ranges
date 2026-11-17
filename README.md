@@ -1,12 +1,15 @@
 # Datacenter IP ranges
 
-**Cloud, hosting and CDN IP ranges from the providers' own feeds, rebuilt every day, with fast lookup helpers for Node.js and PHP.**
+**Cloud, hosting and CDN IP ranges from the providers' own feeds, rebuilt every day, plus the ranges that search engines and AI companies publish for their crawlers. Lookup and crawler verification helpers for Node.js, PHP and Python, and ready-made files for nginx, nftables and ipset.**
 
 [![CI](https://github.com/moonetix/datacenter-ip-ranges/actions/workflows/ci.yml/badge.svg)](https://github.com/moonetix/datacenter-ip-ranges/actions/workflows/ci.yml)
 [![Update ranges](https://github.com/moonetix/datacenter-ip-ranges/actions/workflows/update.yml/badge.svg)](https://github.com/moonetix/datacenter-ip-ranges/actions/workflows/update.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![npm](https://img.shields.io/npm/v/datacenter-ip-ranges?color=004ABB)](https://www.npmjs.com/package/datacenter-ip-ranges)
+[![Packagist](https://img.shields.io/packagist/v/moonetix/datacenter-ip-ranges?color=004ABB)](https://packagist.org/packages/moonetix/datacenter-ip-ranges)
 [![Node 22](https://img.shields.io/badge/node-22-339933)](#nodejs)
 [![PHP 8.1+](https://img.shields.io/badge/php-8.1%2B-777bb4)](#php)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8%2B-3776ab)](#python)
 [![Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)](package.json)
 [![Maintained by Moonetix](https://img.shields.io/badge/maintained%20by-Moonetix-004ABB)](https://moonetix.com)
 [![Live demo](https://img.shields.io/badge/live%20demo-moonetix.github.io-0e7a48)](https://moonetix.github.io/datacenter-ip-ranges/)
@@ -14,6 +17,8 @@
 Maintained by [Moonetix](https://moonetix.com).
 
 A sign-up from an AWS address, an offer click from a DigitalOcean droplet, a "user" on a GitHub Actions runner: real people rarely browse from a datacenter. This repo collects the address ranges that AWS, Google Cloud, Oracle Cloud, DigitalOcean, Linode, Vultr, Cloudflare, Fastly and GitHub publish about themselves, merges them into plain CIDR lists, and keeps Tor exits and iCloud Private Relay in separate lists so you can treat them differently.
+
+The crawler ranges that Google, Bing, Apple, DuckDuckGo, OpenAI, Perplexity, Mistral AI, Common Crawl and Ahrefs publish are a separate list too, with `verifyBot()` to tell a real Googlebot or GPTBot from a scraper that only copies its user agent.
 
 Every range comes from a feed the provider documents. Nothing is scraped from third-party lists, nothing is guessed from ASN names.
 
@@ -39,6 +44,7 @@ Most people browse from home, mobile or office networks. Traffic from rented ser
 - **Sign-ups and free trials.** One server can create hundreds of accounts and claim a bonus or trial with each.
 - **Paid actions.** Ad networks, affiliate programs and offerwalls reject or reverse conversions from hosting networks, so a reward paid for such traffic is often money you never get back.
 - **Clicks, votes and scraping.** Headless browsers on cloud instances inflate counts and load your servers.
+- **Fake crawlers.** Scrapers send a Googlebot or GPTBot user agent to get past rate limits and robots rules. The crawler lists show which of those requests really come from the crawler's operator.
 - **Cheap to check.** A lookup here takes well under a microsecond in Node.js, so it can run on every request.
 
 A match is a signal, not a verdict. See [Limitations](#limitations).
@@ -50,11 +56,12 @@ A match is a signal, not a verdict. See [Limitations](#limitations).
 | [`data/all.txt`](data/all.txt) | Every datacenter range: categories `cloud`, `cdn`, `services`. IPv4 first, then IPv6. One CIDR per line. |
 | [`data/ipv4.txt`](data/ipv4.txt), [`data/ipv6.txt`](data/ipv6.txt) | The same, split by family. |
 | [`data/providers/<id>.txt`](data/providers) | One provider, for example `aws.txt`, `cloudflare.txt`, `tor.txt`. |
-| [`data/categories/<category>.txt`](data/categories) | One category: `cloud`, `cdn`, `services`, `privacy-relay`, `tor`. |
+| [`data/categories/<category>.txt`](data/categories) | One category: `cloud`, `cdn`, `services`, `privacy-relay`, `tor`, `crawler`. |
+| [`data/firewall/`](data/firewall) | `datacenter.nft`, `datacenter.ipset`, `tor.nft`, `tor.ipset`: the datacenter and Tor lists as nftables sets and ipset restore files. |
 | [`data/ranges.json`](data/ranges.json), [`data/ranges.csv`](data/ranges.csv) | Every provider range with `provider`, `category`, `cidr` and `source` URL. All categories. |
 | [`data/sources.json`](data/sources.json), [`data/SOURCES.md`](data/SOURCES.md) | Per feed: status, range counts, last fetch time, feed URL, terms. |
 
-`all.txt`, `ipv4.txt` and `ipv6.txt` do **not** contain Tor exits or iCloud Private Relay. Those carry real users and deserve a different policy. Use `data/categories/tor.txt` and `data/categories/privacy-relay.txt` for them.
+`all.txt`, `ipv4.txt` and `ipv6.txt` do **not** contain Tor exits, iCloud Private Relay or the crawler lists. Tor and Private Relay carry real users and deserve a different policy, and a crawler is something you may want to let in. Use `data/categories/tor.txt`, `data/categories/privacy-relay.txt` and `data/categories/crawler.txt` for them.
 
 Ranges are normalized: host bits cleared, IPv6 in RFC 5952 form, overlapping and adjacent blocks merged, private and documentation ranges removed. A merged block can be larger than any single block in the provider's feed; the set of addresses is the same.
 
@@ -67,6 +74,7 @@ Ranges are normalized: host bits cleared, IPv6 in RFC 5952 form, overlapping and
 | `services` | Google services (goog.json minus cloud.json), GitHub (incl. Actions runners) | Crawlers, fetchers, CI runners, automation |
 | `privacy-relay` | iCloud Private Relay | Safari users on iCloud+. Real people, shared addresses. |
 | `tor` | Tor exit nodes | Tor Browser users and automated tools on Tor |
+| `crawler` | Googlebot and the other Google crawlers and fetchers, Bingbot, Applebot, DuckDuckBot, GPTBot, OAI-SearchBot, ChatGPT-User, PerplexityBot, Perplexity-User, MistralAI-User, CCBot, AhrefsBot | Search engine, AI and SEO crawlers, and fetches made on behalf of a chat user. Some of these addresses also sit in the `services` or cloud lists. See [Verify crawlers](#verify-crawlers). |
 
 ## Raw files
 
@@ -102,13 +110,46 @@ geo $remote_addr $is_datacenter {
 # Pass it to your app, for example: proxy_set_header X-Datacenter $is_datacenter;
 ```
 
-## Node.js
+## Firewalls
 
-Node 22 or newer, no dependencies. Install from GitHub:
+`data/firewall/` has the datacenter list (the same ranges as `all.txt`) and the Tor exits in two firewall formats. They are rebuilt with the lists, so a daily download keeps them current.
+
+nftables: each file defines an IPv4 and an IPv6 interval set to include inside a table.
 
 ```sh
-npm install github:moonetix/datacenter-ip-ranges
+curl -fsSL -o /etc/nftables.d/datacenter.nft \
+  https://raw.githubusercontent.com/moonetix/datacenter-ip-ranges/main/data/firewall/datacenter.nft
 ```
+
+```nft
+table inet filter {
+    include "/etc/nftables.d/datacenter.nft"
+    chain input {
+        type filter hook input priority 0;
+        tcp dport 443 ip saddr @datacenter_v4 counter
+        tcp dport 443 ip6 saddr @datacenter_v6 counter
+    }
+}
+```
+
+ipset: each file creates `<name>-v4` and `<name>-v6` hash:net sets and fills them.
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/moonetix/datacenter-ip-ranges/main/data/firewall/tor.ipset | ipset restore -exist
+iptables -I INPUT -p tcp --dport 443 -m set --match-set tor-v4 src -j DROP
+```
+
+Count before you drop. A firewall rule cannot tell a scraper from a person on a cloud desktop, and it also blocks webhooks and postbacks your providers send from their servers.
+
+## Node.js
+
+Node 22 or newer, no dependencies, TypeScript declarations included.
+
+```sh
+npm install datacenter-ip-ranges
+```
+
+The package contains the lists as they were at its release. To follow the daily lists, download the raw files and pass `dataDir` (see below), or install from GitHub with `npm install github:moonetix/datacenter-ip-ranges`.
 
 ```js
 const { isDatacenterIp, lookup } = require('datacenter-ip-ranges');
@@ -146,7 +187,13 @@ The matcher cuts all ranges into disjoint segments, each with a bit mask of the 
 
 ## PHP
 
-PHP 8.1 or newer, one file, no extensions beyond the standard ones. Clone the repo (or copy `php/` and `data/` side by side) and include the file:
+PHP 8.1 or newer, one file, no extensions beyond the standard ones.
+
+```sh
+composer require moonetix/datacenter-ip-ranges
+```
+
+Composer autoloads the file. Without Composer, clone the repo (or copy `php/` and `data/` side by side) and include it:
 
 ```php
 require __DIR__ . '/datacenter-ip-ranges/php/DatacenterIp.php';
@@ -170,6 +217,65 @@ DatacenterIp::fromDataDir('/etc/dcip')->exportPhp('/etc/dcip/datacenter.php');
 $dc = DatacenterIp::fromPhp('/etc/dcip/datacenter.php');
 $dc->contains($_SERVER['REMOTE_ADDR']);
 ```
+
+## Python
+
+Python 3.8 or newer, standard library only, one file. Copy [`python/datacenter_ip.py`](python/datacenter_ip.py) next to a copy of `data/`, or pass `data_dir`:
+
+```python
+from datacenter_ip import is_datacenter_ip, lookup, verify_bot, load
+
+is_datacenter_ip("3.5.140.1")      # True (AWS)
+lookup("185.220.101.1")            # [{'provider': 'tor', 'category': 'tor'}]
+
+tor_or_relay = load("/etc/dcip", categories=("tor", "privacy-relay"))
+tor_or_relay.contains("185.220.101.1")
+```
+
+The functions load the lists once per process. From the command line, `python3 python/datacenter_ip.py 3.5.140.1` prints every list that contains the address, with the same exit codes as `bin/check.js`.
+
+## Verify crawlers
+
+Anyone can put `Googlebot` in a user agent. The operators below publish the addresses their crawlers use, and `verifyBot()` checks a request against them:
+
+```js
+const { verifyBot } = require('datacenter-ip-ranges');
+
+verifyBot(req.headers['user-agent'], clientIp);
+// null                                                                 no known crawler claimed
+// { bot: 'google', name: 'Google', verified: true, provider: 'googlebot' }
+// { bot: 'gptbot', name: 'OpenAI GPTBot', verified: false, provider: null }   the claim is false
+```
+
+```php
+$check = verify_bot($_SERVER['HTTP_USER_AGENT'] ?? '', $clientIp);
+if ($check !== null && !$check['verified']) {
+    // Claims to be a crawler, is not one: treat it like any other scraper.
+}
+```
+
+```python
+verify_bot(user_agent, client_ip)   # same result as a dict
+```
+
+`verified: true` means the address is in a list the claimed crawler's operator publishes. A typical policy lets verified crawlers past rate limits and treats false claims like any other scraper. Whether you want a given crawler at all is a separate decision for robots.txt or your own rules.
+
+| Bot | User-agent tokens | Lists |
+| --- | --- | --- |
+| Google | `Googlebot`, `Storebot-Google`, `Google-InspectionTool`, `GoogleOther`, `Google-CloudVertexBot`, `AdsBot-Google`, `Mediapartners-Google`, `APIs-Google`, `FeedFetcher-Google`, `Google-Read-Aloud`, `Google-Site-Verification`, `GoogleProducer`, `Google-Safety` | `googlebot`, `google-special-crawlers`, `google-user-fetchers`, `google-user-fetchers-google` |
+| Bing | `bingbot`, `adidxbot`, `BingPreview`, `MicrosoftPreview` | `bingbot` |
+| Applebot | `Applebot` | `applebot` |
+| DuckDuckBot | `DuckDuckBot` | `duckduckbot` |
+| OpenAI GPTBot | `GPTBot` | `gptbot` |
+| OpenAI OAI-SearchBot | `OAI-SearchBot` | `oai-searchbot` |
+| OpenAI ChatGPT-User | `ChatGPT-User` | `chatgpt-user` |
+| PerplexityBot | `PerplexityBot` | `perplexitybot` |
+| Perplexity-User | `Perplexity-User` | `perplexity-user` |
+| MistralAI-User | `MistralAI-User` | `mistralai-user` |
+| Common Crawl CCBot | `CCBot` | `ccbot` |
+| Ahrefs | `AhrefsBot`, `AhrefsSiteAudit` | `ahrefsbot` |
+
+Tokens match case-insensitively anywhere in the user agent. `BOTS` (`DatacenterIp::BOTS`, `datacenter_ip.BOTS`) exports the table, and `claimedBot()` returns the entry a user agent claims without checking the address. Crawlers whose operators publish no address list, such as YandexBot or Baiduspider, are not covered; their operators document reverse DNS checks instead.
 
 ## Command line
 
@@ -223,6 +329,21 @@ Each feed is published by the provider for allow lists, firewalls or geolocation
 | GitHub | services | [api.github.com/meta](https://api.github.com/meta) | [Meta API](https://docs.github.com/en/rest/meta/meta), [GitHub's IP addresses](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-githubs-ip-addresses) | [GitHub Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service), API terms |
 | iCloud Private Relay | privacy-relay | [egress-ip-ranges.csv](https://mask-api.icloud.com/egress-ip-ranges.csv) | [Prepare your network for iCloud Private Relay](https://developer.apple.com/support/prepare-your-network-for-icloud-private-relay/) | Published for server operators and geolocation; no license stated |
 | Tor Project | tor | [torbulkexitlist](https://check.torproject.org/torbulkexitlist) | [Tor Metrics](https://metrics.torproject.org/about.html) | Tor Project data is CC0 |
+| Googlebot and other Google common crawlers | crawler | [common-crawlers.json](https://developers.google.com/static/crawling/ipranges/common-crawlers.json) | [Documentation](https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests) | Published for crawler verification; no license stated |
+| Google special-case crawlers (AdsBot, Mediapartners) | crawler | [special-crawlers.json](https://developers.google.com/static/crawling/ipranges/special-crawlers.json) | [Documentation](https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests) | Published for crawler verification; no license stated |
+| Google user-triggered fetchers | crawler | [user-triggered-fetchers.json](https://developers.google.com/static/crawling/ipranges/user-triggered-fetchers.json) | [Documentation](https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests) | Published for crawler verification; no license stated |
+| Google user-triggered fetchers (Google products) | crawler | [user-triggered-fetchers-google.json](https://developers.google.com/static/crawling/ipranges/user-triggered-fetchers-google.json) | [Documentation](https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests) | Published for crawler verification; no license stated |
+| Bingbot | crawler | [bingbot.json](https://www.bing.com/toolbox/bingbot.json) | [Documentation](https://www.bing.com/webmasters/help/how-to-verify-bingbot-3905dc26) | Published for crawler verification; no license stated |
+| Applebot | crawler | [applebot.json](https://search.developer.apple.com/applebot.json) | [Documentation](https://support.apple.com/en-us/119829) | Published for crawler verification; no license stated |
+| DuckDuckBot | crawler | [duckduckbot.json](https://duckduckgo.com/duckduckbot.json) | [Documentation](https://duckduckgo.com/duckduckgo-help-pages/results/duckduckbot) | Published for crawler verification; no license stated |
+| OpenAI GPTBot | crawler | [gptbot.json](https://openai.com/gptbot.json) | [Documentation](https://developers.openai.com/api/docs/bots) | Published for crawler verification; no license stated |
+| OpenAI OAI-SearchBot | crawler | [searchbot.json](https://openai.com/searchbot.json) | [Documentation](https://developers.openai.com/api/docs/bots) | Published for crawler verification; no license stated |
+| OpenAI ChatGPT-User | crawler | [chatgpt-user.json](https://openai.com/chatgpt-user.json) | [Documentation](https://developers.openai.com/api/docs/bots) | Published for crawler verification; no license stated |
+| PerplexityBot | crawler | [perplexitybot.json](https://www.perplexity.ai/perplexitybot.json) | [Documentation](https://docs.perplexity.ai/docs/resources/perplexity-crawlers) | Published for crawler verification; no license stated |
+| Perplexity-User | crawler | [perplexity-user.json](https://www.perplexity.ai/perplexity-user.json) | [Documentation](https://docs.perplexity.ai/docs/resources/perplexity-crawlers) | Published for crawler verification; no license stated |
+| MistralAI-User | crawler | [mistralai-user-ips.json](https://mistral.ai/mistralai-user-ips.json) | [Documentation](https://docs.mistral.ai/robots) | Published for crawler verification; no license stated |
+| Common Crawl CCBot | crawler | [ccbot.json](https://index.commoncrawl.org/ccbot.json) | [Documentation](https://commoncrawl.org/ccbot) | Published for crawler verification; no license stated |
+| AhrefsBot and AhrefsSiteAudit | crawler | [crawler-ip-ranges](https://api.ahrefs.com/v3/public/crawler-ip-ranges) | [Documentation](https://help.ahrefs.com/en/articles/78658-what-is-the-list-of-your-ip-ranges) | Published for crawler verification; no license stated |
 | Microsoft Azure | cloud | [Service Tags download page](https://www.microsoft.com/en-us/download/details.aspx?id=56519) | [Azure service tags](https://learn.microsoft.com/en-us/azure/virtual-network/service-tags-overview) | Not redistributed, see below |
 
 **Microsoft Azure.** The weekly Service Tags file comes from the Microsoft Download Center, and the [Microsoft Terms of Use](https://www.microsoft.com/en-us/legal/terms-of-use) restrict reposting its downloads. The script supports it, but only for your own copy:
@@ -278,6 +399,7 @@ GITHUB_TOKEN=... node scripts/update.js       # optional: authenticated api.gith
 - **One signal, not a verdict.** People do use cloud desktops, corporate proxies and VPNs hosted on rented servers. Prefer soft actions: hold a reward for review, require a verified phone, skip a sign-up bonus. Block outright only where a human has no reason to come from a server, for example on an offer click or a reward claim.
 - **Tor and Private Relay are real people.** Apple asks servers to treat Private Relay addresses like carrier-grade NAT: many users share one address. They are separate lists for that reason.
 - **Freshness.** Lists are at most a day behind the feeds, and the feeds themselves lag new allocations. IP addresses also move between owners.
+- **Crawler lists cover only operators that publish one.** A crawler that is not in the table is not verified either way, and an operator can start crawling from new addresses before its list catches up.
 - **Provider feeds include their own infrastructure.** Google's services list contains crawlers and fetch proxies; GitHub's contains its web and API servers. That is usually what you want for fraud filtering, but not for every use.
 
 ## Further reading
@@ -288,16 +410,17 @@ GITHUB_TOKEN=... node scripts/update.js       # optional: authenticated api.gith
 ## Development
 
 ```sh
-npm test            # Node tests; also runs the PHP tests and a Node/PHP cross-check if php is installed
+npm test            # Node tests; also runs the PHP and Python tests and the cross-checks if php and python3 are installed
 php php/test.php    # PHP tests only
+python3 python/test_datacenter_ip.py   # Python tests only
 npm run update      # fetch all feeds and rebuild data/
 ```
 
-The tests cover address parsing (IPv4-mapped, zone IDs, brackets, RFC 5952 output), range arithmetic, the matcher against a brute-force check on random data and range edges, the build step against fake feeds (merging, special ranges, stale feeds, the shrink guard, opt-in sources), the integrity of the committed data, the CLI, and agreement between the PHP and Node helpers on about 7,000 boundary addresses.
+The tests cover address parsing (IPv4-mapped, zone IDs, brackets, RFC 5952 output), range arithmetic, the matcher against a brute-force check on random data and range edges, the build step against fake feeds (merging, special ranges, stale feeds, the shrink guard, opt-in sources), the integrity of the committed data, the CLI, the firewall files, crawler verification, and agreement between the Node, PHP and Python helpers on boundary addresses of every list.
 
 [CI](.github/workflows/ci.yml) runs the same commands on every push and pull request. To propose a new provider, use the **Add a provider feed** issue form.
 
-Layout: `src/ip.js` parsing and range math, `src/matcher.js` lookup engine, `src/sources.js` feed definitions and parsers, `src/build.js` fetch and write, `scripts/update.js` and `bin/check.js` command line entry points, `php/` the PHP helper.
+Layout: `src/ip.js` parsing and range math, `src/matcher.js` lookup engine, `src/sources.js` feed definitions and parsers, `src/bots.js` the crawler table and `verifyBot()`, `src/build.js` fetch and write, `scripts/update.js` and `bin/check.js` command line entry points, `php/` the PHP helper, `python/` the Python helper.
 
 ## About Moonetix
 
