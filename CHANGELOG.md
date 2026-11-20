@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-11-20
+
 ### Added
 
 - `data/webserver/`: the datacenter list and the Tor exits as nginx `geo` blocks (`*.nginx.conf`, setting `$datacenter_ip` and `$tor_ip`) and Apache 2.4 `<RequireAll>` blocks with `Require not ip` (`*.apache.conf`). They are written by the same build step as `data/firewall/`, carry the same ranges, and are rebuilt with the lists.
@@ -74,7 +76,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Command line checks `bin/check.js` and `php/check.php`.
 - Daily update workflow and CI workflow.
 
-[Unreleased]: https://github.com/moonetix/datacenter-ip-ranges/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/moonetix/datacenter-ip-ranges/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/moonetix/datacenter-ip-ranges/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/moonetix/datacenter-ip-ranges/releases/tag/v1.3.0
 [1.2.0]: https://github.com/moonetix/datacenter-ip-ranges/releases/tag/v1.2.0
 [1.1.0]: https://github.com/moonetix/datacenter-ip-ranges/releases/tag/v1.1.0
