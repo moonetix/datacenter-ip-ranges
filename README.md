@@ -58,6 +58,7 @@ A match is a signal, not a verdict. See [Limitations](#limitations).
 | [`data/providers/<id>.txt`](data/providers) | One provider, for example `aws.txt`, `cloudflare.txt`, `tor.txt`. |
 | [`data/categories/<category>.txt`](data/categories) | One category: `cloud`, `cdn`, `services`, `privacy-relay`, `tor`, `crawler`. |
 | [`data/firewall/`](data/firewall) | `datacenter.nft`, `datacenter.ipset`, `tor.nft`, `tor.ipset`: the datacenter and Tor lists as nftables sets and ipset restore files. |
+| [`data/webserver/`](data/webserver) | `datacenter.nginx.conf`, `tor.nginx.conf`, `datacenter.apache.conf`, `tor.apache.conf`: the same two lists as an nginx `geo` block and an Apache 2.4 `Require not ip` block. |
 | [`data/ranges.json`](data/ranges.json), [`data/ranges.csv`](data/ranges.csv) | Every provider range with `provider`, `category`, `cidr` and `source` URL. All categories. |
 | [`data/sources.json`](data/sources.json), [`data/SOURCES.md`](data/SOURCES.md) | Per feed: status, range counts, last fetch time, feed URL, terms. |
 
@@ -140,6 +141,45 @@ iptables -I INPUT -p tcp --dport 443 -m set --match-set tor-v4 src -j DROP
 ```
 
 Count before you drop. A firewall rule cannot tell a scraper from a person on a cloud desktop, and it also blocks webhooks and postbacks your providers send from their servers.
+
+## Web servers
+
+`data/webserver/` has the same two lists as the firewall files, ready to include in nginx or Apache. `datacenter` is exactly the set in `all.txt` and `datacenter.nft`: categories `cloud`, `cdn` and `services`. Tor exits, iCloud Private Relay and the crawler lists are not in it; Tor has its own file. The files are rebuilt with the lists, so download them once a day and reload the server.
+
+nginx: each file is a `geo` block with IPv4 and IPv6 ranges together that sets `$datacenter_ip` or `$tor_ip` to 1. Include it in the `http` context and test the variable in a `server` or `location` block.
+
+```sh
+curl -fsSL -o /etc/nginx/datacenter.nginx.conf \
+  https://raw.githubusercontent.com/moonetix/datacenter-ip-ranges/main/data/webserver/datacenter.nginx.conf
+nginx -t && nginx -s reload
+```
+
+```nginx
+http {
+    include /etc/nginx/datacenter.nginx.conf;
+    server {
+        if ($datacenter_ip) { return 403; }
+    }
+}
+```
+
+The `geo` block matches `$remote_addr`. Behind a proxy or CDN, set up the `realip` module first, or every visitor gets the proxy's address.
+
+Apache 2.4: each file is a `<RequireAll>` block that grants everyone except the listed ranges. Include it inside a `<Directory>`, `<Location>` or `<VirtualHost>` block, in place of your own `Require all granted`.
+
+```sh
+curl -fsSL -o /etc/apache2/tor.apache.conf \
+  https://raw.githubusercontent.com/moonetix/datacenter-ip-ranges/main/data/webserver/tor.apache.conf
+apachectl configtest && apachectl graceful
+```
+
+```apache
+<Location "/">
+    Include /etc/apache2/tor.apache.conf
+</Location>
+```
+
+Apache checks `Require not ip` ranges one after another on each request. The Tor file is small; for the datacenter list, the nginx `geo` block or a firewall set costs less per request.
 
 ## Node.js
 
@@ -416,7 +456,7 @@ python3 python/test_datacenter_ip.py   # Python tests only
 npm run update      # fetch all feeds and rebuild data/
 ```
 
-The tests cover address parsing (IPv4-mapped, zone IDs, brackets, RFC 5952 output), range arithmetic, the matcher against a brute-force check on random data and range edges, the build step against fake feeds (merging, special ranges, stale feeds, the shrink guard, opt-in sources), the integrity of the committed data, the CLI, the firewall files, crawler verification, and agreement between the Node, PHP and Python helpers on boundary addresses of every list.
+The tests cover address parsing (IPv4-mapped, zone IDs, brackets, RFC 5952 output), range arithmetic, the matcher against a brute-force check on random data and range edges, the build step against fake feeds (merging, special ranges, stale feeds, the shrink guard, opt-in sources), the integrity of the committed data, the CLI, the firewall and web server files (including an `nginx -t` check when nginx is installed), crawler verification, and agreement between the Node, PHP and Python helpers on boundary addresses of every list.
 
 [CI](.github/workflows/ci.yml) runs the same commands on every push and pull request. To propose a new provider, use the **Add a provider feed** issue form.
 

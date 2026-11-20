@@ -138,6 +138,48 @@ function ipsetFile(name, v4, v6) {
   ].join('\n');
 }
 
+// nginx geo block, meant to be included in the http context. One geo block
+// takes IPv4 and IPv6 CIDRs together and matches $remote_addr by default.
+function nginxGeo(name, cidrs) {
+  return [
+    `# ${name} ranges from https://github.com/moonetix/datacenter-ip-ranges`,
+    '# Include in the http context, then deny in a server or location block:',
+    `#   include /etc/nginx/${name}.nginx.conf;`,
+    `#   if ($${name}_ip) { return 403; }`,
+    `geo $${name}_ip {`,
+    '\tdefault 0;',
+    ...cidrs.map((c) => `\t${c} 1;`),
+    '}',
+    '',
+  ].join('\n');
+}
+
+// Apache 2.4 (mod_authz_host) block for a <Directory>, <Location> or virtual host.
+// Each "Require not ip" line carries several CIDRs and stays within APACHE_LINE chars.
+const APACHE_LINE = 200;
+function apacheRequire(name, cidrs) {
+  const lines = [];
+  let cur = '';
+  for (const c of cidrs) {
+    if (cur && cur.length + 1 + c.length > APACHE_LINE) {
+      lines.push(cur);
+      cur = '';
+    }
+    cur = cur ? `${cur} ${c}` : `\tRequire not ip ${c}`;
+  }
+  if (cur) lines.push(cur);
+  return [
+    `# ${name} ranges from https://github.com/moonetix/datacenter-ip-ranges`,
+    '# Apache 2.4. Include inside a <Directory>, <Location> or <VirtualHost> block:',
+    `#   Include /etc/apache2/${name}.apache.conf`,
+    '<RequireAll>',
+    '\tRequire all granted',
+    ...lines,
+    '</RequireAll>',
+    '',
+  ].join('\n');
+}
+
 function csvField(v) {
   return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
 }
@@ -275,7 +317,7 @@ async function buildData(options) {
   writeList(path.join(outDir, 'ipv4.txt'), v4);
   writeList(path.join(outDir, 'ipv6.txt'), v6);
 
-  // Firewall formats for the datacenter lists and the Tor exits.
+  // Firewall and web server formats for the datacenter lists and the Tor exits.
   const tor = union(byCategory.tor || []);
   for (const [name, v4list, v6list] of [
     ['datacenter', v4, v6],
@@ -283,6 +325,8 @@ async function buildData(options) {
   ]) {
     writeFile(path.join(outDir, 'firewall', `${name}.nft`), nftSets(name, v4list, v6list));
     writeFile(path.join(outDir, 'firewall', `${name}.ipset`), ipsetFile(name, v4list, v6list));
+    writeFile(path.join(outDir, 'webserver', `${name}.nginx.conf`), nginxGeo(name, [...v4list, ...v6list]));
+    writeFile(path.join(outDir, 'webserver', `${name}.apache.conf`), apacheRequire(name, [...v4list, ...v6list]));
   }
 
   // ranges.json and ranges.csv: every provider range, all categories.

@@ -75,6 +75,15 @@ test('writes merged, cleaned lists and metadata', async () => {
   assert.match(read('SOURCES.md'), /\| Cloud A \| cloud \| 2 \| 1 \| ok \|/);
   assert.equal(res.ipv4, 4);
 
+  const geo = read('webserver/datacenter.nginx.conf');
+  assert.match(geo, /^geo \$datacenter_ip \{\n\tdefault 0;\n\t45\.32\.0\.0\/20 1;\n/m);
+  assert.match(geo, /\t2a05:f480::\/32 1;\n\}\n$/);
+  assert.match(read('webserver/tor.nginx.conf'), /^geo \$tor_ip \{\n\tdefault 0;\n\}\n$/m, 'empty Tor list is still a valid block');
+  assert.match(
+    read('webserver/datacenter.apache.conf'),
+    /^<RequireAll>\n\tRequire all granted\n\tRequire not ip 45\.32\.0\.0\/20 100\.20\.0\.0\/16 198\.51\.99\.0\/24 203\.0\.112\.0\/24 2001:db9::\/32 2a05:f480::\/32\n<\/RequireAll>\n$/m,
+  );
+
   const m = load({ dataDir: out });
   assert.equal(m.contains('45.32.15.255'), true);
   assert.equal(m.contains('172.224.226.1'), false);

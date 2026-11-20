@@ -73,6 +73,68 @@ test('firewall files carry exactly the datacenter and Tor lists', () => {
   }
 });
 
+test('web server files carry exactly the same ranges as the firewall files', () => {
+  for (const name of ['datacenter', 'tor']) {
+    const nft = fs.readFileSync(data(`firewall/${name}.nft`), 'utf8');
+    const want = [...nft.matchAll(/^\t\t([0-9a-f.:]+\/\d+),?$/gm)].map((m) => m[1]);
+    assert.ok(want.length > 0, `${name}: the firewall list is not empty`);
+    // The Tor exit feed is IPv4 only; the datacenter list must carry IPv6 too.
+    if (name === 'datacenter') assert.ok(want.some((c) => c.includes(':')), 'datacenter list has IPv6');
+
+    const conf = fs.readFileSync(data(`webserver/${name}.nginx.conf`), 'utf8');
+    const body = conf.split('\n').filter((l) => l && !l.startsWith('#'));
+    assert.equal(body[0], `geo $${name}_ip {`, `${name}.nginx.conf opens the geo block`);
+    assert.equal(body[1], '\tdefault 0;', `${name}.nginx.conf default`);
+    assert.equal(body.at(-1), '}', `${name}.nginx.conf closes the geo block`);
+    const geo = body.slice(2, -1).map((l) => {
+      const m = l.match(/^\t([0-9a-f.:]+\/\d+) 1;$/);
+      assert.ok(m, `${name}.nginx.conf: ${l}`);
+      return m[1];
+    });
+    assert.deepEqual(geo, want, `${name}.nginx.conf ranges`);
+
+    const apache = fs.readFileSync(data(`webserver/${name}.apache.conf`), 'utf8').split('\n').filter((l) => l && !l.startsWith('#'));
+    assert.deepEqual(apache.slice(0, 2), ['<RequireAll>', '\tRequire all granted'], `${name}.apache.conf opens RequireAll`);
+    assert.equal(apache.at(-1), '</RequireAll>', `${name}.apache.conf closes RequireAll`);
+    const denied = apache.slice(2, -1).flatMap((l) => {
+      assert.match(l, /^\tRequire not ip( [0-9a-f.:]+\/\d+)+$/, `${name}.apache.conf: ${l.slice(0, 80)}`);
+      assert.ok(l.length <= 200, `${name}.apache.conf line length ${l.length}`);
+      return l.trim().split(' ').slice(3);
+    });
+    assert.deepEqual(denied, want, `${name}.apache.conf ranges`);
+  }
+});
+
+const nginx = spawnSync('nginx', ['-v'], { encoding: 'utf8' });
+test('nginx accepts the geo files', { skip: (nginx.error || nginx.status !== 0) && 'nginx not installed' }, () => {
+  const dir = fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'dcip-nginx-'));
+  try {
+    fs.mkdirSync(path.join(dir, 'logs'));
+    const conf = path.join(dir, 'nginx.conf');
+    fs.writeFileSync(conf, [
+      `pid ${path.join(dir, 'nginx.pid')};`,
+      `error_log ${path.join(dir, 'logs', 'error.log')};`,
+      'events {}',
+      'http {',
+      `    access_log off;`,
+      `    include ${data('webserver/datacenter.nginx.conf')};`,
+      `    include ${data('webserver/tor.nginx.conf')};`,
+      '    server {',
+      '        listen 127.0.0.1:8;',
+      '        if ($datacenter_ip) { return 403; }',
+      '        if ($tor_ip) { return 403; }',
+      '    }',
+      '}',
+      '',
+    ].join('\n'));
+    const r = spawnSync('nginx', ['-t', '-q', '-c', conf, '-p', dir], { encoding: 'utf8' });
+    assert.equal(r.status, 0, r.stderr);
+    assert.doesNotMatch(r.stderr, /warn|emerg/, r.stderr);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test('well-known addresses', () => {
   assert.equal(isDatacenterIp('104.16.0.1'), true);
   assert.equal(isDatacenterIp('2606:4700::1'), true);
