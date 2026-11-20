@@ -120,7 +120,7 @@ test('nginx accepts the geo files', { skip: (nginx.error || nginx.status !== 0) 
       `    include ${data('webserver/datacenter.nginx.conf')};`,
       `    include ${data('webserver/tor.nginx.conf')};`,
       '    server {',
-      '        listen 127.0.0.1:8;',
+      `        listen unix:${path.join(dir, 'nginx.sock')};`,
       '        if ($datacenter_ip) { return 403; }',
       '        if ($tor_ip) { return 403; }',
       '    }',
