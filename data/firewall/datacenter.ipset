@@ -9,7 +9,6 @@ add datacenter-v4 1.178.8.0/22
 add datacenter-v4 1.178.16.0/20
 add datacenter-v4 1.178.64.0/23
 add datacenter-v4 1.178.72.0/21
-add datacenter-v4 1.178.86.0/24
 add datacenter-v4 1.178.88.0/21
 add datacenter-v4 1.178.100.0/22
 add datacenter-v4 1.178.172.0/23
@@ -8660,6 +8659,7 @@ add datacenter-v6 2600:3c0f:44::/46
 add datacenter-v6 2600:3c0f:48::/47
 add datacenter-v6 2600:3c0f:50::/45
 add datacenter-v6 2600:3c0f:58::/48
+add datacenter-v6 2600:3c0f:62::/48
 add datacenter-v6 2600:3c12:100::/40
 add datacenter-v6 2600:3c12:300::/40
 add datacenter-v6 2600:3c12:400::/39
@@ -8669,6 +8669,7 @@ add datacenter-v6 2600:3c14::/30
 add datacenter-v6 2600:3c18::/30
 add datacenter-v6 2600:3c1c::/32
 add datacenter-v6 2600:3c1e::/32
+add datacenter-v6 2600:3c20::/32
 add datacenter-v6 2600:9000:ddd::/48
 add datacenter-v6 2600:9000:de0::/43
 add datacenter-v6 2600:9000:eee::/48
@@ -8850,7 +8851,6 @@ add datacenter-v6 2600:f0f0:c144::/46
 add datacenter-v6 2600:f0f0:c148::/46
 add datacenter-v6 2600:f0f0:c14c::/47
 add datacenter-v6 2600:f0f1:10::/45
-add datacenter-v6 2600:f0f1:18::/46
 add datacenter-v6 2600:f0f1:80::/44
 add datacenter-v6 2600:f0f1:4000::/41
 add datacenter-v6 2600:f0f1:40c0::/42
