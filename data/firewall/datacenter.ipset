@@ -757,6 +757,8 @@ add datacenter-v4 15.248.176.0/20
 add datacenter-v4 15.248.193.0/31
 add datacenter-v4 15.248.194.0/23
 add datacenter-v4 15.248.198.0/24
+add datacenter-v4 15.248.200.0/26
+add datacenter-v4 15.248.208.0/25
 add datacenter-v4 15.249.0.0/16
 add datacenter-v4 15.251.0.0/28
 add datacenter-v4 15.251.0.20/30
@@ -8898,6 +8900,7 @@ add datacenter-v6 2600:f0fb:c000::/47
 add datacenter-v6 2600:f0fb:c002::/56
 add datacenter-v6 2600:f0fb:c003::/48
 add datacenter-v6 2600:f0fb:c004::/46
+add datacenter-v6 2600:f0fb:c008::/48
 add datacenter-v6 2600:f0fb:c0ff::/56
 add datacenter-v6 2600:f0fb:c800::/46
 add datacenter-v6 2600:f0fb:c804::/47
