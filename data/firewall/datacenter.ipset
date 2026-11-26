@@ -9,6 +9,7 @@ add datacenter-v4 1.178.8.0/22
 add datacenter-v4 1.178.16.0/20
 add datacenter-v4 1.178.64.0/23
 add datacenter-v4 1.178.72.0/21
+add datacenter-v4 1.178.86.0/24
 add datacenter-v4 1.178.88.0/21
 add datacenter-v4 1.178.100.0/22
 add datacenter-v4 1.178.172.0/23
@@ -759,6 +760,7 @@ add datacenter-v4 15.248.194.0/23
 add datacenter-v4 15.248.198.0/24
 add datacenter-v4 15.248.200.0/26
 add datacenter-v4 15.248.208.0/25
+add datacenter-v4 15.248.208.128/26
 add datacenter-v4 15.249.0.0/16
 add datacenter-v4 15.251.0.0/28
 add datacenter-v4 15.251.0.20/30
@@ -4683,6 +4685,7 @@ add datacenter-v4 64.110.64.0/18
 add datacenter-v4 64.113.192.0/22
 add datacenter-v4 64.113.223.0/24
 add datacenter-v4 64.176.0.0/17
+add datacenter-v4 64.176.144.0/21
 add datacenter-v4 64.176.160.0/19
 add datacenter-v4 64.176.192.0/18
 add datacenter-v4 64.177.0.0/17
