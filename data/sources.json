@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-27T03:23:35Z",
+  "updated_at": "2026-11-28T03:22:44Z",
   "datacenter_categories": [
     "cloud",
     "cdn",
@@ -25,7 +25,7 @@
       "status": "ok",
       "ipv4": 1757,
       "ipv6": 2363,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "google-cloud",
@@ -38,7 +38,7 @@
       "status": "ok",
       "ipv4": 467,
       "ipv6": 28,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "google-services",
@@ -51,7 +51,7 @@
       "status": "ok",
       "ipv4": 297,
       "ipv6": 98,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "oracle-cloud",
@@ -64,7 +64,7 @@
       "status": "ok",
       "ipv4": 812,
       "ipv6": 0,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "digitalocean",
@@ -77,7 +77,7 @@
       "status": "ok",
       "ipv4": 187,
       "ipv6": 54,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "linode",
@@ -90,7 +90,7 @@
       "status": "ok",
       "ipv4": 241,
       "ipv6": 41,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "vultr",
@@ -103,7 +103,7 @@
       "status": "ok",
       "ipv4": 122,
       "ipv6": 21,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "azure",
@@ -126,7 +126,7 @@
       "status": "ok",
       "ipv4": 15,
       "ipv6": 7,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "fastly",
@@ -139,7 +139,7 @@
       "status": "ok",
       "ipv4": 21,
       "ipv6": 3,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "github",
@@ -152,7 +152,7 @@
       "status": "ok",
       "ipv4": 4027,
       "ipv6": 2547,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "icloud-private-relay",
@@ -165,7 +165,7 @@
       "status": "ok",
       "ipv4": 3368,
       "ipv6": 10580,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "tor",
@@ -178,7 +178,7 @@
       "status": "ok",
       "ipv4": 699,
       "ipv6": 0,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "googlebot",
@@ -191,7 +191,7 @@
       "status": "ok",
       "ipv4": 37,
       "ipv6": 22,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "google-special-crawlers",
@@ -204,7 +204,7 @@
       "status": "ok",
       "ipv4": 15,
       "ipv6": 21,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "google-user-fetchers",
@@ -217,7 +217,7 @@
       "status": "ok",
       "ipv4": 106,
       "ipv6": 127,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "google-user-fetchers-google",
@@ -230,7 +230,7 @@
       "status": "ok",
       "ipv4": 39,
       "ipv6": 48,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "bingbot",
@@ -243,7 +243,7 @@
       "status": "ok",
       "ipv4": 29,
       "ipv6": 0,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "applebot",
@@ -256,7 +256,7 @@
       "status": "ok",
       "ipv4": 12,
       "ipv6": 0,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "duckduckbot",
@@ -269,7 +269,7 @@
       "status": "ok",
       "ipv4": 484,
       "ipv6": 0,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "gptbot",
@@ -282,7 +282,7 @@
       "status": "ok",
       "ipv4": 15,
       "ipv6": 0,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "oai-searchbot",
@@ -295,7 +295,7 @@
       "status": "ok",
       "ipv4": 36,
       "ipv6": 0,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "chatgpt-user",
@@ -308,7 +308,7 @@
       "status": "ok",
       "ipv4": 340,
       "ipv6": 0,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "perplexitybot",
@@ -321,7 +321,7 @@
       "status": "ok",
       "ipv4": 7,
       "ipv6": 0,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "perplexity-user",
@@ -334,7 +334,7 @@
       "status": "ok",
       "ipv4": 3,
       "ipv6": 0,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "mistralai-user",
@@ -347,7 +347,7 @@
       "status": "ok",
       "ipv4": 4,
       "ipv6": 0,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "ccbot",
@@ -360,7 +360,7 @@
       "status": "ok",
       "ipv4": 4,
       "ipv6": 1,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     },
     {
       "id": "ahrefsbot",
@@ -373,7 +373,7 @@
       "status": "ok",
       "ipv4": 81,
       "ipv6": 0,
-      "fetched_at": "2026-11-27T03:23:35Z"
+      "fetched_at": "2026-11-28T03:22:44Z"
     }
   ]
 }

@@ -27069,7 +27069,6 @@ tor,tor,5.45.102.93/32,https://check.torproject.org/torbulkexitlist
 tor,tor,5.45.104.176/32,https://check.torproject.org/torbulkexitlist
 tor,tor,5.83.158.7/32,https://check.torproject.org/torbulkexitlist
 tor,tor,5.104.86.6/32,https://check.torproject.org/torbulkexitlist
-tor,tor,5.180.40.109/32,https://check.torproject.org/torbulkexitlist
 tor,tor,5.230.249.72/32,https://check.torproject.org/torbulkexitlist
 tor,tor,5.255.101.10/32,https://check.torproject.org/torbulkexitlist
 tor,tor,5.255.102.26/32,https://check.torproject.org/torbulkexitlist
@@ -27141,8 +27140,8 @@ tor,tor,37.228.129.189/32,https://check.torproject.org/torbulkexitlist
 tor,tor,37.228.129.191/32,https://check.torproject.org/torbulkexitlist
 tor,tor,37.228.129.241/32,https://check.torproject.org/torbulkexitlist
 tor,tor,37.252.189.216/32,https://check.torproject.org/torbulkexitlist
+tor,tor,38.180.72.186/32,https://check.torproject.org/torbulkexitlist
 tor,tor,43.132.169.64/32,https://check.torproject.org/torbulkexitlist
-tor,tor,43.166.82.88/32,https://check.torproject.org/torbulkexitlist
 tor,tor,44.30.4.69/32,https://check.torproject.org/torbulkexitlist
 tor,tor,45.9.148.50/32,https://check.torproject.org/torbulkexitlist
 tor,tor,45.9.156.22/32,https://check.torproject.org/torbulkexitlist
@@ -27186,6 +27185,7 @@ tor,tor,45.141.117.244/32,https://check.torproject.org/torbulkexitlist
 tor,tor,45.141.119.233/32,https://check.torproject.org/torbulkexitlist
 tor,tor,45.142.106.208/32,https://check.torproject.org/torbulkexitlist
 tor,tor,45.153.34.216/32,https://check.torproject.org/torbulkexitlist
+tor,tor,46.165.194.73/32,https://check.torproject.org/torbulkexitlist
 tor,tor,46.165.243.36/32,https://check.torproject.org/torbulkexitlist
 tor,tor,46.167.244.241/32,https://check.torproject.org/torbulkexitlist
 tor,tor,46.232.251.191/32,https://check.torproject.org/torbulkexitlist
@@ -27267,7 +27267,6 @@ tor,tor,87.118.116.103/32,https://check.torproject.org/torbulkexitlist
 tor,tor,87.118.122.30/32,https://check.torproject.org/torbulkexitlist
 tor,tor,87.118.122.51/32,https://check.torproject.org/torbulkexitlist
 tor,tor,87.243.108.53/32,https://check.torproject.org/torbulkexitlist
-tor,tor,89.58.7.15/32,https://check.torproject.org/torbulkexitlist
 tor,tor,89.58.26.216/32,https://check.torproject.org/torbulkexitlist
 tor,tor,89.58.41.156/32,https://check.torproject.org/torbulkexitlist
 tor,tor,89.127.232.224/32,https://check.torproject.org/torbulkexitlist
@@ -27332,7 +27331,6 @@ tor,tor,103.146.203.11/32,https://check.torproject.org/torbulkexitlist
 tor,tor,103.146.203.14/32,https://check.torproject.org/torbulkexitlist
 tor,tor,103.146.203.120/32,https://check.torproject.org/torbulkexitlist
 tor,tor,103.164.54.199/32,https://check.torproject.org/torbulkexitlist
-tor,tor,103.166.187.253/32,https://check.torproject.org/torbulkexitlist
 tor,tor,103.193.179.22/32,https://check.torproject.org/torbulkexitlist
 tor,tor,103.193.179.213/32,https://check.torproject.org/torbulkexitlist
 tor,tor,103.234.62.99/32,https://check.torproject.org/torbulkexitlist
@@ -27428,6 +27426,7 @@ tor,tor,147.90.235.228/32,https://check.torproject.org/torbulkexitlist
 tor,tor,147.90.235.249/32,https://check.torproject.org/torbulkexitlist
 tor,tor,148.135.75.210/32,https://check.torproject.org/torbulkexitlist
 tor,tor,149.202.79.129/32,https://check.torproject.org/torbulkexitlist
+tor,tor,150.40.102.57/32,https://check.torproject.org/torbulkexitlist
 tor,tor,150.40.125.13/32,https://check.torproject.org/torbulkexitlist
 tor,tor,150.40.125.105/32,https://check.torproject.org/torbulkexitlist
 tor,tor,150.40.126.101/32,https://check.torproject.org/torbulkexitlist
@@ -27521,8 +27520,8 @@ tor,tor,179.43.178.83/32,https://check.torproject.org/torbulkexitlist
 tor,tor,179.43.182.58/32,https://check.torproject.org/torbulkexitlist
 tor,tor,179.43.182.232/32,https://check.torproject.org/torbulkexitlist
 tor,tor,180.149.44.204/32,https://check.torproject.org/torbulkexitlist
-tor,tor,180.150.226.99/32,https://check.torproject.org/torbulkexitlist
 tor,tor,185.11.139.198/32,https://check.torproject.org/torbulkexitlist
+tor,tor,185.34.33.2/32,https://check.torproject.org/torbulkexitlist
 tor,tor,185.35.202.222/32,https://check.torproject.org/torbulkexitlist
 tor,tor,185.42.170.203/32,https://check.torproject.org/torbulkexitlist
 tor,tor,185.56.171.94/32,https://check.torproject.org/torbulkexitlist
@@ -27600,6 +27599,7 @@ tor,tor,185.243.218.225/32,https://check.torproject.org/torbulkexitlist
 tor,tor,185.243.218.226/32,https://check.torproject.org/torbulkexitlist
 tor,tor,185.243.218.231/32,https://check.torproject.org/torbulkexitlist
 tor,tor,185.243.218.232/31,https://check.torproject.org/torbulkexitlist
+tor,tor,185.244.149.73/32,https://check.torproject.org/torbulkexitlist
 tor,tor,185.244.192.175/32,https://check.torproject.org/torbulkexitlist
 tor,tor,185.244.192.184/32,https://check.torproject.org/torbulkexitlist
 tor,tor,185.246.84.179/32,https://check.torproject.org/torbulkexitlist
@@ -27699,10 +27699,10 @@ tor,tor,198.98.57.151/32,https://check.torproject.org/torbulkexitlist
 tor,tor,198.98.61.60/32,https://check.torproject.org/torbulkexitlist
 tor,tor,198.98.62.158/32,https://check.torproject.org/torbulkexitlist
 tor,tor,198.144.178.155/32,https://check.torproject.org/torbulkexitlist
-tor,tor,198.167.206.130/32,https://check.torproject.org/torbulkexitlist
 tor,tor,198.167.206.172/32,https://check.torproject.org/torbulkexitlist
 tor,tor,198.167.206.181/32,https://check.torproject.org/torbulkexitlist
 tor,tor,198.167.206.217/32,https://check.torproject.org/torbulkexitlist
+tor,tor,198.167.206.218/32,https://check.torproject.org/torbulkexitlist
 tor,tor,199.19.77.18/32,https://check.torproject.org/torbulkexitlist
 tor,tor,200.122.181.2/32,https://check.torproject.org/torbulkexitlist
 tor,tor,203.55.81.1/32,https://check.torproject.org/torbulkexitlist
